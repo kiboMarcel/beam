@@ -1,7 +1,7 @@
 @extends('admin.admin_master')
 
 @section('admin')
-
+<div class="row layout-top-spacing">
     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
         <div class="widget widget-chart-one">
             <div class="widget-heading">
@@ -538,7 +538,7 @@
                             <tr>
                                 <td>
                                     <div class="td-content customer-name"><img
-                                            src="assets/img/90x90.jpg" alt="avatar">Andy King</div>
+                                            src="{{ asset('assets/img/90x90.jpg') }}" alt="avatar">Andy King</div>
                                 </td>
                                 <td>
                                     <div class="td-content product-brand">Nike Sport</div>
@@ -557,7 +557,7 @@
                             <tr>
                                 <td>
                                     <div class="td-content customer-name"><img
-                                            src="assets/img/90x90.jpg" alt="avatar">Irene Collins</div>
+                                            src="{{asset('assets/img/90x90.jpg')}}" alt="avatar">Irene Collins</div>
                                 </td>
                                 <td>
                                     <div class="td-content product-brand">Speakers</div>
@@ -576,7 +576,7 @@
                             <tr>
                                 <td>
                                     <div class="td-content customer-name"><img
-                                            src="assets/img/90x90.jpg" alt="avatar">Laurie Fox</div>
+                                            src="{{asset('assets/img/90x90.jpg')}}" alt="avatar">Laurie Fox</div>
                                 </td>
                                 <td>
                                     <div class="td-content product-brand">Camera</div>
@@ -595,7 +595,7 @@
                             <tr>
                                 <td>
                                     <div class="td-content customer-name"><img
-                                            src="assets/img/90x90.jpg" alt="avatar">Luke Ivory</div>
+                                            src="{{asset('assets/img/90x90.jpg')}}" alt="avatar">Luke Ivory</div>
                                 </td>
                                 <td>
                                     <div class="td-content product-brand">Headphone</div>
@@ -614,7 +614,7 @@
                             <tr>
                                 <td>
                                     <div class="td-content customer-name"><img
-                                            src="assets/img/90x90.jpg" alt="avatar">Ryan Collins</div>
+                                            src="{{asset('assets/img/90x90.jpg')}}" alt="avatar">Ryan Collins</div>
                                 </td>
                                 <td>
                                     <div class="td-content product-brand">Sport</div>
@@ -633,7 +633,7 @@
                             <tr>
                                 <td>
                                     <div class="td-content customer-name"><img
-                                            src="assets/img/90x90.jpg" alt="avatar">Nia Hillyer</div>
+                                            src="{{asset('assets/img/90x90.jpg')}}" alt="avatar">Nia Hillyer</div>
                                 </td>
                                 <td>
                                     <div class="td-content product-brand">Sunglasses</div>
@@ -652,7 +652,7 @@
                             <tr>
                                 <td>
                                     <div class="td-content customer-name"><img
-                                            src="assets/img/90x90.jpg" alt="avatar">Sonia Shaw</div>
+                                            src="{{asset('assets/img/90x90.jpg')}}" alt="avatar">Sonia Shaw</div>
                                 </td>
                                 <td>
                                     <div class="td-content product-brand">Watch</div>
@@ -707,7 +707,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <div class="td-content product-name"><img src="assets/img/90x90.jpg"
+                                    <div class="td-content product-name"><img src="{{asset('assets/img/90x90.jpg')}}"
                                             alt="product">Speakers</div>
                                 </td>
                                 <td>
@@ -727,7 +727,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="td-content product-name"><img src="assets/img/90x90.jpg"
+                                    <div class="td-content product-name"><img src="{{asset('assets/img/90x90.jpg')}}"
                                             alt="product">Sunglasses</div>
                                 </td>
                                 <td>
@@ -747,7 +747,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="td-content product-name"><img src="assets/img/90x90.jpg"
+                                    <div class="td-content product-name"><img src="{{asset('assets/img/90x90.jpg')}}"
                                             alt="product">Watch</div>
                                 </td>
                                 <td>
@@ -767,7 +767,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="td-content product-name"><img src="assets/img/90x90.jpg"
+                                    <div class="td-content product-name"><img src="{{asset('assets/img/90x90.jpg')}}"
                                             alt="product">Laptop</div>
                                 </td>
                                 <td>
@@ -787,7 +787,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="td-content product-name"><img src="assets/img/90x90.jpg"
+                                    <div class="td-content product-name"><img src="{{asset('assets/img/90x90.jpg')}}"
                                             alt="product">Camera</div>
                                 </td>
                                 <td>
@@ -807,7 +807,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="td-content product-name"><img src="assets/img/90x90.jpg"
+                                    <div class="td-content product-name"><img src="{{asset('assets/img/90x90.jpg')}}"
                                             alt="product">Shoes</div>
                                 </td>
                                 <td>
@@ -827,7 +827,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="td-content product-name"><img src="assets/img/90x90.jpg"
+                                    <div class="td-content product-name"><img src="{{asset('assets/img/90x90.jpg')}}"
                                             alt="product">Headphone</div>
                                 </td>
                                 <td>
@@ -850,6 +850,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 @endsection
