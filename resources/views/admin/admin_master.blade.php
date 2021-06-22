@@ -30,6 +30,11 @@
         type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
 
+    <!--  BEGIN CUSTOM STYLE FILE USER ACCOUNT  -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/dropify/dropify.min.css') }}">
+    <link href="{{ asset('backend/assets/css/users/account-setting.css') }}" rel="stylesheet" type="text/css" />
+    <!--  END CUSTOM STYLE FILE USER ACCOUNT  -->
+
 </head>
 
 <body>
@@ -137,8 +142,8 @@
     <!--BEGIN SWEET ALERT CONFIRMATION SCRIPTS -->
     <script>
         $('.widget-content #delete').on('click', function(e) {
-             e.preventDefault();
-             var link = $(this).attr("href")
+            e.preventDefault();
+            var link = $(this).attr("href")
             swal({
                 title: 'Ete vous Sûr ?',
                 text: "Cette action asr irreversible!",
@@ -158,6 +163,41 @@
     </script>
     <!-- END SWEET ALERT CONFIRMATION  SCRIPTS -->
 
+    <!-- BEGIN USER ACCOUNT SCRIPT -->
+    <script src="{{ asset('backend/plugins/dropify/dropify.min.js') }}"></script>
+    <script src="{{ asset('plugins/blockui/jquery.blockUI.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/users/account-settings.js') }}"></script>
+    <!-- END  USER ACCOUNT SCRIPT -->
+
+
+    <!-- BEGIN TIMER  SCRIPT -->
+
+    <script>
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+
+        function startTime() {
+            var today = new Date();
+           //var m = today.toLocaleString('default', { month: 'long' });
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            // add a zero in front of numbers<10
+            m = checkTime(m);
+            s = checkTime(s);
+            
+            document.getElementById('time').innerHTML =" <h1> " + h + ":" + m + ":" + s + " </h1> ";
+            t = setTimeout(function() {
+                startTime()
+            }, 500);
+        }
+        startTime();
+    </script>
+    <!-- END  TIMER  -->
 
     <!-- END PAGE LEVEL SCRIPTS -->
 

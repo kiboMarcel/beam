@@ -1,5 +1,18 @@
 @extends('admin.admin_master')
 
+
+<style>
+
+    .day{
+        text-align: center;
+    }
+
+    .day-time{
+        padding: 2px;
+        text-align: center;
+    }
+</style>
+
 @section('admin')
 <div class="row layout-top-spacing">
     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
@@ -24,10 +37,10 @@
     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
         <div class="widget widget-chart-two">
             <div class="widget-heading">
-                <h5 class="">Sales by Category</h5>
+                <h4 class="day">Lundi</h4>
             </div>
             <div class="widget-content">
-                <div id="chart-2" class=""></div>
+                <div id="time" class="day-time"></div>
             </div>
         </div>
     </div>

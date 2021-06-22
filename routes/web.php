@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\backend\UserController;
+use App\Http\Controllers\backend\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,19 @@ Route::post('/update/{id}', [UserController::class, 'UserUpdate']) -> name('user
 
 Route::get('/update/{id}', [UserController::class, 'UserDelete']) -> name('user.delete');
 
+} );
+
+
+// User Account Setting
+
+Route::prefix('profile')->group( function() {
+    
+Route::get('/view', [ProfileController::class, 'ProfileView']) -> name('profil.view');
+
+Route::post('/update', [ProfileController::class, 'ProfileUpdate']) -> name('profil.update');
+
+Route::get('/password/view', [ProfileController::class, 'ProfilePasswordView']) -> name('profil.password');
+
+Route::post('/password/update', [ProfileController::class, 'PasswordUpdate']) -> name('password.update');
+    
 } );
