@@ -146,7 +146,7 @@
             var link = $(this).attr("href")
             swal({
                 title: 'Ete vous Sûr ?',
-                text: "Cette action asr irreversible!",
+                text: "Cette action est irreversible!",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Delete',

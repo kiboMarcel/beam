@@ -1,6 +1,6 @@
 @php
-    $prefix = Request::route()->getprefix();
-    $route = Route::current()->getName();
+$prefix = Request::route()->getprefix();
+$route = Route::current()->getName();
 
 @endphp
 
@@ -10,8 +10,9 @@
     <nav id="sidebar">
         <div class="shadow-bottom"></div>
         <ul class="list-unstyled menu-categories" id="accordionExample">
-            <li class="menu " >
-                <a href=" {{ route('dashboard') }} " class="dropdown-toggle"  data-active="{{ ($route == 'dashboard')? 'true': 'false' }}" >
+            <li class="menu ">
+                <a href=" {{ route('dashboard') }} " class="dropdown-toggle"
+                    data-active="{{ $route == 'dashboard' ? 'true' : 'false' }}">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -27,7 +28,8 @@
             </li>
 
             <li class="menu">
-                <a href="#user" data-toggle="collapse" data-active="{{ ($prefix == '/users')? 'true': 'false' }}" aria-expanded="false" class="dropdown-toggle">
+                <a href="#user" data-toggle="collapse" data-active="{{ $prefix == '/users' ? 'true' : 'false' }}"
+                    aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -58,7 +60,8 @@
             </li>
 
             <li class="menu">
-                <a href=" {{ route('profil.view') }} "  data-active="{{ ($prefix == '/profile')? 'true': 'false' }}" class="dropdown-toggle">
+                <a href=" {{ route('profil.view') }} " data-active="{{ $prefix == '/profile' ? 'true' : 'false' }}"
+                    class="dropdown-toggle">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -73,6 +76,55 @@
 
                 </a>
 
+            </li>
+
+            <li class="menu">
+                <a href="#setups" data-toggle="collapse" data-active="{{ $prefix == '/setups' ? 'true' : 'false' }}"
+                    aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-layers">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        <span>Gestion globale</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="setups" data-parent="#accordionExample">
+                    <li>
+                        <a href="{{ route('student.class.view') }}"> Gestion de classe </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('student.year.view') }}"> Année Scolaire </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('student.branch.view') }}"> Series / Filieres </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('student.group.view') }}"> Groupes </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('fee.category.view') }}"> Type de Frais </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('fee.amount.view') }}">  Montant des frais </a>
+                    </li>
+
+                </ul>
             </li>
 
             <li class="menu">
