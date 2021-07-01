@@ -16,7 +16,7 @@
             <div class="statbox widget box box-shadow">
                 <h3>Attribuer Matière</h3>
                 <hr>
-                <form method="post" action=" {{ route('assign.subject.update', $editData[0]->class_id) }}  ">
+                <form method="post" action=" {{ route('assign.subject.update', [$editData[0]->class_id, $editData[0]->branch_id] ) }}  ">
                     @csrf
 
                     <div class="add_item">

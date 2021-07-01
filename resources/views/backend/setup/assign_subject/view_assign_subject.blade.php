@@ -6,7 +6,7 @@
     }
 
     .table {
-        background-color: rebeccapurple !important;
+        background-color: rgb(153, 51, 119) !important;
     }
 
     .tr_style:hover {
@@ -64,6 +64,7 @@
 
                                             <div class="d-flex">
                                                 <p class="align-self-center mb-0 "> {{ $assign['student_class']['name']}}
+                                                    {{ $assign['student_branch']['name']}}
                                                 </p>
                                             </div>
                                         </td>
@@ -72,7 +73,7 @@
 
 
                                         <td class="text-center">
-                                            <a href=" {{ route('assign.subject.edit',$assign->class_id)}} "
+                                            <a href=" {{ route('assign.subject.edit', [$assign->class_id,$assign->branch_id] )}} "
                                                 class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                                 data-original-title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -85,7 +86,7 @@
                                                 </svg>
                                             </a>
 
-                                            <a href="{{ route('assign.subject.detail',$assign->class_id)}}"
+                                            <a href="{{ route('assign.subject.detail',[$assign->class_id,$assign->branch_id] )}}"
                                                 id="detail" class="bs-tooltip" data-toggle="tooltip" data-placement="top"
                                                 title="" data-original-title="detail">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

@@ -193,11 +193,11 @@ Route::prefix('setups')->group( function() {
    
    Route::post('/assign/subject/store', [AssignSubjectController::class, 'AssignSubjectStore']) -> name('assign.subject.store');
    
-   Route::get('/assign/subject/edit/{class_id}', [AssignSubjectController::class, 'AssignSubjectEdit']) -> name('assign.subject.edit');
+   Route::get('/assign/subject/edit/{class_id}/{branch_id}', [AssignSubjectController::class, 'AssignSubjectEdit']) -> name('assign.subject.edit');
    
-   Route::post('/assign/subject/update/{class_id} ', [AssignSubjectController::class, 'AssignSubjectUpdate']) -> name('assign.subject.update');
+   Route::post('/assign/subject/update/{class_id}/{branch_id} ', [AssignSubjectController::class, 'AssignSubjectUpdate']) -> name('assign.subject.update');
    
-   Route::get('/assign/subject/detail/{class_id}', [AssignSubjectController::class, 'AssignSubjectDetail']) -> name('assign.subject.detail');
+   Route::get('/assign/subject/detail/{class_id}/{branch_id} ', [AssignSubjectController::class, 'AssignSubjectDetail']) -> name('assign.subject.detail');
    
    
     

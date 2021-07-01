@@ -5,7 +5,7 @@
         background-color: #0e1726 !important;
     }
     .table {
-        background-color: rebeccapurple !important;
+        background-color: rgb(153, 51, 114) !important;
     }
 
     .head {

@@ -15,7 +15,7 @@ class AssignSubjectController extends Controller
     //
     public function ViewAssignSubject(){
         //$data['allData'] =  AssignSubject::all();
-        $data['allData'] =  AssignSubject::select('class_id')->groupBy('class_id')->get();
+        $data['allData'] =  AssignSubject::select('class_id', 'branch_id')->groupBy('class_id', 'branch_id')->get();
         return view('backend.setup.assign_subject.view_assign_subject', $data);
 
     }
@@ -50,9 +50,12 @@ class AssignSubjectController extends Controller
 
     }
 
-    public function  AssignSubjectEdit( $class_id){
+    public function  AssignSubjectEdit( $class_id, $branch_id){
 
-        $data['editData'] =  AssignSubject::where( 'class_id' ,$class_id)->
+        $data['editData'] =  AssignSubject::where([
+            [ 'class_id' ,$class_id], 
+            ['branch_id', $branch_id]
+            ])->
         orderBy('subject_id', 'asc')->get();
         //dd($data['editData']->toArray());
         $data['subjects']= SchoolSubject::all();
@@ -62,14 +65,17 @@ class AssignSubjectController extends Controller
 
     }
 
-    public function AssignSubjectUpdate(Request $request, $class_id){
+    public function AssignSubjectUpdate(Request $request, $class_id,$branch_id){
 
         if($request->subject_id == NULL){
             dd('Error');
         }else{
              
             $countSubject = count($request->subject_id);
-            AssignSubject::where( 'class_id' ,$class_id)->delete();
+            AssignSubject::where( [
+                [ 'class_id' ,$class_id], 
+                ['branch_id', $branch_id]
+                ])->delete();
             if($countSubject != NULL){
                 for($i=0; $i< $countSubject; $i++) {
                     $assign_subject = new AssignSubject();
@@ -90,9 +96,12 @@ class AssignSubjectController extends Controller
     }
 
 
-    public function  AssignSubjectDetail(Request $request, $class_id){
+    public function  AssignSubjectDetail(Request $request, $class_id, $branch_id){
 
-        $data['detailData'] =  AssignSubject::where( 'class_id' ,$class_id)->
+        $data['detailData'] =  AssignSubject::where([
+            [ 'class_id' ,$class_id], 
+            ['branch_id', $branch_id]
+            ])->
         orderBy('subject_id', 'asc')->get();
 
         

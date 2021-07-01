@@ -48,7 +48,7 @@
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> # </th>
+                                    <th>  </th>
                                     <th> Category</th>
 
                                     <th class="text-center">Actions</th>
