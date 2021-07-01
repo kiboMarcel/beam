@@ -38,8 +38,8 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Categorie de frais</h3>
-                            <a href=" {{route('fee.category.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
+                            <h3>Matieres</h3>
+                            <a href=" {{route('subject.type.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
                         </div>
 
 
@@ -47,7 +47,7 @@
                             <thead>
                                 <tr class="thead_tr">
                                     <th> N </th>
-                                    <th> categorie</th>
+                                    <th> examen</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -68,7 +68,7 @@
 
 
                                         <td class="text-center">
-                                            <a href=" {{ route('fee.category.edit', $feeCat->id) }} " class="bs-tooltip" data-toggle="tooltip"
+                                            <a href=" {{ route('subject.type.edit', $feeCat->id) }} " class="bs-tooltip" data-toggle="tooltip"
                                                 data-placement="top" title="" data-original-title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -80,7 +80,7 @@
                                                 </svg>
                                             </a>
 
-                                            <a href=" {{ route('fee.category.delete',$feeCat->id) }} " id="delete" class="bs-tooltip" data-toggle="tooltip"
+                                            <a href=" {{ route('subject.type.delete',$feeCat->id) }} " id="delete" class="bs-tooltip" data-toggle="tooltip"
                                                 data-placement="top" title="" data-original-title="Delete">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" color="red" stroke="currentColor" stroke-width="2"

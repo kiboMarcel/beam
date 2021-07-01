@@ -17,7 +17,7 @@
                        
                         <div class="col-12 col-md-12">
                             <div class="form-group mb-4">
-                                <label for="formGroupExampleInput">Nom *</label>
+                                <label for="formGroupExampleInput">Nom <span class="text-danger">*</span></label>
                                 <input  type="text" name="name" value=" {{ $editFeeCat->name }} " class="form-control" id="formGroupExampleInput" >
                                 @error('name')
                                 <span class="text-danger">{{$message}}</span>
@@ -28,7 +28,7 @@
                   
                       
                      
-                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    <button class="btn btn-primary" type="submit">Mettre à jour</button>
 
                     </div>
             

@@ -16,13 +16,13 @@
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
-                                <label for="formGroupExampleInput">Nom d'utilisateur *</label>
+                                <label for="formGroupExampleInput">Nom d'utilisateur <span class="text-danger">*</span></label>
                                 <input type="text" name="name" value=" {{$editData->name}} " class="form-control" id="formGroupExampleInput" required placeholder="nom">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
-                                <label for="formGroupExampleInput2">Role*</label>
+                                <label for="formGroupExampleInput2">Role <span class="text-danger">*</span></label>
                                 <select name="usertype" id="select" class="custom-select" required>
                                     <option value="" selected="" disabled="">Selectionner un role</option>
                                     <option value="admin" {{ ($editData->usertype == "admin" ? "selected": "") }} >Admin</option>
@@ -35,14 +35,14 @@
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
-                                <label for="formGroupExampleInput2">Email*</label>
+                                <label for="formGroupExampleInput2">Email <span class="text-danger">*</span></label>
                                 <input type="text" name="email" value=" {{$editData->email}} "  class="form-control" id="formGroupExampleInput2" placeholder="email">
                             </div>
                         </div>
                       
                     </div>
 
-                    <button class="btn btn-primary" type="submit">Modifier</button>
+                    <button class="btn btn-primary" type="submit">Mettre à jour</button>
                 </form>
             </div>
         </div>

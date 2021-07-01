@@ -101,7 +101,7 @@ $route = Route::current()->getName();
                 </a>
                 <ul class="collapse submenu list-unstyled" id="setups" data-parent="#accordionExample">
                     <li>
-                        <a href="{{ route('student.class.view') }}"> Gestion de classe </a>
+                        <a href="{{ route('student.class.view') }}"> Classe </a>
                     </li>
 
                     <li>
@@ -122,6 +122,18 @@ $route = Route::current()->getName();
 
                     <li>
                         <a href="{{ route('fee.amount.view') }}">  Montant des frais </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('exam.type.view') }}"> types D'examen</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('subject.type.view') }}"> Matières</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('assign.subject.view') }}"> Attribuer Matière </a>
                     </li>
 
                 </ul>

@@ -9,9 +9,9 @@
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
-                <h3>Ajouter Groupe</h3>
+                <h3>Ajouter type d'examen</h3>
                 <hr>
-                <form method="post" action=" {{ route('student.group.store')}}  ">
+                <form method="post" action=" {{ route('exam.type.store')}}  ">
                     @csrf
                     <div class="row">
                        

@@ -28,7 +28,7 @@
                   
                       
                      
-                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    <button class="btn btn-primary" type="submit">Mettre à jour</button>
 
                     </div>
             
