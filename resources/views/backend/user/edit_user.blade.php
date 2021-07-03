@@ -23,11 +23,11 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
                                 <label for="formGroupExampleInput2">Role <span class="text-danger">*</span></label>
-                                <select name="usertype" id="select" class="custom-select" required>
+                                <select name="role" id="select" class="custom-select" required>
                                     <option value="" selected="" disabled="">Selectionner un role</option>
-                                    <option value="admin" {{ ($editData->usertype == "admin" ? "selected": "") }} >Admin</option>
-                                    <option value="secretaire" {{ ($editData->usertype == "secretaire" ? "selected": "") }} >Secretaire</option>
-                                    <option value="user" {{ ($editData->usertype == "user" ? "selected": "") }}>Utilisateur</option>
+                                    <option value="Admin" {{ ($editData->role == "Admin" ? "selected": "") }} >Admin</option>
+                                    <option value="Operateur" {{ ($editData->role == "Operateur" ? "selected": "") }} >Operateur</option>
+                                    <option value="user" {{ ($editData->role == "user" ? "selected": "") }}>Utilisateur</option>
                                   </select>
                             </div>
                         </div>

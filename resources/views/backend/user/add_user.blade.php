@@ -23,11 +23,11 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
                                 <label for="formGroupExampleInput2">Role <span class="text-danger">*</span></label>
-                                <select name="usertype" id="select" class="custom-select" required>
+                                <select name="role" id="role" class="custom-select" required>
                                     <option value="" selected="" disabled="">Selectionner un role</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="secretaire">Secretaire</option>
-                                    <option value="user">Utilisateur</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Operateur">Operateur</option>
+                                    <option value="User">Utilisateur</option>
                                   </select>
                             </div>
                         </div>
@@ -39,12 +39,7 @@
                                 <input type="text" name="email" class="form-control" id="formGroupExampleInput2" placeholder="email">
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <div class="form-group mb-4">
-                                <label for="formGroupExampleInput2">Mot de passe <span class="text-danger">*</span></label>
-                                <input type="password" name="password"  class="form-control" id="password" placeholder="password">
-                            </div>
-                        </div>
+                     
                     </div>
 
                   

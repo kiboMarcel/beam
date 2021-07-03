@@ -8,6 +8,10 @@
         background-color: rgb(153, 51, 114) !important;
     }
 
+    .badge{
+        font-size: 15px !important;
+    }
+
     .head {
         display: flex;
         flex-direction: row;
@@ -40,17 +44,16 @@
 
 
                         <table id="style-2" class="table  table-bordered  table-hover">
-                            <h4><strong>Classe:</strong>  {{$detailData['0']['student_class']['name']}} 
+                            <h4 class="badge badge-pills badge-info"> <strong >Classe:  </strong> {{$detailData['0']['student_class']['name']}} 
                                 {{$detailData['0']['student_branch']['name']}}
                             </h4>
                             <thead>
                                 <tr class="thead_tr">
                                     <th> # </th>
-                                    <th> Matiere </th>
-                                   
+                                    <th  style=" width:30% "> Matiere </th>
                                     <th class="text-center">Note Total</th>
                                     <th class="text-center">Note de validation</th>
-                                    <th class="text-center">Coefficient</th>
+                                    <th class="text-center" style=" width:10% " >Coefficient</th>
                                 </tr>
                             </thead>
                             <tbody>

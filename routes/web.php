@@ -14,6 +14,9 @@ use App\Http\Controllers\backend\setup\FeeAmountController;
 use App\Http\Controllers\backend\setup\ExamTypeController;
 use App\Http\Controllers\backend\setup\SchoolSubjectController;
 use App\Http\Controllers\backend\setup\AssignSubjectController;
+use App\Http\Controllers\backend\setup\DesignationController;
+
+use App\Http\Controllers\backend\student\StudentRegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,17 +43,17 @@ Route::get('/admin/logout', [AdminController::class, 'Logout']) -> name('admin.l
 
 Route::prefix('users')->group( function() {
     
-Route::get('/view', [UserController::class, 'UserView']) -> name('user.view');
+    Route::get('/view', [UserController::class, 'UserView']) -> name('user.view');
 
-Route::get('/add', [UserController::class, 'UserAdd']) -> name('user.add');
+    Route::get('/add', [UserController::class, 'UserAdd']) -> name('user.add');
 
-Route::post('/store', [UserController::class, 'UserStore']) -> name('user.store');
+    Route::post('/store', [UserController::class, 'UserStore']) -> name('user.store');
 
-Route::get('/edit/{id}', [UserController::class, 'UserEdit']) -> name('user.edit');
+    Route::get('/edit/{id}', [UserController::class, 'UserEdit']) -> name('user.edit');
 
-Route::post('/update/{id}', [UserController::class, 'UserUpdate']) -> name('user.update');
+    Route::post('/update/{id}', [UserController::class, 'UserUpdate']) -> name('user.update');
 
-Route::get('/delete/{id}', [UserController::class, 'UserDelete']) -> name('user.delete');
+    Route::get('/delete/{id}', [UserController::class, 'UserDelete']) -> name('user.delete');
 
 } );
 
@@ -59,13 +62,13 @@ Route::get('/delete/{id}', [UserController::class, 'UserDelete']) -> name('user.
 
 Route::prefix('profile')->group( function() {
     
-Route::get('/view', [ProfileController::class, 'ProfileView']) -> name('profil.view');
+    Route::get('/view', [ProfileController::class, 'ProfileView']) -> name('profil.view');
 
-Route::post('/update', [ProfileController::class, 'ProfileUpdate']) -> name('profil.update');
+    Route::post('/update', [ProfileController::class, 'ProfileUpdate']) -> name('profil.update');
 
-Route::get('/password/view', [ProfileController::class, 'ProfilePasswordView']) -> name('profil.password');
+    Route::get('/password/view', [ProfileController::class, 'ProfilePasswordView']) -> name('profil.password');
 
-Route::post('/password/update', [ProfileController::class, 'PasswordUpdate']) -> name('password.update');
+    Route::post('/password/update', [ProfileController::class, 'PasswordUpdate']) -> name('password.update');
     
 } );
 
@@ -74,7 +77,6 @@ Route::post('/password/update', [ProfileController::class, 'PasswordUpdate']) ->
 
 Route::prefix('setups')->group( function() {
     
-
     //student class 
     Route::get('/student/class/view', [StudentClassController::class, 'ViewStudentClass']) -> name('student.class.view');
     
@@ -199,6 +201,39 @@ Route::prefix('setups')->group( function() {
    
    Route::get('/assign/subject/detail/{class_id}/{branch_id} ', [AssignSubjectController::class, 'AssignSubjectDetail']) -> name('assign.subject.detail');
    
-   
+   //subject type
+   Route::get('/designation/view', [DesignationController::class, 'ViewDesignation']) -> name('designation.view');
     
-    } );
+   Route::get('/designation/add', [DesignationController::class, 'DesignationAdd']) -> name('designation.add');
+   
+   Route::post('/designation/store', [DesignationController::class, 'DesignationStore']) -> name('designation.store');
+   
+   Route::get('/designation/edit/{id}', [DesignationController::class, 'DesignationEdit']) -> name('designation.edit');
+   
+   Route::post('/designation/update/{id} ', [DesignationController::class, 'DesignationUpdate']) -> name('designation.update');
+   
+   Route::get('/designation/delete/{id}', [DesignationController::class, 'DesignationDelete']) -> name('designation.delete');
+   
+} );
+
+
+Route::prefix('students')->group( function(){
+
+        //student registration
+   Route::get('/reg/view', [StudentRegistrationController::class, 'ViewRegistration']) -> name('student.registration.view');
+    
+   Route::get('/reg/add', [StudentRegistrationController::class, 'RegistrationAdd']) -> name('student.registration.add');
+   
+   Route::get('/year/class/search', [StudentRegistrationController::class, 'StudentSearch']) -> name('student.year.class.wise');
+   
+   Route::post('/reg/store', [StudentRegistrationController::class, 'RegistrationStore']) -> name('student.registration.store');
+   
+   Route::get('/reg/edit/{student_id}', [StudentRegistrationController::class, 'RegistrationEdit']) -> name('student.registration.edit');
+   
+   Route::post('/reg/update/{student_id} ', [StudentRegistrationController::class, 'RegistrationUpdate']) -> name('student.registration.update');
+   
+   Route::get('/reg/promotion/{student_id} ', [StudentRegistrationController::class, 'StudentPromotionView']) -> name('student.registration.promotion');
+   
+   Route::post('/reg/promote/{student_id} ', [StudentRegistrationController::class, 'StudentPromotion']) -> name('student.promote');
+   
+});
