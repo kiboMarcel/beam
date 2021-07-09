@@ -109,7 +109,7 @@
                         </div>
 
                         @if (!@search)
-                            <table id="style-2" class="table style-2  table-hover">
+                            <table id="style-2" class="table table-bordered  table-hover">
                                 <thead>
                                     <tr class="thead_tr">
                                         <th> # </th>
@@ -121,7 +121,7 @@
                                         @if (Auth::User()->role = 'Admin')
                                             <th> code</th>
                                         @endif
-                                        <th class="text-center">Actions</th>
+                                        <th class="text-center" colspan="3">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -192,11 +192,27 @@
                                                     class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                                     data-original-title="Promotion">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none" color="#25d5e4" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                        class="feather feather-chevrons-up">
+                                                        viewBox="0 0 24 24" fill="none" color="#25d5e4"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-chevrons-up">
                                                         <polyline points="17 11 12 6 7 11"></polyline>
                                                         <polyline points="17 18 12 13 7 18"></polyline>
+                                                    </svg>
+                                                </a>
+                                                <a href=" {{ route('student.detail.pdf', $value->student_id) }} "
+                                                    class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
+                                                    data-original-title="Detail">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" color="#185ADB"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-file-text">
+                                                        <path
+                                                            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">
+                                                        </path>
+                                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                                        <polyline points="10 9 9 9 8 9"></polyline>
                                                     </svg>
                                                 </a>
                                             </td>
@@ -207,16 +223,18 @@
 
                                 </tbody>
                             </table>
+
+
                             {{-- search section data start --}}
                         @else
-                            <table id="style-2" class="table style-2  table-hover">
+                            <table id="style-2" class="table  table-bordered  table-hover">
                                 <thead>
                                     <tr class="thead_tr">
                                         <th> # </th>
                                         <th> Nom</th>
                                         <th> Num mat</th>
                                         <th> Classe</th>
-                                        <th> Filiere</th>
+                                        <th style=" width:10% "> Filiere</th>
                                         <th> Année</th>
                                         @if (Auth::User()->role = 'Admin')
                                             <th> code</th>
@@ -292,11 +310,27 @@
                                                     class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                                     data-original-title="Promotion">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none" color="#25d5e4" stroke="currentColor"
-                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                        class="feather feather-chevrons-up">
+                                                        viewBox="0 0 24 24" fill="none" color="#25d5e4"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-chevrons-up">
                                                         <polyline points="17 11 12 6 7 11"></polyline>
                                                         <polyline points="17 18 12 13 7 18"></polyline>
+                                                    </svg>
+                                                </a>
+                                                <a href=" {{ route('student.detail.pdf', $value->student_id) }} "
+                                                    class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
+                                                    data-original-title="Detail">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" color="#185ADB"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-file-text">
+                                                        <path
+                                                            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">
+                                                        </path>
+                                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                                        <polyline points="10 9 9 9 8 9"></polyline>
                                                     </svg>
                                                 </a>
                                             </td>

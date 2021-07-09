@@ -19,6 +19,10 @@ class AssignStudent extends Model
         return $this->belongsTo(StudentBranch::class, 'branch_id', 'id');
     }
 
+    public function student_group(){
+        return $this->belongsTo(StudentGroup::class, 'group_id', 'id');
+    }
+
     public function student_year(){
         return $this->belongsTo(StudentYear::class, 'year_id', 'id');
     }

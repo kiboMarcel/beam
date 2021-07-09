@@ -17,6 +17,7 @@ use App\Http\Controllers\backend\setup\AssignSubjectController;
 use App\Http\Controllers\backend\setup\DesignationController;
 
 use App\Http\Controllers\backend\student\StudentRegistrationController;
+use App\Http\Controllers\backend\student\RegistrationFeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -220,20 +221,45 @@ Route::prefix('setups')->group( function() {
 Route::prefix('students')->group( function(){
 
         //student registration
-   Route::get('/reg/view', [StudentRegistrationController::class, 'ViewRegistration']) -> name('student.registration.view');
+   Route::get('/reg/view', [StudentRegistrationController::class, 'ViewRegistration']) -> 
+   name('student.registration.view');
     
-   Route::get('/reg/add', [StudentRegistrationController::class, 'RegistrationAdd']) -> name('student.registration.add');
+   Route::get('/reg/add', [StudentRegistrationController::class, 'RegistrationAdd']) -> 
+   name('student.registration.add');
    
-   Route::get('/year/class/search', [StudentRegistrationController::class, 'StudentSearch']) -> name('student.year.class.wise');
+   Route::get('/year/class/search', [StudentRegistrationController::class, 'StudentSearch']) -> 
+   name('student.year.class.wise');
    
-   Route::post('/reg/store', [StudentRegistrationController::class, 'RegistrationStore']) -> name('student.registration.store');
+   Route::post('/reg/store', [StudentRegistrationController::class, 'RegistrationStore']) -> 
+   name('student.registration.store');
    
-   Route::get('/reg/edit/{student_id}', [StudentRegistrationController::class, 'RegistrationEdit']) -> name('student.registration.edit');
+   Route::get('/reg/edit/{student_id}', [StudentRegistrationController::class, 'RegistrationEdit']) -> 
+   name('student.registration.edit');
    
-   Route::post('/reg/update/{student_id} ', [StudentRegistrationController::class, 'RegistrationUpdate']) -> name('student.registration.update');
+   Route::post('/reg/update/{student_id} ', [StudentRegistrationController::class, 'RegistrationUpdate']) -> 
+   name('student.registration.update');
    
-   Route::get('/reg/promotion/{student_id} ', [StudentRegistrationController::class, 'StudentPromotionView']) -> name('student.registration.promotion');
+   Route::get('/reg/promotion/{student_id} ', [StudentRegistrationController::class, 'StudentPromotionView']) -> 
+   name('student.registration.promotion');
    
-   Route::post('/reg/promote/{student_id} ', [StudentRegistrationController::class, 'StudentPromotion']) -> name('student.promote');
+   Route::post('/reg/promote/{student_id} ', [StudentRegistrationController::class, 'StudentPromotion']) -> 
+   name('student.promote');
    
+   Route::get('/reg/promote/{student_id} ', [StudentRegistrationController::class, 'StudentDetail']) -> 
+   name('student.detail.pdf');
+   
+
+   //roll generate
+   //-------------
+   //route
+
+   //
+   Route::get('/reg/fee/view', [RegistrationFeeController::class, 'ViewRegistrationFee']) -> 
+   name('registration.fee.view');
+  
+   Route::get('/reg/fee/data', [RegistrationFeeController::class, 'RegistrationFeeData']) -> 
+   name('registration.fee.get');
+   
+   Route::get('/reg/fee/pay', [RegistrationFeeController::class, 'RegistrationFeePay']) -> 
+   name('student.registration.fee.paySlip');
 });

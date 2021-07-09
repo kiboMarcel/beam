@@ -167,8 +167,13 @@ $route = Route::current()->getName();
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="student" data-parent="#accordionExample">
+
                     <li>
                         <a type="submit" href="{{ route('student.registration.view') }}"> Enregistrer Eleve </a>
+                    </li>
+
+                    <li>
+                        <a type="submit" href="{{ route('registration.fee.view') }}"> Frais  </a>
                     </li>
                   
                 </ul>

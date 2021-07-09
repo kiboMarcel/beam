@@ -13,6 +13,7 @@ use App\Models\StudentYear;
 use App\Models\StudentClass;
 use App\Models\StudentGroup;
 use DB;
+use PDF;
 
 class StudentRegistrationController extends Controller
 {
@@ -42,8 +43,14 @@ class StudentRegistrationController extends Controller
         $data['class_id'] =   $request->class_id;
         $data['branch_id'] =   $request->branch_id;
 
-        $data['allData'] =  AssignStudent::where('year_id', $request->year_id)->
-        where('class_id', $request->class_id)->where('branch_id', $request->branch_id)->get();
+        /* $data['allData'] =  AssignStudent::with(['student'])->where('year_id', $request->year_id)->
+        where('class_id', $request->class_id)->where('branch_id', $request->branch_id)->get(); */
+
+        $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
+        where('year_id', $request->year_id)->
+        where('class_id', $request->class_id)->
+        where('branch_id', $request->branch_id)->
+        leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
         //dd($data['allData']);
         return view('backend.student.student_reg.view_stud_reg', $data);
 
@@ -58,7 +65,6 @@ class StudentRegistrationController extends Controller
         return view('backend.student.student_reg.add_stud_reg', $data);
 
     }
-
 
 
     public function RegistrationStore(Request $request){
@@ -146,6 +152,7 @@ class StudentRegistrationController extends Controller
         return view('backend.student.student_reg.edit_stud_reg', $data);
 
     }
+
 
     public function RegistrationUpdate(Request $request, $student_id){
 
@@ -236,4 +243,25 @@ class StudentRegistrationController extends Controller
 
         return redirect()-> route('student.registration.view');
     }
+
+
+    public function StudentDetail(Request $request, $student_id){
+
+        $data['details'] =  AssignStudent::with(['student'])->
+        where('student_id', $student_id)->first();
+
+
+        $pdf = PDF::loadView('backend.student.student_reg.student_details_pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+
+       // return view('backend.student.student_reg.student_details_pdf');
+    }
+
+    
+
+
+
+      
+       
 }

@@ -9,7 +9,7 @@
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
-                <h3>Promotion de l'eleve: {{ $editData['student']['fname'] }} </h3>
+                <h3>Promotion de l'eleve: {{ $editData['student']['name'] }} </h3>
                 <hr>
                 <form method="post" action=" {{ route('student.promote', $editData->student_id) }} " enctype="multipart/form-data">
                     @csrf

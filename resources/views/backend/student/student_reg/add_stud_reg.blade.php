@@ -19,7 +19,7 @@
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
                                 <label for="formGroupExampleInput">Nom complet <span class="text-danger">*</span></label>
-                                <input type="text" name="name" required class="form-control"
+                                <input type="text" name="name" required class="form-control" id="formGroupExampleInput"
                                     placeholder="ex Jhon Pierre Doe">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
@@ -67,9 +67,9 @@
                         </div>
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
-                                <label for="email">Genre</label>
-                                <select name="gender" id="select" class="custom-select" required>
-                                    <option value="" selected="" disabled="">Selectionner le sexe</option>
+                                <label for="formGroupExampleInput">Genre</label>
+                                <select name="gender" id="select formGroupExampleInput" class="custom-select" required>
+                                    <option value="" selected="" disabled="">Selectionner sexe</option>
                                     <option value="masculin">Masuclin
                                     </option>
                                     <option value="feminin">Feminin
@@ -137,7 +137,7 @@
                             <div class="form-group mb-4">
                                 <label for="text">Groupe</label>
                                 <select name="group_id" id="select" class="custom-select" required>
-                                    <option value="" selected="" disabled="">Selectionner group</option>
+                                    <option value="" selected="" disabled="">Selectionner groupe</option>
                                     @foreach ($groups as $group)
                                         <option value="{{ $group->id }}">{{ $group->name }}</option>
                                     @endforeach
