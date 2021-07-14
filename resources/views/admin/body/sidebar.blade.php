@@ -50,11 +50,11 @@ $route = Route::current()->getName();
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="user" data-parent="#accordionExample">
-                    <li>
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/users' ? 'show' : '' }}"" id="user" data-parent="#accordionExample">
+                    <li class="{{ $route == 'user.view' ? 'active' : '' }}">
                         <a href="{{ route('user.view') }}"> Voir Utilisateurs </a>
                     </li>
-                    <li>
+                    <li class="{{ $route == 'user.add' ? 'active' : '' }}">
                         <a href="{{ route('user.add') }}"> Ajouter Utilisateur </a>
                     </li>
                 </ul>
@@ -100,44 +100,48 @@ $route = Route::current()->getName();
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="setups" data-parent="#accordionExample">
-                    <li>
-                        <a href="{{ route('student.class.view') }}"> Classe </a>
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/setups' ? 'show' : '' }}" id="setups" data-parent="#accordionExample">
+                    <li class="{{ $route == 'student.class.view' ? 'active' : '' }}">
+                        <a  href="{{ route('student.class.view') }}"> Classe </a>
                     </li>
 
-                    <li>
+                    <li class="{{ $route == 'student.year.view' ? 'active' : '' }}">
                         <a href="{{ route('student.year.view') }}"> Année Scolaire </a>
-                    </li>
+                    </li >
 
-                    <li>
+                    <li class="{{ $route == 'student.branch.view' ? 'active' : '' }}">
                         <a href="{{ route('student.branch.view') }}"> Series / Filieres </a>
                     </li>
 
-                    <li>
+                    <li class="{{ $route == 'student.group.view' ? 'active' : '' }}">
                         <a href="{{ route('student.group.view') }}"> Groupes </a>
                     </li>
 
-                    <li>
-                        <a href="{{ route('fee.category.view') }}"> Type de Frais </a>
+                    <li class="{{ $route == 'fee.category.view' ? 'active' : '' }}">
+                        <a href="{{ route('fee.category.view') }}"> Type de Paymement </a>
                     </li>
 
-                    <li>
-                        <a href="{{ route('fee.amount.view') }}"> Montant des frais </a>
+                    <li class="{{ $route == 'fee.amount.view' ? 'active' : '' }}">
+                        <a href="{{ route('fee.amount.view') }}"> Montant des Payements </a>
                     </li>
 
-                    <li>
+                    <li class="{{ $route == 'exam.type.view' ? 'active' : '' }}">
                         <a href="{{ route('exam.type.view') }}"> types D'examen</a>
                     </li>
 
-                    <li>
+                    <li class="{{ $route == 'slice.view' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('slice.view') }}"> Tranche  </a>
+                    </li>
+
+                    <li class="{{ $route == 'subject.type.view' ? 'active' : '' }}">
                         <a href="{{ route('subject.type.view') }}"> Matières</a>
                     </li>
 
-                    <li>
+                    <li class="{{ $route == 'assign.subject.view' ? 'active' : '' }}">
                         <a href="{{ route('assign.subject.view') }}"> Attribuer Matière </a>
-                    </li>
+                    </li >
 
-                    <li>
+                    <li class="{{ $route == 'designation.view' ? 'active' : '' }}">
                         <a href="{{ route('designation.view') }}"> Designation </a>
                     </li>
 
@@ -166,15 +170,21 @@ $route = Route::current()->getName();
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled" id="student" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/students' ? 'show' : '' }}" id="student" data-parent="#accordionExample">
 
-                    <li>
+                    <li class="{{ $route == 'student.registration.view' ? 'active' : '' }}">
                         <a type="submit" href="{{ route('student.registration.view') }}"> Enregistrer Eleve </a>
                     </li>
 
-                    <li>
-                        <a type="submit" href="{{ route('registration.fee.view') }}"> Frais  </a>
+                    <li class="{{ $route == 'registration.fee.view' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('registration.fee.view') }}"> Inscription  </a>
                     </li>
+
+                    <li class="{{ $route == 'schooling.fee.view' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('schooling.fee.view') }}"> Scolarité  </a>
+                    </li>
+
+                   
                   
                 </ul>
             </li>

@@ -19,7 +19,6 @@
         align-items: center;
         justify-content: space-between;
     }
-    }
 
     .btn {
         float: right;
@@ -32,6 +31,10 @@
 
     .statbox {
         margin-top: 17px !important;
+    }
+
+    .find{
+        margin-top: 25px;
     }
 
 </style>
@@ -84,7 +87,7 @@
                         </select>
                     </div>
 
-                    <div class="col-lg-3 col-md-3 col-sm-9 ">
+                    <div class="col-lg-3 col-md-3 col-sm-9 find ">
 
                         <input type="submit" name="search" value="Chercher" class="btn btn-outline-info mb-2">
 

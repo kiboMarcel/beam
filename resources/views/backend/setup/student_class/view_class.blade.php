@@ -16,7 +16,7 @@
         align-items: center;
         justify-content: space-between;
     }
-    }
+    
 
     .thead_tr {
         color: blueviolet;
@@ -38,7 +38,7 @@
             <div class="statbox widget box box-shadow">
 
                 <div class="widget-content widget-content-area">
-                    <div class="table-responsive mb-4">
+                    <div class="table-responsive mb-4 content">
                         <div class="head">
                             <h3>Liste des Classes</h3>
                             <a href=" {{route('student.class.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>

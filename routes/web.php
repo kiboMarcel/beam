@@ -15,9 +15,11 @@ use App\Http\Controllers\backend\setup\ExamTypeController;
 use App\Http\Controllers\backend\setup\SchoolSubjectController;
 use App\Http\Controllers\backend\setup\AssignSubjectController;
 use App\Http\Controllers\backend\setup\DesignationController;
+use App\Http\Controllers\backend\setup\SliceController;
 
 use App\Http\Controllers\backend\student\StudentRegistrationController;
 use App\Http\Controllers\backend\student\RegistrationFeeController;
+use App\Http\Controllers\backend\student\SchoolingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -203,18 +205,38 @@ Route::prefix('setups')->group( function() {
    Route::get('/assign/subject/detail/{class_id}/{branch_id} ', [AssignSubjectController::class, 'AssignSubjectDetail']) -> name('assign.subject.detail');
    
    //subject type
-   Route::get('/designation/view', [DesignationController::class, 'ViewDesignation']) -> name('designation.view');
+   Route::get('/designation/view', [DesignationController::class, 'ViewDesignation']) -> 
+   name('designation.view');
     
-   Route::get('/designation/add', [DesignationController::class, 'DesignationAdd']) -> name('designation.add');
+   Route::get('/designation/add', [DesignationController::class, 'DesignationAdd']) -> 
+   name('designation.add');
    
-   Route::post('/designation/store', [DesignationController::class, 'DesignationStore']) -> name('designation.store');
+   Route::post('/designation/store', [DesignationController::class, 'DesignationStore']) -> 
+   name('designation.store');
    
-   Route::get('/designation/edit/{id}', [DesignationController::class, 'DesignationEdit']) -> name('designation.edit');
+   Route::get('/designation/edit/{id}', [DesignationController::class, 'DesignationEdit']) -> 
+   name('designation.edit');
    
-   Route::post('/designation/update/{id} ', [DesignationController::class, 'DesignationUpdate']) -> name('designation.update');
+   Route::post('/designation/update/{id} ', [DesignationController::class, 'DesignationUpdate']) -> 
+   name('designation.update');
    
-   Route::get('/designation/delete/{id}', [DesignationController::class, 'DesignationDelete']) -> name('designation.delete');
+   Route::get('/designation/delete/{id}', [DesignationController::class, 'DesignationDelete']) -> 
+   name('designation.delete');
    
+
+    /////slice route
+    Route::get('/slice/view', [SliceController::class, 'ViewSlice']) -> 
+    name('slice.view');
+ 
+    Route::get('/slice/add', [SliceController::class, 'SliceAdd']) -> 
+    name('slice.add');
+ 
+    Route::post('/slice/store', [SliceController::class, 'SliceStore']) -> 
+    name('slice.store');
+ 
+    Route::get('/slice/detail/{class_id} ', [SliceController::class, 'SliceDetail']) -> 
+    name('slice.detail');
+
 } );
 
 
@@ -253,7 +275,7 @@ Route::prefix('students')->group( function(){
    //-------------
    //route
 
-   //
+   //inscription
    Route::get('/reg/fee/view', [RegistrationFeeController::class, 'ViewRegistrationFee']) -> 
    name('registration.fee.view');
   
@@ -262,4 +284,22 @@ Route::prefix('students')->group( function(){
    
    Route::get('/reg/fee/pay', [RegistrationFeeController::class, 'RegistrationFeePay']) -> 
    name('student.registration.fee.paySlip');
+
+
+   //schooling 
+   Route::get('/schooling/fee/view', [SchoolingController::class, 'ViewSchooling']) -> 
+   name('schooling.fee.view');
+  
+   Route::get('/schooling/fee/data', [SchoolingController::class, 'SchoolingData']) -> 
+   name('schooling.fee.get');
+   
+   Route::get('/schooling/pay/{student_id}', [SchoolingController::class, 'SchoolingPaymentView']) -> 
+   name('student.schooling.pay');
+
+   Route::post('/schooling/store/{student_id}', [SchoolingController::class, 'SchoolingStore']) -> 
+   name('schooling.store');
+
+
+
+  
 });

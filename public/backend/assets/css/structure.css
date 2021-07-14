@@ -180,7 +180,7 @@ code {
     clear: both; }
 
 .widget-content-area {
-  padding: 20px;
+  padding: 15px 20px;
   position: relative;
   background-color: #0e1726;
   border-bottom-left-radius: 6px;

@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\DiscountStudent;
 use App\Models\StudentBranch;
 use App\Models\StudentYear;
+use App\Models\Schooling;
 use App\Models\StudentClass;
 use App\Models\StudentGroup;
 use DB;
@@ -123,6 +124,17 @@ class StudentRegistrationController extends Controller
             $assign_student->year_id = $request->year_id;
 
             $assign_student->save();
+
+
+            $schooling =  new Schooling();
+            $schooling->student_id = $user->id;
+            $schooling->payed = 0;
+            $schooling->class_id = $request->class_id;
+            $schooling->branch_id = $request->branch_id;
+            $schooling->group_id = $request->group_id;
+            $schooling->fee_category_id = 6;;
+
+            $schooling->save();
 
            /*  $discount_student= new DiscountStudent();
             $discount_student->assign_student_id = $assign_student->id;

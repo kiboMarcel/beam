@@ -18,7 +18,7 @@
         align-items: center;
         justify-content: space-between;
     }
-    }
+    
 
     .btn {
         float: right;
