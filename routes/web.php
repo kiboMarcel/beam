@@ -22,6 +22,7 @@ use App\Http\Controllers\backend\student\RegistrationFeeController;
 use App\Http\Controllers\backend\student\SchoolingController;
 
 use App\Http\Controllers\backend\employee\EmployeeRegController;
+use App\Http\Controllers\backend\employee\EmployeeSalaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -327,6 +328,24 @@ Route::group(['middleware' => 'auth'], function(){
 
         Route::post('employee/edit/{id}', [EmployeeRegController::class, 'EmployeeUpdate']) -> 
         name('employee.update');
+
+        Route::get('employee/detail/{id}', [EmployeeRegController::class, 'EmployeeDetail']) -> 
+        name('employee.detail.pdf');
+
+        //employee salary
+        Route::get('/salary/view', [EmployeeSalaryController::class, 'ViewEmployeeSalary']) -> 
+        name('employee.salary.view');
+
+        Route::get('/salary/increment/{id}', [EmployeeSalaryController::class, 'EmployeeSalaryInrement']) -> 
+        name('employee.salary.increment');
+
+        Route::post('/salary/increment/store/{id}', [EmployeeSalaryController::class, 'SalaryInrementStore']) -> 
+        name('update.salary.increment.store');
+
+        Route::get('/salary/detail/{id}', [EmployeeSalaryController::class, 'SalaryDetail']) -> 
+        name('employee.salary.detail');
+
+      
     });
 
     

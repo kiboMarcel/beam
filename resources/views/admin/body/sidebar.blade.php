@@ -218,7 +218,11 @@ $route = Route::current()->getName();
                     data-parent="#accordionExample">
 
                     <li class="{{ $route == 'employee.registration.view' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('employee.registration.view') }}"> Enregistrer Employer </a>
+                        <a type="submit" href="{{ route('employee.registration.view') }}"> Enreg. Employer </a>
+                    </li>
+
+                    <li class="{{ $route == 'employee.salary.view' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('employee.salary.view') }}"> Salaire employer </a>
                     </li>
 
 

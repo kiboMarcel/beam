@@ -128,4 +128,17 @@ class EmployeeRegController extends Controller
 
         return redirect()-> route('employee.registration.view');
     }
+
+    public function EmployeeDetail(Request $request ,$id){
+       
+        $data['details'] =  User::find($id);
+        /* $data['details'] =  User::with(['student'])->
+        where('student_id', $id)->first(); */
+
+
+        $pdf = PDF::loadView('backend.employee.employee_reg.employee_details_pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+
+    }
 }
