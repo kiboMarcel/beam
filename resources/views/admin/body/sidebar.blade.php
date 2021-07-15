@@ -100,14 +100,15 @@ $route = Route::current()->getName();
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled {{ $prefix == '/setups' ? 'show' : '' }}" id="setups" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/setups' ? 'show' : '' }}" id="setups"
+                    data-parent="#accordionExample">
                     <li class="{{ $route == 'student.class.view' ? 'active' : '' }}">
-                        <a  href="{{ route('student.class.view') }}"> Classe </a>
+                        <a href="{{ route('student.class.view') }}"> Classe </a>
                     </li>
 
                     <li class="{{ $route == 'student.year.view' ? 'active' : '' }}">
                         <a href="{{ route('student.year.view') }}"> Année Scolaire </a>
-                    </li >
+                    </li>
 
                     <li class="{{ $route == 'student.branch.view' ? 'active' : '' }}">
                         <a href="{{ route('student.branch.view') }}"> Series / Filieres </a>
@@ -130,7 +131,7 @@ $route = Route::current()->getName();
                     </li>
 
                     <li class="{{ $route == 'slice.view' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('slice.view') }}"> Tranche  </a>
+                        <a type="submit" href="{{ route('slice.view') }}"> Tranche </a>
                     </li>
 
                     <li class="{{ $route == 'subject.type.view' ? 'active' : '' }}">
@@ -139,7 +140,7 @@ $route = Route::current()->getName();
 
                     <li class="{{ $route == 'assign.subject.view' ? 'active' : '' }}">
                         <a href="{{ route('assign.subject.view') }}"> Attribuer Matière </a>
-                    </li >
+                    </li>
 
                     <li class="{{ $route == 'designation.view' ? 'active' : '' }}">
                         <a href="{{ route('designation.view') }}"> Designation </a>
@@ -148,10 +149,11 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-        
+
             <li class="menu">
-                <a href="#student" data-toggle="collapse" data-active="{{ $prefix == '/students' ? 'true' : 'false' }}"
-                    aria-expanded="false" class="dropdown-toggle">
+                <a href="#student" data-toggle="collapse"
+                    data-active="{{ $prefix == '/students' ? 'true' : 'false' }}" aria-expanded="false"
+                    class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -170,22 +172,57 @@ $route = Route::current()->getName();
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled {{ $prefix == '/students' ? 'show' : '' }}" id="student" data-parent="#accordionExample">
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/students' ? 'show' : '' }}" id="student"
+                    data-parent="#accordionExample">
 
                     <li class="{{ $route == 'student.registration.view' ? 'active' : '' }}">
                         <a type="submit" href="{{ route('student.registration.view') }}"> Enregistrer Eleve </a>
                     </li>
 
                     <li class="{{ $route == 'registration.fee.view' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('registration.fee.view') }}"> Inscription  </a>
+                        <a type="submit" href="{{ route('registration.fee.view') }}"> Inscription </a>
                     </li>
 
                     <li class="{{ $route == 'schooling.fee.view' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('schooling.fee.view') }}"> Scolarité  </a>
+                        <a type="submit" href="{{ route('schooling.fee.view') }}"> Scolarité </a>
                     </li>
 
-                   
-                  
+
+
+                </ul>
+            </li>
+
+            <li class="menu">
+                <a href="#employee" data-toggle="collapse"
+                    data-active="{{ $prefix == '/employees' ? 'true' : 'false' }}" aria-expanded="false"
+                    class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-paperclip">
+                            <path
+                                d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48">
+                            </path>
+                        </svg>
+                        <span>Gest. Employés</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/employees' ? 'show' : '' }}" id="employee"
+                    data-parent="#accordionExample">
+
+                    <li class="{{ $route == 'employee.registration.view' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('employee.registration.view') }}"> Enregistrer Employer </a>
+                    </li>
+
+
+
                 </ul>
             </li>
 

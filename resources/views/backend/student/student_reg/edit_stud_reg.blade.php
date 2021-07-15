@@ -5,6 +5,12 @@
 
 </style>
 
+@php
+ $dob = date('Y-m-d', strtotime( $editData['student']['date_of_birth']) );
+
+ //dd($dob);
+@endphp
+
 @section('admin')
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-12">
@@ -109,7 +115,7 @@
                                 <label for="formGroupExampleInput">Année de naissance <span
                                         class="text-danger">*</span></label>
                                 <input type="date" name="date_of_birth" required class="form-control"
-                                    value=" {{ $editData['student']['date_of_birth'] }} ">
+                                value="{{ $dob }}">
 
                             </div>
                         </div>
@@ -165,7 +171,7 @@
                             <div class="form-group mb-4">
                                 <label for="text">Annnée</label>
                                 <select name="year_id" id="select" class="custom-select" required>
-                                    <option value="" selected="" disabled="">Selectionner Année</option>
+                                    <option value=" " selected="" disabled="">Selectionner Année</option>
                                     @foreach ($years as $year)
                                         <option value="{{ $year->id }}"
                                             {{ $editData->year_id == $year->id ? 'selected' : '' }}>{{ $year->name }}

@@ -132,7 +132,7 @@ class StudentRegistrationController extends Controller
             $schooling->class_id = $request->class_id;
             $schooling->branch_id = $request->branch_id;
             $schooling->group_id = $request->group_id;
-            $schooling->fee_category_id = 6;;
+            $schooling->fee_category_id = '6';
 
             $schooling->save();
 

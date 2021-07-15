@@ -109,7 +109,7 @@ class SchoolingController extends Controller
     }
 
 
-    public function SchoolingStore(Request $request, $student_id ){
+    public function SchoolingPayementStore(Request $request, $student_id ){
 
 
         $student =  AssignStudent::with(['student'])->where('student_id', $student_id)->first();
@@ -139,7 +139,11 @@ class SchoolingController extends Controller
         $data->save();
 
 
-        return redirect()-> route('schooling.fee.view');
+        $pdf = PDF::loadView('backend.student.schooling_fee.bill_schooling', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+
+        //return redirect()-> route('schooling.fee.view');
 
     }
 }
