@@ -23,6 +23,8 @@ use App\Http\Controllers\backend\student\SchoolingController;
 
 use App\Http\Controllers\backend\employee\EmployeeRegController;
 use App\Http\Controllers\backend\employee\EmployeeSalaryController;
+use App\Http\Controllers\backend\employee\EmployeeLeaveController;
+use App\Http\Controllers\backend\employee\EmployeeAttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -186,17 +188,17 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/exam/category/delete/{id}', [ExamTypeController::class, 'ExamTypeDelete']) -> name('exam.type.delete');
         
         //subject type
-        Route::get('/subject/type/view', [SchoolSubjectController::class, 'ViewSchoolType']) -> name('subject.type.view');
+        Route::get('/subject/type/view', [SchoolSubjectController::class, 'ViewSubjectType']) -> name('subject.type.view');
             
-        Route::get('/subject/type/add', [SchoolSubjectController::class, 'SchoolTypeAdd']) -> name('subject.type.add');
+        Route::get('/subject/type/add', [SchoolSubjectController::class, 'SubjectTypeAdd']) -> name('subject.type.add');
         
-        Route::post('/subject/category/store', [SchoolSubjectController::class, 'SchoolTypeStore']) -> name('subject.type.store');
+        Route::post('/subject/category/store', [SchoolSubjectController::class, 'SubjectTypeStore']) -> name('subject.type.store');
         
-        Route::get('/subject/category/edit/{id}', [SchoolSubjectController::class, 'SchoolTypeEdit']) -> name('subject.type.edit');
+        Route::get('/subject/category/edit/{id}', [SchoolSubjectController::class, 'SubjectTypeEdit']) -> name('subject.type.edit');
         
-        Route::post('/subject/category/update/{id} ', [SchoolSubjectController::class, 'SchoolTypeUpdate']) -> name('subject.type.update');
+        Route::post('/subject/category/update/{id} ', [SchoolSubjectController::class, 'SubjectTypeUpdate']) -> name('subject.type.update');
         
-        Route::get('/subject/category/delete/{id}', [SchoolSubjectController::class, 'SchoolTypeDelete']) -> name('subject.type.delete');
+        Route::get('/subject/category/delete/{id}', [SchoolSubjectController::class, 'SubjectTypeDelete']) -> name('subject.type.delete');
         
         //assign subject
         Route::get('/assign/subject/view', [AssignSubjectController::class, 'ViewAssignSubject']) -> name('assign.subject.view');
@@ -344,6 +346,45 @@ Route::group(['middleware' => 'auth'], function(){
 
         Route::get('/salary/detail/{id}', [EmployeeSalaryController::class, 'SalaryDetail']) -> 
         name('employee.salary.detail');
+
+
+        //employee leave view
+        Route::get('/employee/leave', [EmployeeLeaveController::class, 'ViewLeave']) -> 
+        name('employee.leave.view');
+
+        Route::get('/add/leave', [EmployeeLeaveController::class, 'LeaveAdd']) -> 
+        name('leave.add');
+
+        Route::post('/store', [EmployeeLeaveController::class, 'LeaveStore']) -> 
+        name('employee.leave.store');
+        
+        Route::get('/edit/{id}', [EmployeeLeaveController::class, 'LeaveEdit']) -> 
+        name('employee.leave.edit');
+
+        Route::post('/update/{id}', [EmployeeLeaveController::class, 'LeaveUpdate']) -> 
+        name('employee.leave.update');
+
+        Route::get('/leave/delete/{id}', [EmployeeLeaveController::class, 'LeaveDelete']) -> 
+        name('employee.leave.delete');
+
+
+        //employee attedance route
+        Route::get('/employee/attendance/view', [EmployeeAttendanceController::class, 'AtdceView']) -> 
+        name('employee.attendance.view');
+
+        Route::get('/employee/attendance/add', [EmployeeAttendanceController::class, 'AtdceAdd']) -> 
+        name('attendance.add');
+
+        Route::post('/employee/attendance/store', [EmployeeAttendanceController::class, 'AtdceStore']) -> 
+        name('attendance.store');
+
+        Route::get('/employee/attendance/edit/{date}', [EmployeeAttendanceController::class, 'AtdceEdit']) -> 
+        name('attendance.edit');
+
+        Route::get('/employee/attendance/detail/{date}', [EmployeeAttendanceController::class, 'AtdceDetail']) -> 
+        name('attendance.detail');
+
+        
 
       
     });

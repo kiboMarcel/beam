@@ -16,21 +16,14 @@
 @section('admin')
 <div class="row layout-top-spacing">
     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-        <div class="widget widget-chart-one">
-            <div class="widget-heading">
-                <h5 class="">Revenue</h5>
-                <ul class="tabs tab-pills">
-                    <li><a href="javascript:void(0);" id="tb_1" class="tabmenu">Monthly</a></li>
-                </ul>
+        <div class="d-flex">
+            <div class="n-chk">
+                <label class="new-control new-radio new-radio-text radio-primary">
+                  <input type="radio" class="new-control-input" name="custom-radio-4">
+                  <span class="new-control-indicator"></span><span class="new-radio-content">Primary</span>
+                </label>
             </div>
-
-            <div class="widget-content">
-                <div class="tabs tab-content">
-                    <div id="content_1" class="tabcontent">
-                        <div id="revenueMonthly"></div>
-                    </div>
-                </div>
-            </div>
+         
         </div>
     </div>
 

@@ -32,52 +32,76 @@
 
 </style>
 
+
+
+
 @section('admin')
     <div class="row layout-top-spacing layout-spacing">
-        @if (session()->has('message'))
-            <div class="alert alert-success mixin">
-                {{-- {{ session()->get('message') }} --}}
-            </div>
-            <button class="mr-2 btn btn-primary  mixin">Mixin</button>
-        @endif
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
 
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Matieres</h3>
-                            <a href=" {{ route('subject.type.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
+                            <h3>Employer quitter</h3>
+                            <a href=" {{ route('leave.add') }} " class="btn btn-outline-secondary mb-2">Ajouter </a>
                         </div>
 
 
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> N </th>
-                                    <th> examen</th>
+                                    <th> # </th>
+                                    <th> name</th>
+                                    <th> id no</th>
+                                    <th> raison</th>
+                                    <th> date debut</th>
+                                    <th> date fin</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($allData as $key => $feeCat)
+                                @foreach ($allData as $key => $leave)
                                     <tr class="tr_style">
                                         <td> {{ $key + 1 }} </td>
 
 
                                         <td>
-
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $feeCat->name }} </p>
+                                                <p class="align-self-center mb-0 "> {{ $leave['user']['name'] }} </p>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="d-flex">
+                                                <p class="align-self-center mb-0 "> {{ $leave['user']['id_no'] }} </p>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="d-flex">
+                                                <p class="align-self-center mb-0 "> {{ $leave['purpose']['name'] }} </p>
+                                            </div>
+                                        </td>
+
+
+                                        <td>
+                                            <div class="d-flex">
+                                                <p class="align-self-center mb-0 "> {{ $leave->start_date }} </p>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="d-flex">
+                                                <p class="align-self-center mb-0 "> {{ $leave->end_date }} </p>
                                             </div>
                                         </td>
 
 
 
-
                                         <td class="text-center">
-                                            <a href=" {{ route('subject.type.edit', $feeCat->id) }} " class="bs-tooltip"
-                                                data-toggle="tooltip" data-placement="top" title=""
+                                            <a href=" {{ route('employee.leave.edit', $leave->id) }} "
+                                                class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                                 data-original-title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -89,7 +113,7 @@
                                                 </svg>
                                             </a>
 
-                                            <a href=" {{ route('subject.type.delete', $feeCat->id) }} " id="delete"
+                                            <a href=" {{ route('employee.leave.delete', $leave->id) }} " id="delete"
                                                 class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                                 data-original-title="Delete">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

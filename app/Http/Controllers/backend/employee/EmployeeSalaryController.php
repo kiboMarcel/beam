@@ -6,14 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 
-use App\Models\AssignStudent;
 use App\Models\User;
-use App\Models\DiscountStudent;
-use App\Models\StudentBranch;
-use App\Models\StudentYear;
-use App\Models\StudentClass;
-use App\Models\StudentGroup;
-use App\Models\FeeCategoryAmount;
 use DB;
 use PDF;
 

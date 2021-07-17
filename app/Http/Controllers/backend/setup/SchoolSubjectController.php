@@ -10,21 +10,21 @@ use App\Models\SchoolSubject;
 class SchoolSubjectController extends Controller
 {
     //
-    public function ViewSchoolType(){
+    public function ViewSubjectType(){
         $data['allData'] =  SchoolSubject::all();
         return view('backend.setup.school_subject.view_subject_type', $data);
 
     }
 
 
-    public function SchoolTypeAdd(){
+    public function SubjectTypeAdd(){
         
         return view('backend.setup.school_subject.add_subject_type');
 
     }
 
 
-    public function SchoolTypeStore(Request $request){
+    public function SubjectTypeStore(Request $request){
         
         $validateData = $request->validate([
             'name' => 'required|unique:school_subjects,name',
@@ -35,13 +35,14 @@ class SchoolSubjectController extends Controller
         $data->name = $request->name;
         $data->save();
 
+        //$flash = 'ok';
 
-        return redirect()-> route('subject.type.view');
+        return redirect()-> route('subject.type.view')->with('message', 'IT WORKS!');
 
     }
 
 
-    public function  SchoolTypeEdit( $id){
+    public function  SubjectTypeEdit( $id){
 
         $editSubject =  SchoolSubject::find($id);
         
@@ -50,7 +51,7 @@ class SchoolSubjectController extends Controller
 
     }
 
-    public function SchoolTypeUpdate(Request $request, $id){
+    public function SubjectTypeUpdate(Request $request, $id){
 
         $subjectType =  SchoolSubject::find($id);
 
@@ -66,7 +67,7 @@ class SchoolSubjectController extends Controller
     }
 
 
-    public function  SchoolTypeDelete(Request $request, $id){
+    public function  SubjectTypeDelete(Request $request, $id){
 
         $subjectType =  SchoolSubject::find($id);
         

@@ -28,6 +28,7 @@
     <link href="{{ asset('backend/plugins/sweetalerts/sweetalert.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/assets/css/components/custom-sweetalert.css') }}" rel="stylesheet"
         type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/forms/theme-checkbox-radio.css') }}">
     <!-- END THEME GLOBAL STYLES -->
 
     <!--  BEGIN CUSTOM STYLE FILE USER ACCOUNT  -->
@@ -139,7 +140,7 @@
     </script>
 
 
-    <!--BEGIN SWEET ALERT CONFIRMATION SCRIPTS -->
+    <!--BEGIN SWEET ALERT DELETE CONFIRMATION SCRIPTS -->
     <script>
         $('.widget-content #delete').on('click', function(e) {
             e.preventDefault();
@@ -161,11 +162,32 @@
             })
         })
     </script>
-    <!-- END SWEET ALERT CONFIRMATION  SCRIPTS -->
+    <!-- END SWEET ALERT DELETE CONFIRMATION  SCRIPTS -->
+
+    <!--BEGIN SWEET ALERT SUCCESS SCRIPTS -->
+    <script>
+        $('.widget-content .mixin').on('load', function() {
+            const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                padding: '2em'
+            });
+
+            toast({
+                type: 'success',
+                title: 'Signed in successfully',
+                padding: '2em',
+            })
+
+        })
+    </script>
+    <!-- END SWEET ALERT SUCCESS  SCRIPTS -->
 
     <!-- BEGIN USER ACCOUNT SCRIPT -->
     <script src="{{ asset('backend/plugins/dropify/dropify.min.js') }}"></script>
-    <script src="{{ asset('plugins/blockui/jquery.blockUI.min.js') }}"></script>
+    <script src="{{ asset('backend/plugins/blockui/jquery.blockUI.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/users/account-settings.js') }}"></script>
     <!-- END  USER ACCOUNT SCRIPT -->
 
@@ -182,15 +204,15 @@
 
         function startTime() {
             var today = new Date();
-           //var m = today.toLocaleString('default', { month: 'long' });
+            //var m = today.toLocaleString('default', { month: 'long' });
             var h = today.getHours();
             var m = today.getMinutes();
             var s = today.getSeconds();
             // add a zero in front of numbers<10
             m = checkTime(m);
             s = checkTime(s);
-            
-            document.getElementById('time').innerHTML =" <h1> " + h + ":" + m + ":" + s + " </h1> ";
+
+            document.getElementById('time').innerHTML = " <h1> " + h + ":" + m + ":" + s + " </h1> ";
             t = setTimeout(function() {
                 startTime()
             }, 500);
