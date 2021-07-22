@@ -47,11 +47,19 @@ class StudentRegistrationController extends Controller
         /* $data['allData'] =  AssignStudent::with(['student'])->where('year_id', $request->year_id)->
         where('class_id', $request->class_id)->where('branch_id', $request->branch_id)->get(); */
 
-        $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
-        where('year_id', $request->year_id)->
-        where('class_id', $request->class_id)->
-        where('branch_id', $request->branch_id)->
-        leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
+        if($request->branch_id == null){
+            $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
+            where('year_id', $request->year_id)->
+            where('class_id', $request->class_id)->
+            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
+        }else{
+            $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
+            where('year_id', $request->year_id)->
+            where('class_id', $request->class_id)->
+            where('branch_id', $request->branch_id)->
+            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
+        }
+       
         //dd($data['allData']);
         return view('backend.student.student_reg.view_stud_reg', $data);
 

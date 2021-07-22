@@ -43,7 +43,7 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Employer quitter</h3>
+                            <h3>Liste de Permissions </h3>
                             <a href=" {{ route('leave.add') }} " class="btn btn-outline-secondary mb-2">Ajouter </a>
                         </div>
 

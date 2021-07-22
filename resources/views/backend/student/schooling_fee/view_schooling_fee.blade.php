@@ -62,7 +62,7 @@
                     <div class="head">
                               
                         <div class="row">
-                            <div class="col-lg-9 col-md-9 col-sm-9 ">
+                            <div class="col-lg-6 col-md-6 col-sm-6 ">
                                 <input id="searchText" type="text" name="searchText" class="form-control search-form-control " placeholder="Search...">
                         
                             </div>

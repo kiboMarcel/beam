@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\backend\UserController;
+use App\Http\Controllers\backend\DefaultController;
+
 use App\Http\Controllers\backend\ProfileController;
 use App\Http\Controllers\backend\setup\StudentClassController;
 use App\Http\Controllers\backend\setup\StudentYearController;
@@ -25,6 +26,8 @@ use App\Http\Controllers\backend\employee\EmployeeRegController;
 use App\Http\Controllers\backend\employee\EmployeeSalaryController;
 use App\Http\Controllers\backend\employee\EmployeeLeaveController;
 use App\Http\Controllers\backend\employee\EmployeeAttendanceController;
+
+use App\Http\Controllers\backend\marks\MarksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -385,9 +388,35 @@ Route::group(['middleware' => 'auth'], function(){
         name('attendance.detail');
 
         
+    });
+
+    Route::prefix('marks')->group( function() {
+        
+        Route::get('/entry/add', [MarksController::class, 'MarksAdd']) -> 
+        name('marks.entry.add');
+
+        Route::post('mark/store', [MarksController::class, 'MarksStore']) -> 
+        name('marks.store');
+
+        Route::get('mark/edit', [MarksController::class, 'MarksEdit']) -> 
+        name('marks.entry.edit');
+
+        Route::get('mark/edit/student', [MarksController::class, 'MarksStudentEdit']) -> 
+        name('students.edit.getstudents');
+
+        Route::post('mark/student/update', [MarksController::class, 'MarksStudentUpdate']) -> 
+        name('marks.update');
+
+        ///DEFAULT CLASS CONNTROLLERS START
+        Route::get('mark/getsubject', [DefaultController::class, 'MarksGetSubjects']) -> 
+        name('marks.getsubject');
+
+        Route::get('mark/getstudent', [DefaultController::class, 'GetSutudents']) -> 
+        name('students.get.students');
 
       
-    });
+        
+    } );
 
     
 });

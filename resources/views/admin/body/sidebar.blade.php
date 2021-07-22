@@ -209,13 +209,56 @@ $route = Route::current()->getName();
                     </li>
 
                     <li class="{{ $route == 'employee.leave.view' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('employee.leave.view') }}"> Employer parti </a>
+                        <a type="submit" href="{{ route('employee.leave.view') }}"> Permissions </a>
                     </li>
 
                     <li class="{{ $route == 'employee.attendance.view' ? 'active' : '' }}">
                         <a type="submit" href="{{ route('employee.attendance.view') }}"> Présence Employer </a>
                     </li>
 
+                  {{--   <li class="{{ $route == 'employee.month.salary.view' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('employee.attendance.view') }}">  </a>
+                    </li>
+ --}}
+
+
+                </ul>
+            </li>
+
+            <li class="menu">
+                <a href="#marks" data-toggle="collapse"
+                    data-active="{{ $prefix == '/marks' ? 'true' : 'false' }}" aria-expanded="false"
+                    class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-paperclip">
+                            <path
+                                d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48">
+                            </path>
+                        </svg>
+                        <span>Gest. Note</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/marks' ? 'show' : '' }}" id="marks"
+                    data-parent="#accordionExample">
+
+                    <li class="{{ $route == 'marks.entry.add' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('marks.entry.add') }}"> Ajouter Note </a>
+                    </li>
+
+                    <li class="{{ $route == 'marks.entry.edit' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('marks.entry.edit') }}"> Modifier Note </a>
+                    </li>
+
+                    
 
 
                 </ul>
