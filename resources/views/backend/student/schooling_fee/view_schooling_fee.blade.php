@@ -111,7 +111,6 @@
     <script type="text/javascript">
         $(document).on('click', '#search', function() {
             var searchText = $('#searchText').val();
-            //console.log(searchText)
             
               $.ajax({
                url: "{{ route('schooling.fee.get') }}",

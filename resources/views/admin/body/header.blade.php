@@ -51,7 +51,7 @@
                                 <div class="media">
                                     <div class="user-img">
                                         <img class="usr-img rounded-circle"
-                                            src==" {{asset('backend/assets/img/90x90.jpg') }}" alt="profile">
+                                            alt="profile">
                                     </div>
                                     <div class="media-body">
                                         <div class="">

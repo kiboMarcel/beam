@@ -25,6 +25,7 @@ class RegistrationFeeController extends Controller
 
         $data['classes'] =  StudentClass::orderBy('name', 'asc')->get();
         $data['branchs'] =  StudentBranch::all();
+        $data['groups'] =  StudentGroup::all();
         $data['years'] =  StudentYear::all();
 
         return view('backend.student.reg_fee.view_reg_fee', $data);

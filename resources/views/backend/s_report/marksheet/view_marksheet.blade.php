@@ -53,8 +53,8 @@
             <div class="statbox widget box box-shadow">
 
                 <div class="widget-content widget-content-area">
-                    <h3>Notes</h3>
-                    <form method="post" action=" {{ route('marks.store') }}  ">
+                    <h3>Releve de Note</h3>
+                    <form method="get" action="  " target="_blank">
                         @csrf
 
                         <div class="head">
@@ -94,17 +94,6 @@
                                     </select>
                                 </div>
 
-                                <div class="col-lg-3 col-md-3 col-sm-9 ">
-                                    <label for="text">Matiere</label>
-                                    <select name="assign_subject_id" id="assign_subject_id" class="custom-select">
-                                        <option selected="" disabled="">Selectionner Matiere</option>
-
-                                    </select>
-                                </div>
-
-
-                            </div> <br>
-                            <div class="row">
                                 <div class="col-lg-3 col-md-3 col-sm-3 ">
                                     <label for="text">Groupe</label>
                                     <select name="group_id" id="group_id" class="custom-select">
@@ -115,27 +104,17 @@
                                         @endforeach
 
                                     </select>
-
                                 </div>
 
+                            </div> <br>
+                            <div class="row">
+                               
 
-                                <div class="col-lg-3 col-md-3 col-sm-3 ">
-                                    <label for="text">Type D'examen</label>
-                                    <select name="exam_type_id" id="exam_type_id" class="custom-select">
-                                        <option " selected="" disabled="">Selectionner examen</option>
-                                                        @foreach ($exam_types as
-                                            $exam_type)
-                                        <option value="{{ $exam_type->id }}">
-                                            {{ $exam_type->name }}</option>
-                                        @endforeach
-
-                                    </select>
-                                </div>
 
                                 <div class="col-lg-3 col-md-3 col-sm-3 ">
                                     <label for="text">Trimsetre/Semestre</label>
                                     <select name="season_id" id="season_id" class="custom-select">
-                                        <option " selected="" disabled="">Selectionner examen</option>
+                                        <option " selected="" disabled="">Selectionner saison</option>
                                                         @foreach ($seasons as $season)
                                         <option value="{{ $season->id }}">
                                             {{ $season->name }}</option>
@@ -143,6 +122,11 @@
 
                                     </select>
                                 </div>
+
+                            {{--     <div class="col-lg-3 col-md-3 col-sm-3 ">
+                                    <label for="text">Numero matricule </label>
+                                    <input  type="text" id="id_no" name="id_no" class="form-control" >
+                                </div> --}}
 
 
                                 <div class="col-lg-3 col-md-3 col-sm-3 find">
@@ -158,10 +142,10 @@
                         <hr>
 
 
-                        {{-- mark entry table start --}}
+                        {{-- marksheet generate table start --}}
                         <div class="table-responsive mb-4">
 
-                            <div class="d-none" id="mark-entry">
+                            <div class="d-none" id="marksheet-generate">
 
                                 <table id="style-2" class="table style-2  table-hover">
                                     <thead>
@@ -175,7 +159,7 @@
                                         </tr>
                                     </thead>
 
-                                    <tbody id="mark-enrty-tr">
+                                    <tbody id="marksheet-generate-tr">
 
                                     </tbody>
                                 </table>
@@ -185,7 +169,7 @@
                             </div>
 
                         </div>
-                        {{-- mark entry table end --}}
+                        {{-- marksheet generate table end --}}
                     </form>
                 </div>
             </div>
@@ -196,6 +180,7 @@
     <script type="text/javascript">
         $(document).on('click', '#search', function() {
             //console.log('makima')
+           
             var year_id = $('#year_id').val();
             var class_id = $('#class_id').val();
             var branch_id = $('#branch_id').val();
@@ -203,22 +188,31 @@
             var assign_subject_id = $('#assign_subject_id').val();
             var exam_type_id = $('#exam_type_id').val();
             var season_id = $('#season_id').val();
+           /*  var id_no = $('#id_no').val(); */
             $.ajax({
-                url: "{{ route('students.get.students') }}", //default controller
+                url: "{{ route('marksheet.get.students') }}", //default controller
                 type: "GET",
                 data: {
                     'year_id': year_id,
                     'class_id': class_id,
                     'branch_id': branch_id,
                     'assign_subject_id': assign_subject_id,
-                    'exam_type_id': exam_type_id,
                     'group_id': group_id,
-                    'season_id': season_id
+                    'season_id': season_id,
+                   /*  'id_no': id_no */
                 },
                 success: function(data) {
-                    $('#mark-entry').removeClass('d-none');
+                    $('#marksheet-generate').removeClass('d-none');
                     var html = '';
                     $.each(data, function(key, v) {
+                        let student_id = v.student_id;
+                        let year_id = v.year_id;
+                        let class_id = v.class_id;
+                        let branch_id = v.branch_id;
+                        let group_id = v.group_id;
+                        let detail_url =   '{{ route('marksheet.student.get', ['','','','',''] )}}'+
+                        '/'+year_id+'/'+class_id+'/'+branch_id+'/'+group_id+'/'+student_id+' ';
+                        
                         html +=
                             '<tr class="tr_style">' +
 
@@ -232,17 +226,30 @@
                             '<td>' + v.student_class.name + '</td>' +
                             '<td>' + v.student_branch.name + '</td>' +
                             '<td>' + v.student_group.name + '</td>' +
-                            '<td><input type="text" class="form-control form-control-sm" name="marks[]"></td>' +
+                            '<td>  <a target="blank" href=" '+detail_url+' " '+
+                                'class="bs-tooltip" data-toggle="tooltip" '+
+                               ' data-placement="top" title="" data-original-title="Detail"> '+
+                               ' <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" '+
+                               ' viewBox="0 0 24 24" fill="none" color="#185ADB" '+
+                               ' stroke="currentColor" stroke-width="2" stroke-linecap="round" '+
+                               ' stroke-linejoin="round" class="feather feather-file-text"> '+
+                               ' <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"> </path> '+
+                               ' <polyline points="14 2 14 8 20 8"></polyline> '+
+                               ' <line x1="16" y1="13" x2="8" y2="13"></line> '+
+                               ' <line x1="16" y1="17" x2="8" y2="17"></line> '+
+                               ' <polyline points="10 9 9 9 8 9"></polyline> '+
+                               ' </svg> '+
+                               ' </a> </td>' +
                             '</tr>';
                     });
-                    html = $('#mark-enrty-tr').html(html);
+                    html = $('#marksheet-generate-tr').html(html);
                 }
             });
         });
     </script>
 
 
-    <script type="text/javascript">
+  {{--   <script type="text/javascript">
         $(function() {
             $(document).on('change', '#branch_id', function() {
                 var class_id = $('#class_id').val();
@@ -256,7 +263,7 @@
                         branch_id: branch_id
                     },
                     success: function(data) {
-                        var html = '<option disabled="" value="">Selectionner Matiere</option>';
+                        var html = '<option value="">Selectionner Matiere</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.id + '">' + v.school_subject
                                 .name + '</option>';
@@ -266,6 +273,6 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 
 @endsection

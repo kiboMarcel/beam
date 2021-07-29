@@ -26,4 +26,15 @@ class StudentMarks extends Model
     public function student_year(){
         return $this->belongsTo(StudentYear::class, 'year_id', 'id');
     }
+
+    public function assign_subject(){
+        return $this->belongsTo(AssignSubject::class, 'assign_subject_id', 'id');
+    }
+
+    public function exam_type(){
+        return $this->belongsTo(ExamType::class, 'exam_type_id', 'id');
+    }
+    public function season(){
+        return $this->belongsTo(SchoolSeason::class, 'season_id', 'id');
+    }
 }

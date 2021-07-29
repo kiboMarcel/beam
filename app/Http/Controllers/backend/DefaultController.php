@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\StudentMarks;
 use App\Models\AssignStudent;
 use App\Models\AssignSubject;
-use App\Models\DiscountStudent;
+use App\Models\AssignClasse;
 use App\Models\StudentBranch;
 use App\Models\StudentYear;
 use App\Models\StudentClass;
@@ -40,6 +40,48 @@ class DefaultController extends Controller
         $allData = AssignStudent::with(['student', 'student_class', 'student_branch', 'student_group'])
         ->where('year_id', $year_id)->where('class_id', $class_id)->where('group_id', $group_id)
         ->where('branch_id', $branch_id)->get();
+       
+        return response()->json($allData);
+    }
+
+
+    public function GetSutudentForMarksheet(Request $request){
+
+        $year_id = $request->year_id;
+        $class_id = $request->class_id;
+        $branch_id = $request->branch_id;
+        $group_id = $request->group_id;
+        $season_id = $request->season_id;
+
+        $allData = StudentMarks::with(['student', 'student_class', 'student_branch', 'student_group'])
+        ->where('year_id', $year_id)->where('class_id', $class_id)->where('group_id', $group_id)
+        ->where('branch_id', $branch_id)->where('season_id', $season_id)
+        ->groupBy('student_id')->get();
+       
+        return response()->json($allData);
+    }
+
+
+    public function GetClassBranch(Request $request){
+
+        $class_id = $request->class_id;
+       
+
+        $allData = AssignClasse::with(['student_class', 'student_branch', 'student_group'])
+        ->where('class_id', $class_id)->groupBy('branch_id')->get();
+       
+        return response()->json($allData);
+    }
+
+
+    public function GetClassGroup(Request $request){
+
+        $class_id = $request->class_id;
+        $branch_id = $request->branch_id;
+       
+
+        $allData = AssignClasse::with(['student_class', 'student_branch', 'student_group'])
+        ->where('class_id', $class_id)->where('branch_id', $branch_id)->get();
        
         return response()->json($allData);
     }

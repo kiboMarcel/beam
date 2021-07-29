@@ -54,7 +54,7 @@
 
                 <div class="widget-content widget-content-area">
                     <h3> Modifier Notes</h3>
-                    <form method="post" action=" {{ route('marks.update') }}  ">
+                    <form method="post" action="   ">
                         @csrf
 
                         <div class="head">
@@ -119,7 +119,7 @@
                                 </div>
 
 
-                                <div class="col-lg-3 col-md-3 col-sm-3 ">
+                             {{--    <div class="col-lg-3 col-md-3 col-sm-3 ">
                                     <label for="text">Type D'examen</label>
                                     <select name="exam_type_id" id="exam_type_id" class="custom-select">
                                         <option " selected="" disabled="">Selectionner examen</option>
@@ -131,7 +131,7 @@
 
                                     </select>
                                 </div>
-
+ --}}
 
                                 <div class="col-lg-3 col-md-3 col-sm-3 find">
 
@@ -169,7 +169,6 @@
                                 </table>
 
 
-                                <input type="submit" class="btn btn-outline-info search mb-2" value="Mettre à jour" id="">
                             </div>
 
                         </div>
@@ -205,6 +204,10 @@
                     $('#mark-entry').removeClass('d-none');
                     var html = '';
                     $.each(data, function(key, v) {
+                        let student_id = v.student_id;
+                        let assign_subject_id = v.assign_subject_id;
+                        let detail_url =   '{{ route('students.edit.detail', ['',''] )}}'+
+                        '/'+student_id+'/'+assign_subject_id+' ';
                         html +=
                             '<tr class="tr_style">' +
 
@@ -219,7 +222,20 @@
                             '<td>' + v.student_branch.name + '</td>' +
                             '<td>' + v.student_group.name + '</td>' +
                             
-                            '<td><input type="text" class="form-control form-control-sm" value="'+ v.marks +'" name="marks[]"></td>' +
+                            '<td> <a target="blank" href=" '+detail_url+' " '+
+                                'class="bs-tooltip" data-toggle="tooltip" '+
+                               ' data-placement="top" title="" data-original-title="Detail"> '+
+                               ' <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" '+
+                               ' viewBox="0 0 24 24" fill="none" color="#185ADB" '+
+                               ' stroke="currentColor" stroke-width="2" stroke-linecap="round" '+
+                               ' stroke-linejoin="round" class="feather feather-file-text"> '+
+                               ' <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"> </path> '+
+                               ' <polyline points="14 2 14 8 20 8"></polyline> '+
+                               ' <line x1="16" y1="13" x2="8" y2="13"></line> '+
+                               ' <line x1="16" y1="17" x2="8" y2="17"></line> '+
+                               ' <polyline points="10 9 9 9 8 9"></polyline> '+
+                               ' </svg> '+
+                               ' </a></td>' +
                             '</tr>';
 
                             console.log( v.marks)

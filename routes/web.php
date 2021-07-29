@@ -15,7 +15,9 @@ use App\Http\Controllers\backend\setup\FeeAmountController;
 use App\Http\Controllers\backend\setup\ExamTypeController;
 use App\Http\Controllers\backend\setup\SchoolSubjectController;
 use App\Http\Controllers\backend\setup\AssignSubjectController;
+use App\Http\Controllers\backend\setup\AssignClassController;
 use App\Http\Controllers\backend\setup\DesignationController;
+use App\Http\Controllers\backend\setup\SchoolSeasonController;
 use App\Http\Controllers\backend\setup\SliceController;
 
 use App\Http\Controllers\backend\student\StudentRegistrationController;
@@ -28,6 +30,10 @@ use App\Http\Controllers\backend\employee\EmployeeLeaveController;
 use App\Http\Controllers\backend\employee\EmployeeAttendanceController;
 
 use App\Http\Controllers\backend\marks\MarksController;
+
+use App\Http\Controllers\backend\account\AccountSalaryController;
+
+use App\Http\Controllers\backend\report\MarkSheetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -216,6 +222,19 @@ Route::group(['middleware' => 'auth'], function(){
         
         Route::get('/assign/subject/detail/{class_id}/{branch_id} ', [AssignSubjectController::class, 'AssignSubjectDetail']) -> name('assign.subject.detail');
         
+        //assign classes
+        Route::get('/assign/class/view', [AssignClassController::class, 'ViewAssignClass']) -> name('assign.class.view');
+            
+        Route::get('/assign/class/add', [AssignClassController::class, 'AssignClassAdd']) -> name('assign.class.add');
+        
+        Route::post('/assign/class/store', [AssignClassController::class, 'AssignClassStore']) -> name('assign.class.store');
+        
+        Route::get('/assign/class/edit/{class_id}/{branch_id}', [AssignClassController::class, 'AssignClassEdit']) -> name('assign.class.edit');
+        
+        Route::post('/assign/class/update/{class_id}/{branch_id} ', [AssignClassController::class, 'AssignClassUpdate']) -> name('assign.class.update');
+        
+        Route::get('/assign/class/detail/{class_id}/{branch_id} ', [AssignClassController::class, 'AssignClassDetail']) -> name('assign.class.detail');
+        
         //subject type
         Route::get('/designation/view', [DesignationController::class, 'ViewDesignation']) -> 
         name('designation.view');
@@ -234,6 +253,25 @@ Route::group(['middleware' => 'auth'], function(){
         
         Route::get('/designation/delete/{id}', [DesignationController::class, 'DesignationDelete']) -> 
         name('designation.delete');
+
+        //season type
+        Route::get('/season/view', [SchoolSeasonController::class, 'ViewSeason']) -> 
+        name('season.view');
+            
+        Route::get('/season/add', [SchoolSeasonController::class, 'SeasonAdd']) -> 
+        name('season.add');
+        
+        Route::post('/season/store', [SchoolSeasonController::class, 'SeasonStore']) -> 
+        name('season.store');
+        
+        Route::get('/season/edit/{id}', [SchoolSeasonController::class, 'SeasonEdit']) -> 
+        name('season.edit');
+        
+        Route::post('/season/update/{id} ', [SchoolSeasonController::class, 'SeasonUpdate']) -> 
+        name('season.update');
+        
+        Route::get('/season/delete/{id}', [SchoolSeasonController::class, 'SeasonDelete']) -> 
+        name('season.delete');
     
 
         /////slice route
@@ -278,16 +316,26 @@ Route::group(['middleware' => 'auth'], function(){
         
         Route::post('/reg/promote/{student_id} ', [StudentRegistrationController::class, 'StudentPromotion']) -> 
         name('student.promote');
+
+        Route::get('/reg/list/print/{year_id}/{class_id}/{branch_id?}/{group_id?} ', [StudentRegistrationController::class, 'StudentListPrint']) -> 
+        name('student.list.print');
         
         Route::get('/reg/promote/{student_id} ', [StudentRegistrationController::class, 'StudentDetail']) -> 
         name('student.detail.pdf');
    
 
+        ///DEFAULT CLASS CONNTROLLERS START
+        Route::get('student/class/branch', [DefaultController::class, 'GetClassBranch']) -> 
+        name('student.getclass.branch');
+
+        Route::get('student/class/group', [DefaultController::class, 'GetClassGroup']) -> 
+        name('student.getclass.group');
+
         //roll generate
         //-------------
         //route
 
-        //inscription
+        //frai inscription 
         Route::get('/reg/fee/view', [RegistrationFeeController::class, 'ViewRegistrationFee']) -> 
         name('registration.fee.view');
         
@@ -404,7 +452,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('mark/edit/student', [MarksController::class, 'MarksStudentEdit']) -> 
         name('students.edit.getstudents');
 
-        Route::post('mark/student/update', [MarksController::class, 'MarksStudentUpdate']) -> 
+        Route::get('mark/edit/student/detail/{student_id}/{assign_subject_id}', [MarksController::class, 'MarksStudentDetail']) -> 
+        name('students.edit.detail');
+
+        Route::post('mark/student/update/{student_id}/{assign_subject_id}', [MarksController::class, 'MarksStudentUpdate']) -> 
         name('marks.update');
 
         ///DEFAULT CLASS CONNTROLLERS START
@@ -415,6 +466,43 @@ Route::group(['middleware' => 'auth'], function(){
         name('students.get.students');
 
       
+        
+    } );
+
+    Route::prefix('accountSalary')->group( function() {
+        
+        //Employeer salary
+        Route::get('/account/salary/view', [AccountSalaryController::class, 'ViewSalary']) -> 
+        name('account.salary.view');
+
+        Route::get('/account/salary/add', [AccountSalaryController::class, 'SalaryAdd']) -> 
+        name('account.salary.add');
+
+        Route::post('/account/salary/store', [AccountSalaryController::class, 'SalaryStore']) -> 
+        name('account.salary.store');
+
+   
+        
+    } );
+
+    Route::prefix('reportManagement')->group( function() {
+        
+        //marksheet generate
+        
+        Route::get('/marksheet/view', [MarkSheetController::class, 'MarkSheetView']) -> 
+        name('marksheet.generate.view');
+
+        
+
+        Route::get('/marksheet/student/{year_id}/{class_id}/{group_id}/{branch_id}/{student_id}', [MarkSheetController::class, 'MarkSheetGet']) -> 
+        name('marksheet.student.get');
+
+
+        ///DEFAULT CLASS CONNTROLLERS START
+        Route::get('marksheet/getstudent', [DefaultController::class, 'GetSutudentForMarksheet']) -> 
+        name('marksheet.get.students');
+
+   
         
     } );
 

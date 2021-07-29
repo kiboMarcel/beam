@@ -40,7 +40,7 @@ class AssignSubjectController extends Controller
                 $assign_subject->subject_id = $request->subject_id[$i];
                 $assign_subject->full_mark = $request->full_mark[$i];
                 $assign_subject->pass_mark = $request->pass_mark[$i];
-                $assign_subject->subjective_mark = $request->subjective_mark[$i];
+                $assign_subject->coef = $request->subjective_mark[$i];
 
                 $assign_subject->save();
             }
@@ -84,7 +84,7 @@ class AssignSubjectController extends Controller
                     $assign_subject->subject_id = $request->subject_id[$i];
                     $assign_subject->full_mark = $request->full_mark[$i];
                     $assign_subject->pass_mark = $request->pass_mark[$i];
-                    $assign_subject->subjective_mark = $request->subjective_mark[$i];
+                    $assign_subject->coef = $request->subjective_mark[$i];
     
                     $assign_subject->save();
                 }

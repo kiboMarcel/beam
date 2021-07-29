@@ -24,6 +24,9 @@ class StudentRegistrationController extends Controller
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['years'] =  StudentYear::all();
+        $data['count'] = 0;
+
+
 
         $data['year_id'] =  StudentYear::orderBy('id', 'asc')->first()->id;
         $data['class_id'] =  StudentClass::orderBy('id', 'desc')->first()->id;
@@ -43,6 +46,8 @@ class StudentRegistrationController extends Controller
         $data['year_id'] =  $request->year_id;
         $data['class_id'] =   $request->class_id;
         $data['branch_id'] =   $request->branch_id;
+        $data['group_id'] =   $request->group_id;
+        $count = 0;
 
         /* $data['allData'] =  AssignStudent::with(['student'])->where('year_id', $request->year_id)->
         where('class_id', $request->class_id)->where('branch_id', $request->branch_id)->get(); */
@@ -52,14 +57,27 @@ class StudentRegistrationController extends Controller
             where('year_id', $request->year_id)->
             where('class_id', $request->class_id)->
             leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
-        }else{
+            $count = count($data['allData']);
+        }elseif($request->group_id == null){
             $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
             where('year_id', $request->year_id)->
             where('class_id', $request->class_id)->
             where('branch_id', $request->branch_id)->
             leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
+            $count = count($data['allData']);
+
+        }else{
+            $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
+            where('year_id', $request->year_id)->
+            where('class_id', $request->class_id)->
+            where('branch_id', $request->branch_id)->
+            where('group_id', $request->group_id)->
+            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
+
+            $count = count($data['allData']);
+            
         }
-       
+        $data['count'] = $count;
         //dd($data['allData']);
         return view('backend.student.student_reg.view_stud_reg', $data);
 
@@ -265,6 +283,56 @@ class StudentRegistrationController extends Controller
     }
 
 
+    public function StudentListPrint(Request $request ,$year_id, $class_id ,$branch_id, $group_id){
+        
+        
+        $data['year_id'] =  $year_id;
+        $data['class_id'] =   $class_id;
+        $data['branch_id'] =   $branch_id;
+        $data['group_id'] =   $group_id;
+       
+        if($group_id == null){
+            dd('group is null');
+            $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
+            where('year_isd', $year_id)->
+            where('class_id', $class_id)->
+            where('branch_id', $branch_id)->
+            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get(); 
+            
+       
+        }else{
+            $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
+            where('year_id', $year_id)->
+            where('class_id', $class_id)->
+            where('branch_id', $branch_id)->
+            where('group_id', $group_id)->
+            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get(); 
+       
+        }
+            
+
+        
+
+        $pdf = PDF::loadView('backend.student.student_reg.class_print', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+
+
+        //Landscape mode
+       /*  $pdf = PDF::loadView('backend.student.student_reg.landscape', 
+        $data, 
+        [], 
+        [ 
+          'title' => 'Certificate', 
+          'format' => 'A4-L',
+          'orientation' => 'L'
+        ]);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf'); */
+       // return view('backend.student.student_reg.student_details_pdf');
+    }
+
+
     public function StudentDetail(Request $request, $student_id){
 
         $data['details'] =  AssignStudent::with(['student'])->
@@ -275,6 +343,16 @@ class StudentRegistrationController extends Controller
         $pdf->SetProtection(['copy', 'print'], '', 'pass');
         return $pdf->stream('document.pdf');
 
+
+        //Landscape mode
+        /* $pdf = PDF::loadView('certificates.show', 
+        $data, 
+        [], 
+        [ 
+          'title' => 'Certificate', 
+          'format' => 'A4-L',
+          'orientation' => 'L'
+        ]); */
        // return view('backend.student.student_reg.student_details_pdf');
     }
 

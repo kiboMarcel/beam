@@ -1,8 +1,5 @@
 @extends('admin.admin_master')
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src=" {{ asset('js/jquery-3.6.0.js') }}"></script>
-
 <style>
     .tr_style {
         background-color: #0e1726 !important;
@@ -36,101 +33,14 @@
         margin-top: 17px !important;
     }
 
-    .find {
+    .find{
         margin-top: 25px;
     }
 
 </style>
 
 @section('admin')
-    {{-- search box start --}}
-    <div class="statbox widget box box-shadow">
-        <div class="widget-header">
-            <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4>Chercher</h4>
-                </div>
-            </div>
-        </div>
-        <div class="widget-content widget-content-area text-center tags-content">
-            <form method="GET" action="{{ route('student.year.class.wise') }} ">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 ">
-                        <label for="text">Annnée</label>
-                        <select name="year_id" class="custom-select" required>
-                            <option value="" selected="" disabled="">Selectionner Année</option>
-                            @foreach ($years as $year)
-                                <option value="{{ $year->id }}" {{ @$year_id == $year->id ? 'selected' : '' }}>
-                                    {{ $year->name }}</option>
-                            @endforeach
-
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 ">
-                        <label for="text">Classe</label>
-                        <select id="class_id" name="class_id" class="custom-select" required>
-                            <option value="" selected="" disabled="">Selectionner classe</option>
-                            @foreach ($classes as $class)
-                                <option value="{{ $class->id }}" {{ @$class_id == $class->id ? 'selected' : '' }}>
-                                    {{ $class->name }}</option>
-                            @endforeach
-
-                        </select>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-4 ">
-                        <label for="text">Serie</label>
-                        <select name="branch_id" id="branch_id" class="custom-select">
-                            <option value="" selected="" disabled="">Selectionner Serie</option>
-                            @if (@$branch_id != null)
-                                @foreach ($branchs as $branch)
-                                    <option value="{{ $branch->id }}"
-                                        {{ @$branch_id == $branch->id ? 'selected' : '' }}>
-                                        {{ $branch->name }}</option>
-                                @endforeach
-                            @endif
-                            {{-- @foreach ($branchs as $branch)
-                                <option value="{{ $branch->id }}" {{ @$branch_id == $branch->id ? 'selected' : '' }}>
-                                    {{ $branch->name }}</option>
-                            @endforeach --}}
-
-                        </select>
-                    </div>
-
-
-                </div>
-                <br>
-                <div class="row">
-
-                    <div class="col-lg-6 col-md-6 col-sm-6 ">
-                        <label for="text">Groupe</label>
-                        <select name="group_id" id="group_id" class="custom-select">
-                            <option value="" selected="" disabled="">Selectionner groupe</option>
-                            @if (@$group_id != null)
-                                @foreach ($groups as $group)
-                                    <option value="{{ $group->id }}"
-                                        {{ @$group_id == $group->id ? 'selected' : '' }}>
-                                        {{ $group->name }}</option>
-                                @endforeach
-                            @endif
-                            {{-- @foreach ($groups as $group)
-                                <option value="{{ $group->id }}" {{ @$group_id == $group->id ? 'selected' : '' }}>
-                                    {{ $group->name }}</option>
-                            @endforeach --}}
-
-                        </select>
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-9 find ">
-
-                        <input type="submit" name="search" value="Chercher" class="btn btn-outline-info mb-2">
-                        
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    {{-- search box end --}}
+    
 
 
     <div class="row layout-top-spacing layout-spacing">
@@ -140,19 +50,9 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Liste des Eleves</h3>
-                            @if ($count != 0)
-                                <h2 class="badge outline-badge-info">{{ $count }} Eleves</h2>
-
-                                <a href=" {{ route('student.list.print',[ $year_id ,$class_id, $branch_id, $group_id] ) }} "
-                                class="btn btn-outline-secondary mb-2" target="blank">Imprimer</a>
-                            @endif
-                           
-                           
-
-                            <a href=" {{ route('student.registration.add') }} "
+                            <h3>Salaire Employee</h3>
+                            <a href=" {{ route('account.salary.add') }} "
                                 class="btn btn-outline-secondary mb-2">Ajouter</a>
-
                         </div>
 
                         @if (!@search)
@@ -161,13 +61,10 @@
                                     <tr class="thead_tr">
                                         <th> # </th>
                                         <th> Nom</th>
-                                        <th> Num mat</th>
-                                        <th> Classe</th>
-                                        <th> Filiere</th>
-                                        <th> Année</th>
-                                        @if (Auth::User()->role = 'Admin')
-                                            <th> code</th>
-                                        @endif
+                                        <th> id_no</th>
+                                        <th>Montant</th>
+                                        <th> Date</th>
+                                     
                                         <th class="text-center" colspan="3">Actions</th>
                                     </tr>
                                 </thead>
@@ -179,14 +76,14 @@
 
                                             <td>
                                                 <div class="d-flex">
-                                                    <p class="align-self-center mb-0 "> {{ $value['student']['name'] }}
+                                                    <p class="align-self-center mb-0 "> {{ $value['employee']['name'] }}
                                                     </p>
                                                 </div>
                                             </td>
 
                                             <td>
                                                 <div class="d-flex">
-                                                    <p class="align-self-center mb-0 "> {{ $value['student']['id_no'] }}
+                                                    <p class="align-self-center mb-0 "> {{ $value['employee']['id_no'] }}
                                                     </p>
                                                 </div>
                                             </td>
@@ -194,30 +91,17 @@
                                             <td>
                                                 <div class="d-flex">
                                                     <p class="align-self-center mb-0 ">
-                                                        {{ $value['student_class']['name'] }} </p>
+                                                        {{ $value->amount }} </p>
                                                 </div>
                                             </td>
 
                                             <td>
                                                 <div class="d-flex">
                                                     <p class="align-self-center mb-0 ">
-                                                        {{ $value['student_branch']['name'] }} </p>
+                                                        {{ $value->date  }} </p>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <p class="align-self-center mb-0 ">
-                                                        {{ $value['student_year']['name'] }} </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <p class="align-self-center mb-0 "> {{ $value['student']['code'] }}
-                                                    </p>
-                                                </div>
-                                            </td>
-
-
+                                          
 
 
 
@@ -397,59 +281,4 @@
         </div>
 
     </div>
-
-
-
-
-    <script type="text/javascript">
-        $(function() {
-            $(document).on('change', '#class_id', function() {
-                var class_id = $('#class_id').val();
-
-                $.ajax({
-                    url: "{{ route('student.getclass.branch') }}",
-                    type: "GET",
-                    data: {
-                        class_id: class_id,
-                    },
-                    success: function(data) {
-                        var html = '<option value="">Selectionner Serie</option>';
-                        $.each(data, function(key, v) {
-                            html += '<option value="' + v.branch_id + '"  >' + v
-                                .student_branch
-                                .name + '</option>';
-                        });
-                        $('#branch_id').html(html);
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(function() {
-            $(document).on('change', '#branch_id', function() {
-                var class_id = $('#class_id').val();
-                var branch_id = $('#branch_id').val();
-
-                $.ajax({
-                    url: "{{ route('student.getclass.group') }}",
-                    type: "GET",
-                    data: {
-                        class_id: class_id,
-                        branch_id: branch_id,
-                    },
-                    success: function(data) {
-                        var html = '<option value="">Selectionner groupe</option>';
-                        $.each(data, function(key, v) {
-                            html += '<option value="' + v.group_id + '">' + v
-                                .student_group
-                                .name + '</option>';
-                        });
-                        $('#group_id').html(html);
-                    }
-                });
-            });
-        });
-    </script>
 @endsection
