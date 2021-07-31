@@ -37,7 +37,7 @@ class StudentClassController extends Controller
         $data->save();
 
 
-        return redirect()-> route('student.class.view');
+        return redirect()-> route('student.class.view')->with('success', '');
 
     }
 
@@ -58,7 +58,7 @@ class StudentClassController extends Controller
         $class -> name = $request->name;
         $class -> save();
 
-        return redirect()-> route('student.class.view');
+        return redirect()-> route('student.class.view')->with('successUpdate', '');
 
     }
 

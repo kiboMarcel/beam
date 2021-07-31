@@ -2,7 +2,11 @@
 
 
 <style>
-    
+    .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
+
 </style>
 
 @section('admin')
@@ -16,8 +20,10 @@
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
-                                <label for="formGroupExampleInput">Nom d'utilisateur <span class="text-danger">*</span></label>
-                                <input type="text" name="name" class="form-control" id="formGroupExampleInput" required placeholder="nom">
+                                <label for="formGroupExampleInput">Nom d'utilisateur <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" name="name" class="form-control" id="formGroupExampleInput" required
+                                    placeholder="nom">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -28,7 +34,7 @@
                                     <option value="Admin">Admin</option>
                                     <option value="Operateur">Operateur</option>
                                     <option value="User">Utilisateur</option>
-                                  </select>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -36,14 +42,16 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group mb-4">
                                 <label for="formGroupExampleInput2">Email <span class="text-danger">*</span></label>
-                                <input type="text" name="email" class="form-control" id="formGroupExampleInput2" placeholder="email">
+                                <input type="text" name="email" class="form-control" id="formGroupExampleInput2"
+                                    placeholder="email">
                             </div>
                         </div>
-                     
+
                     </div>
 
-                  
-                   <button class="btn btn-primary" type="submit">Ajouter</button>
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Ajouter</button>
+                    </div>
                 </form>
             </div>
         </div>

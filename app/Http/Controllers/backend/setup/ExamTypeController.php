@@ -36,7 +36,7 @@ class ExamTypeController extends Controller
         $data->save();
 
 
-        return redirect()-> route('exam.type.view');
+        return redirect()-> route('exam.type.view')->with('success', '');
 
     }
 
@@ -61,7 +61,7 @@ class ExamTypeController extends Controller
         $examType -> name = $request->name;
         $examType -> save();
 
-        return redirect()-> route('exam.type.view');
+        return redirect()-> route('exam.type.view')->with('successUpdate', '');
 
     }
 

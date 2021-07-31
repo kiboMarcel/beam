@@ -35,7 +35,7 @@ class SchoolSeasonController extends Controller
         $data->save();
 
 
-        return redirect()-> route('season.view');
+        return redirect()-> route('season.view')->with('success', '');
 
     }
 
@@ -60,7 +60,7 @@ class SchoolSeasonController extends Controller
         $season -> name = $request->name;
         $season -> save();
 
-        return redirect()-> route('season.view');
+        return redirect()-> route('season.view')->with('successUpdate', '');
 
     }
 

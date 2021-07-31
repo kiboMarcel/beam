@@ -39,9 +39,11 @@ class SchoolingController extends Controller
         /* if ($search !='') {
             $where[] = ['year_id','like',$year_id.'%'];
         } */
-        
+        $findYear = StudentYear::where('active', 1)->first();
+        $findYear->id;
+
         $student =  AssignStudent::select('assign_students.*')->with(['student'])->
-        where('users.usertype', 'Student')->
+        where('users.usertype', 'Student')->where('assign_students.year_id', $findYear->id)->
         where('users.name',  'like', '%' . $request->searchText . '%' )->
         leftjoin('users', 'assign_students.student_id', '=', 'users.id')->get();
          //dd($student);
@@ -87,7 +89,7 @@ class SchoolingController extends Controller
                 title="Pay" target="_blanks" >En regle</a>';
             }else{
                 $html[$key]['tdsource'] .='<a class="btn btn-sm btn-'.$color2nd.'" 
-            title="Pay" target="_blanks" href="'.route("student.schooling.pay",$v->student_id).'?student_id='.$v->student_id.'">Payer</a>';
+            title="Pay" target="_blanks" href="'.route("student.schooling.pay",[$v->student_id, ]).'?student_id='.$v->student_id.'">Payer</a>';
             }
             
             $html[$key]['tdsource'] .= '</td>';
@@ -112,38 +114,53 @@ class SchoolingController extends Controller
     public function SchoolingPayementStore(Request $request, $student_id ){
 
 
-        $student =  AssignStudent::with(['student'])->where('student_id', $student_id)->first();
-        $student_id = $student->student_id;
+        $student =  AssignStudent::with(['student'])->where('student_id', $student_id)
+        ->first();
+
         $class_id = $student->class_id;
         $branch_id = $student->branch_id;
         
-        /* $group_id = $student->group_id; */
+        
+
+        $schoolingfee = FeeCategoryAmount::where('fee_category_id','6')
+        ->where('class_id',$student->class_id)->first();
+        
+        //$schoolingfee->amount
+        
 
         $validateData = $request->validate([
             'schooling_fee' => 'required',
         ]);
         
-        $get_paid_fee = Schooling::where('student_id', $student_id)->first();
+        $get_paid_fee = Schooling::where('student_id', $student_id)
+        ->where('class_id', $class_id)->first();
 
         $new_fee = $get_paid_fee->payed + $request->schooling_fee;
 
-        //dd($get_paid_fee->payed);
-        
-        $data =  Schooling::where('student_id', $student_id)->first();
 
-        $data->payed = $new_fee;
+        if($request->schooling_fee > $schoolingfee->amount || $new_fee > $schoolingfee->amount){
+            dd('montan plus gran que la scol');
+        }else{
+            //dd( $get_paid_fee->payed);
+            
+            $get_paid_fee->payed = $new_fee;
+
+            $get_paid_fee->save();
+
+            /* return redirect()-> route('schooling.fee.view')->with('success', ''); */
+
+            $pdf = PDF::loadView('backend.student.schooling_fee.bill_schooling', $data);
+            $pdf->SetProtection(['copy', 'print'], '', 'pass');
+            return $pdf->stream('document.pdf');
+        }
        
         /* $data->payed = $request->group_id; */
-       
 
-        $data->save();
-
-
-        $pdf = PDF::loadView('backend.student.schooling_fee.bill_schooling', $data);
+       /*  $pdf = PDF::loadView('backend.student.schooling_fee.bill_schooling', $data);
         $pdf->SetProtection(['copy', 'print'], '', 'pass');
         return $pdf->stream('document.pdf');
-
-        //return redirect()-> route('schooling.fee.view');
+ */
+        
 
     }
 }

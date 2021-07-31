@@ -1,9 +1,10 @@
 @extends('admin.admin_master')
 
 <style>
-    .tr_style{
+    .tr_style {
         background-color: #0e1726 !important;
     }
+
     .table {
         background-color: rebeccapurple !important;
     }
@@ -18,16 +19,17 @@
         align-items: center;
         justify-content: space-between;
     }
-    
+
 
     .btn {
         float: right;
         margin-top: 5px;
     }
 
-    .text-center a{
+    .text-center a {
         margin: 0 9px;
     }
+
 </style>
 
 @section('admin')
@@ -39,9 +41,17 @@
                     <div class="table-responsive mb-4">
                         <div class="head">
                             <h3>Liste des Années</h3>
-                            <a href=" {{route('student.year.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
+                            <a href=" {{ route('student.year.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
                         </div>
-
+                        
+                        {{-- GET STATUS FOR SWEET ALERT  START--}}
+                        @php
+                        $getstatus =  \Session::has('success'); 
+                        $getUpdateStatus =  \Session::has('successUpdate'); 
+                        $getActiveStatus =  \Session::has('successActive'); 
+                        
+                        @endphp
+                        {{-- GET STATUS FOR SWEET ALERT  END--}}
 
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
@@ -60,7 +70,8 @@
                                         <td>
 
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $year->name }} </p>
+                                                <p class="align-self-center mb-0 "> {{ $year->name }}
+                                                    {{ $year->active == 1 ? '(Ative)' : '' }} </p>
                                             </div>
                                         </td>
 
@@ -68,8 +79,24 @@
 
 
                                         <td class="text-center">
-                                            <a href=" {{ route('student.year.edit', $year->id) }} " class="bs-tooltip" data-toggle="tooltip"
-                                                data-placement="top" title="" data-original-title="Edit">
+
+                                            <a href=" {{ route('student.year.active', $year->id) }} " class="bs-tooltip 
+                                                {{ $year->active == 1 ? 'd-none' : '' }}"
+                                                data-toggle="tooltip" data-placement="top" title=""
+                                                data-original-title="Activé">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-check-square">
+                                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11">
+                                                    </path>
+                                                </svg>
+                                            </a>
+
+                                            <a href=" {{ route('student.year.edit', $year->id) }} " class="bs-tooltip"
+                                                data-toggle="tooltip" data-placement="top" title=""
+                                                data-original-title="Modifier">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                     stroke-linecap="round" stroke-linejoin="round"
@@ -78,13 +105,14 @@
                                                     <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z">
                                                     </path>
                                                 </svg>
-                                            </a>
+                                            </a>  
 
-                                            <a href=" {{ route('student.year.delete',$year->id) }} " id="delete" class="bs-tooltip" data-toggle="tooltip"
-                                                data-placement="top" title="" data-original-title="Delete">
+                                            <a href=" {{ route('student.year.delete', $year->id) }} " id="delete"
+                                                class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
+                                                data-original-title="Delete">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" color="red" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                    viewBox="0 0 24 24" fill="none" color="red" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                     class="feather feather-trash">
                                                     <polyline points="3 6 5 6 21 6"></polyline>
                                                     <path
@@ -97,7 +125,7 @@
                                     </tr>
                                 @endforeach
 
-                            
+
                             </tbody>
                         </table>
                     </div>
@@ -106,4 +134,59 @@
         </div>
 
     </div>
+
+     {{-- SWEET ALERT SCRIPT --}}
+    <script> 
+        window.addEventListener('load', function() {
+            var isCreate = <?php echo json_encode($getstatus); ?>;
+            var isUpdate = <?php echo json_encode($getUpdateStatus); ?>;
+            var isActivate = <?php echo json_encode($getActiveStatus); ?>;
+
+            if (isCreate) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Creer avec Success',
+                    padding: '2em',
+                })
+            } if (isUpdate) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Modifier avec Success',
+                    padding: '2em',
+                })
+            } if (isActivate) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Activé',
+                    padding: '2em',
+                })
+            }
+
+
+        });
+    </script>
 @endsection

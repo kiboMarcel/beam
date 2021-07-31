@@ -2,12 +2,15 @@
 
 
 <style>
-    
+     .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('admin')
     <div class="row layout-top-spacing layout-spacing">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="statbox widget box box-shadow">
                 <h3>Ajouter Matiere</h3>
                 <hr>
@@ -26,9 +29,11 @@
                         </div>
                     </div>
                   
-                      
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    </div>   
                      
-                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    
 
                     </div>
             

@@ -12,10 +12,14 @@
     }
 
 
-    .n-chk{
-        margin: auto ;
+    .n-chk {
+        margin: auto;
     }
 
+    .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 
 </style>
 
@@ -59,69 +63,74 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($employees as $key=> $employee)
-                                    <tr id="div{{$employee->id}} ">
-                                        <input type="hidden" name="employee_id[]" value=" {{$employee->id}} ">
-                                        <td class="text-center">  {{ $key+1 }} </td>
+                                    @foreach ($employees as $key => $employee)
+                                        <tr id="div{{ $employee->id }} ">
+                                            <input type="hidden" name="employee_id[]" value=" {{ $employee->id }} ">
+                                            <td class="text-center"> {{ $key + 1 }} </td>
 
-                                        <td class="text-center">
-                                            <div >
-                                                <p class="align-self-center  mb-0 "> {{$employee->name }}</p>
-                                            </div>
-                                        </td>
+                                            <td class="text-center">
+                                                <div>
+                                                    <p class="align-self-center  mb-0 "> {{ $employee->name }}</p>
+                                                </div>
+                                            </td>
 
-                                        <td colspan="3">
-                                            <div class="d-flex">
-                                                <div class="n-chk">
-                                                    <label class="new-control new-radio new-radio-text radio-success" >
-                                                      <input type="radio"  class="new-control-input" name="attend_status{{$key}}"
-                                                      id="present{{$key}}" value="present" checked>
-                                                      <span class="new-control-indicator"></span><span class="new-radio-content">Present</span>
-                                                    </label>
+                                            <td colspan="3">
+                                                <div class="d-flex">
+                                                    <div class="n-chk">
+                                                        <label class="new-control new-radio new-radio-text radio-success">
+                                                            <input type="radio" class="new-control-input"
+                                                                name="attend_status{{ $key }}"
+                                                                id="present{{ $key }}" value="present" checked>
+                                                            <span class="new-control-indicator"></span><span
+                                                                class="new-radio-content">Present</span>
+                                                        </label>
 
-                                                  {{--   <label class="new-control new-radio new-radio-text radio-warning"  >
+                                                        {{-- <label class="new-control new-radio new-radio-text radio-warning"  >
                                                         <input type="radio"  class="new-control-input" name="attend_status{{$key}}"
                                                         id="retard{{$key}}" value="retard">
                                                         <span class="new-control-indicator"></span><span class="new-radio-content">Retard</span>
                                                     </label> --}}
-                                                 
-                                                </div>
-                                                <div class="n-chk">
-                                                    <label class="new-control new-radio new-radio-text radio-warning"  >
-                                                      <input type="radio"  class="new-control-input" name="attend_status{{$key}}"
-                                                      id="retard{{$key}}" value="retard">
-                                                      <span class="new-control-indicator"></span><span class="new-radio-content">Retard</span>
-                                                    </label>
+
+                                                    </div>
+                                                    <div class="n-chk">
+                                                        <label class="new-control new-radio new-radio-text radio-warning">
+                                                            <input type="radio" class="new-control-input"
+                                                                name="attend_status{{ $key }}"
+                                                                id="retard{{ $key }}" value="retard">
+                                                            <span class="new-control-indicator"></span><span
+                                                                class="new-radio-content">Retard</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="n-chk">
+                                                        <label class="new-control new-radio new-radio-text radio-danger">
+                                                            <input type="radio" class="new-control-input"
+                                                                name="attend_status{{ $key }}"
+                                                                id="absent{{ $key }}" value="absent">
+                                                            <span class="new-control-indicator"></span><span
+                                                                class="new-radio-content">Absent</span>
+                                                        </label>
+                                                    </div>
+
                                                 </div>
 
-                                                <div class="n-chk">
-                                                    <label class="new-control new-radio new-radio-text radio-danger"  >
-                                                      <input type="radio"  class="new-control-input" name="attend_status{{$key}}"
-                                                      id="absent{{$key}}" value="absent">
-                                                      <span class="new-control-indicator"></span><span class="new-radio-content">Absent</span>
-                                                    </label>
-                                                </div>
-                                             
-                                            </div>
-                                          
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     @endforeach
-                                    
+
                                 </tbody>
 
                             </table>
                         </div>
                     </div>
 
-
-
-                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    </div>
 
             </div>
 
             </form>
         </div>
-    </div>
     </div>
 @endsection

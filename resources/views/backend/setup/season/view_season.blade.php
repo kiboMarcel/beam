@@ -42,6 +42,14 @@
                             <a href=" {{route('season.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
                         </div>
 
+                           {{-- GET STATUS FOR SWEET ALERT  START--}}
+                       @php
+                       $getstatus =  \Session::has('success'); 
+                       $getUpdateStatus =  \Session::has('successUpdate'); 
+                       
+                       @endphp
+                       {{-- GET STATUS FOR SWEET ALERT START --}}
+
 
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
@@ -106,4 +114,44 @@
         </div>
 
     </div>
+
+      {{-- SWEET ALERT SCRIPT --}}
+  <script> 
+    window.addEventListener('load', function() {
+        var isCreate = <?php echo json_encode($getstatus); ?>;
+        var isUpdate = <?php echo json_encode($getUpdateStatus); ?>;
+
+        if (isCreate) {
+            const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                padding: '2em'
+            });
+
+            toast({
+                type: 'success',
+                title: 'Creer avec Success',
+                padding: '2em',
+            })
+        } if (isUpdate) {
+            const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                padding: '2em'
+            });
+
+            toast({
+                type: 'success',
+                title: 'Modifier avec Success',
+                padding: '2em',
+            })
+        } 
+
+
+    });
+</script>
 @endsection

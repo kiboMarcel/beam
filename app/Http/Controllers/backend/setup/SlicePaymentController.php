@@ -10,7 +10,7 @@ use App\Models\FeeCategory;
 use App\Models\StudentClass;
 use App\Models\Slice;
 
-class SliceController extends Controller
+class SlicePaymentController extends Controller
 {
     //
 
@@ -67,7 +67,7 @@ class SliceController extends Controller
 
        
 
-        return redirect()-> route('slice.view');
+        return redirect()-> route('slice.view')->with('success', '');
 
     }
 

@@ -55,9 +55,12 @@
                     <h4>Classe: {{ $detail['0']['student_class']['name'] }} </h4>
                   
                     <h4>Matiere: {{ $devoirMarks[0]['assign_subject']['school_subject']['name'] }} </h4>
+
+                    <h4>Trimestre: {{ $devoirMarks[0]['season']['name'] }} </h4>
                     <hr>
                    
-                    <form method="post" action=" {{ route('marks.update',[ $detail[0]->student_id, $devoirMarks[0]->assign_subject_id  ] ) }}  ">
+                    <form method="post" action=" {{ route('marks.update',[ $detail[0]->student_id, 
+                    $devoirMarks[0]->assign_subject_id ,  $detail[0]->year_id,  $detail[0]->season_id ] ) }}  ">
                         @csrf
                         {{-- VISIBLE ADD DEVOIR DIV START --}}
                         <div class="add_item1">
@@ -171,7 +174,7 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <span class="btn btn-danger mb-2 mr-2 remove2">
+                                                           {{--  <span class="btn btn-danger mb-2 mr-2 remove2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                     height="24" viewBox="0 0 24 24" fill="none"
                                                                     stroke="currentColor" stroke-width="2"
@@ -180,10 +183,10 @@
                                                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                                                 </svg>
-                                                            </span>
+                                                            </span> --}}
                                                         </td>
                                                         <td>
-                                                            <span class="btn btn-success   mb-2 mr-2 add2">
+                                                           {{--  <span class="btn btn-success   mb-2 mr-2 add2">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                                     height="24" viewBox="0 0 24 24" fill="none"
                                                                     stroke="currentColor" stroke-width="2"
@@ -192,7 +195,7 @@
                                                                     <line x1="12" y1="5" x2="12" y2="19"></line>
                                                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                                                 </svg>
-                                                            </span>
+                                                            </span> --}}
                                                         </td>
                                                     </tr>
                                                 @endforeach

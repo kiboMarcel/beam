@@ -216,16 +216,24 @@
 
                 @php
                     $marksBysubjectDevoir = App\Models\StudentMarks::where('assign_subject_id', $subject->id)
-                        ->where('exam_type_id', '1')
-                        ->get();
+                        ->where('exam_type_id', '1')->where('student_id', $marks[0]->student_id)
+                        ->where('season_id', $marks[0]->season_id)->where('year_id', $marks[0]->year_id)->get();
+
+                       
                     
                     $marksByDevoirAVG = App\Models\StudentMarks::where('assign_subject_id', $subject->id)
-                        ->where('exam_type_id', '1')
+                        ->where('exam_type_id', '1')->where('student_id', $marks[0]->student_id)
+                        ->where('season_id', $marks[0]->season_id)->where('year_id', $marks[0]->year_id)
                         ->avg('marks');
                     
+                    
+
                     $marksBysubjectExam = App\Models\StudentMarks::where('assign_subject_id', $subject->id)
-                        ->where('exam_type_id', '2')
+                        ->where('exam_type_id', '2')->where('student_id', $marks[0]->student_id)
+                        ->where('season_id', $marks[0]->season_id)->where('year_id', $marks[0]->year_id)
                         ->first();
+
+                        //dd($marksByDevoirAVG);
                 @endphp
 
                 {{-- SUBJECT NAME --}}
@@ -243,7 +251,13 @@
                     <td style="width: 3.75%;" class="td-text"> {{ $Devoirmark->marks }}</td>
 
                 @endforeach
-                
+                @if ($devoirmark_count == 0)
+                <td style="width: 3.75%;" class="td-text"></td>
+                <td style="width: 3.75%;" class="td-text"></td>
+                <td style="width: 3.75%;" class="td-text"></td>
+                <td style="width: 3.75%;" class="td-text"></td>
+
+            @endif
                 @if ($devoirmark_count == 1)
                     <td style="width: 3.75%;" class="td-text"></td>
                     <td style="width: 3.75%;" class="td-text"></td>
@@ -261,7 +275,7 @@
                 {{-- DEVOIR MARKS END --}}
 
                 {{-- DEVOIR AVG START --}}
-                <td style="width: 3.75%;" class="td-text">{{ $marksByDevoirAVG }}</td>
+                <td style="width: 3.75%;" class="td-text">{{  round($marksByDevoirAVG, 2)  }}</td>
                 {{-- DEVOIR AVG END --}}
 
                 {{-- EXAM MARKS START --}}
@@ -278,13 +292,14 @@
                 if ($marksBysubjectExam == null) {
 
                     $totalAVG = $marksByDevoirAVG/2;
+                    
                 } else {
                     $totalAVG = ($marksBysubjectExam->marks + $marksByDevoirAVG)/2; 
                 }
                 
                 @endphp
 
-                <td style="width: 3.75%;" class="td-text">  {{ $totalAVG }}</td>
+                <td style="width: 3.75%;" class="td-text">  {{ round($totalAVG, 2) }}</td>
                 {{-- TOTAL AVERAGE EXAM + DEVOIR AVERAGE END --}}
 
                 {{-- SUBJECT COEF START --}}
@@ -296,11 +311,11 @@
                 @php
                     $finalMark =   $totalAVG * $subject->coef ;
 
-                        $getfinal_marks = App\Models\student_final_mark::where( 'student_id', $marks['0']->student_id )
+                        $getfinal_marks = App\Models\Student_final_mark::where( 'student_id', $marks['0']->student_id )
                         ->where( 'year_id',  $marks['0']->year_id )->where( 'season_id', $marks['0']->season_id )
-                        ->where( 'assign_subject_id', $subject->id )->get();
+                        ->where( 'assign_subject_id', $subject->id )->first();
                         
-                        if ($getfinal_marks->toArray() == null) {
+                      /*   if ($getfinal_marks->toArray() == null) {
                             
                             $finalMrk = new App\Models\student_final_mark();
                             $finalMrk->student_id =  $marks['0']->student_id;
@@ -314,27 +329,49 @@
                             $finalMrk->final_marks = $finalMark ;
 
                         $finalMrk->save();
-                        }
+                        } */
                         
-                         
+                         //dd($getfinal_marks->final_marks);
                     
                 @endphp
-                <td class="td-text"> {{ $finalMark }}</td>
+                <td class="td-text"> {{ $getfinal_marks->final_marks }}</td>
                 {{-- FINAL MARK END --}}
 
 
                 {{-- POSITION MARK START --}}
                 @php
-                    $getRank = DB::query()->fromSub(function ($query) {
-                    $query->from( 'SELECT' 't.id', 't.final_marks', @rownum := @rownum + 1 AS 'position'
-                    ,'FROM' 'student_final_marks' as' t' )
-                    ->join('SELECT' @rownum := '0')r
-                    ->orderBy('t.final_marks DESC');
-                    }, 'x')->select( 'x.id', 'x.position',' x.final_marks');
-
                     
+      
+                     DB::statement(DB::raw('set @rank:=0'));
+
+                     $rank = App\Models\Student_final_mark::selectRaw('*, @rank:=@rank+1 as rank')
+                     ->where('assign_subject_id',$subject->id)
+                     ->orderBy('final_marks', 'DESC')->get();
+
+                    for ($i=0; $i < count($rank->toArray()) ; $i++) { 
+                        if( $rank[$i]->student_id ==  $marks['0']->student_id ){
+                            $subjectrank = $rank[$i]->rank;
+                        }
+                       
+                    } 
                 @endphp
+
+                <td class="td-text"> {{ $subjectrank }}e</td>
+               
                 {{-- POSITION MARK END --}}
+
+                {{-- SUGJFECT TEACHER  START --}}
+                <td>OURO-AGORO</td>
+                {{-- SUGJFECT TEACHER END --}}
+
+
+                {{-- SUBJECTIVE REMARKS START --}}
+                <td class="observation_td">passable. peut mieut faire</td>
+                {{-- SUBJECTIVE REMARKS END --}}
+
+                {{-- SIGNATURE START --}}
+                <td class="observation_td"></td>
+                {{-- SIGNATURE END --}}
 
 
             @endforeach

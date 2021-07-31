@@ -29,9 +29,16 @@
   .blockui-growl-message i {
     font-size: 20px; }
 
-.general-info .info h6, .about .info h5, .work-platforms .info h5, .contact .info h5, .social .info h5, .skill .info h5, .edu-experience .info h5, .work-experience .info h5 {
+.general-info .info , .about .info h5, .work-platforms .info h5, .contact .info h5, .social .info h5, .skill .info h5, .edu-experience .info h5, .work-experience .info h5 {
   color: #bfc9d4;
   margin: 4px 8px 40px 8px;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase; }
+
+.general-info .info h6 {
+  color: #bfc9d4;
+  margin: 40px 8px 40px 8px;
   font-weight: 600;
   font-size: 16px;
   text-transform: uppercase; }

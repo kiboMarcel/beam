@@ -22,7 +22,7 @@
 
                     <div class="row">
 
-                        <div class="col-12 col-md-12">
+                        <div class="col-6 col-md-6">
                             <div class="form-group mb-4">
                                 <label for="email">Category <span class="text-danger">*</span></label>
                                 <select name="category_id" id="select" class="custom-select">

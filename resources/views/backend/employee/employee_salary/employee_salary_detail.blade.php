@@ -42,8 +42,8 @@
                         <div class="head">
                             <h3>Detail salaire</h3>  <br>
                              </div>
-                             <h5> <strong>Employer :</strong> {{ $detail->name }} </h5>
-                             <h5> <strong>Id :</strong> {{ $detail->id_no }} </h5>
+                             <h6> <strong>Employer :</strong> {{ $detail->name }} </h6>
+                             <h6> <strong>Id :</strong> {{ $detail->id_no }} </h6>
                              <hr>
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
@@ -80,7 +80,7 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $salary->effected_salary }} </p>
+                                                <p class="align-self-center mb-0 "> {{ date('d-m-Y', strtotime($salary->effected_salary)) }} </p>
                                             </div>
                                         </td>
 

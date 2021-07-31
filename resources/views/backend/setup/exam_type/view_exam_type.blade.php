@@ -1,9 +1,10 @@
 @extends('admin.admin_master')
 
 <style>
-    .tr_style{
+    .tr_style {
         background-color: #0e1726 !important;
     }
+
     .table {
         background-color: rebeccapurple !important;
     }
@@ -17,7 +18,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-    
+
     }
 
     .btn {
@@ -25,9 +26,10 @@
         margin-top: 5px;
     }
 
-    .text-center a{
+    .text-center a {
         margin: 0 9px;
     }
+
 </style>
 
 @section('admin')
@@ -38,10 +40,17 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Type d'examen</h3>
-                            <a href=" {{route('exam.type.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
+                            <h3>Type d'Examen</h3>
+                            <a href=" {{ route('exam.type.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
                         </div>
 
+                        {{-- GET STATUS FOR SWEET ALERT  START --}}
+                        @php
+                            $getstatus = \Session::has('success');
+                            $getUpdateStatus = \Session::has('successUpdate');
+                            
+                        @endphp
+                        {{-- GET STATUS FOR SWEET ALERT START --}}
 
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
@@ -68,8 +77,9 @@
 
 
                                         <td class="text-center">
-                                            <a href=" {{ route('exam.type.edit', $feeCat->id) }} " class="bs-tooltip" data-toggle="tooltip"
-                                                data-placement="top" title="" data-original-title="Edit">
+                                            <a href=" {{ route('exam.type.edit', $feeCat->id) }} " class="bs-tooltip"
+                                                data-toggle="tooltip" data-placement="top" title=""
+                                                data-original-title="Edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                     stroke-linecap="round" stroke-linejoin="round"
@@ -80,11 +90,12 @@
                                                 </svg>
                                             </a>
 
-                                            <a href=" {{ route('exam.type.delete',$feeCat->id) }} " id="delete" class="bs-tooltip" data-toggle="tooltip"
-                                                data-placement="top" title="" data-original-title="Delete">
+                                            <a href=" {{ route('exam.type.delete', $feeCat->id) }} " id="delete"
+                                                class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
+                                                data-original-title="Delete">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" color="red" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                    viewBox="0 0 24 24" fill="none" color="red" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                     class="feather feather-trash">
                                                     <polyline points="3 6 5 6 21 6"></polyline>
                                                     <path
@@ -97,7 +108,7 @@
                                     </tr>
                                 @endforeach
 
-                            
+
                             </tbody>
                         </table>
                     </div>
@@ -106,4 +117,45 @@
         </div>
 
     </div>
+
+    {{-- SWEET ALERT SCRIPT --}}
+    <script>
+        window.addEventListener('load', function() {
+            var isCreate = <?php echo json_encode($getstatus); ?>;
+            var isUpdate = <?php echo json_encode($getUpdateStatus); ?>;
+
+            if (isCreate) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Creer avec Success',
+                    padding: '2em',
+                })
+            }
+            if (isUpdate) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Modifier avec Success',
+                    padding: '2em',
+                })
+            }
+
+
+        });
+    </script>
 @endsection

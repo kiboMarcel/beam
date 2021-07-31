@@ -79,7 +79,7 @@
                                         </td>
                                         <td class="text-center">
                                             
-                                                <p class="align-self-center mb-0 "> {{ $detail->subjective_mark}} </p>
+                                                <p class="align-self-center mb-0 "> {{ $detail->coef}} </p>
                                             
                                         </td>
 

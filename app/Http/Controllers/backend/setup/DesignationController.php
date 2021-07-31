@@ -61,7 +61,8 @@ class DesignationController extends Controller
         $designation -> name = $request->name;
         $designation -> save();
 
-        return redirect()-> route('designation.view');
+
+        return redirect()-> route('designation.view')->with('success', '');  
 
     }
 

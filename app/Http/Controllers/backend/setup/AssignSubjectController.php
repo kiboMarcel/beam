@@ -46,7 +46,7 @@ class AssignSubjectController extends Controller
             }
         }
 
-        return redirect()-> route('assign.subject.view');
+        return redirect()-> route('assign.subject.view')->with('success', '');
 
     }
 
@@ -90,7 +90,7 @@ class AssignSubjectController extends Controller
                 }
             }
         }
-        return redirect()-> route('assign.subject.view');
+        return redirect()-> route('assign.subject.view')->with('successUpdate', '');
 
    
     }

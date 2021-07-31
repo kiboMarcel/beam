@@ -39,7 +39,7 @@ class StudentYearController extends Controller
         $data->save();
 
 
-        return redirect()-> route('student.year.view');
+        return redirect()-> route('student.year.view')->with('success', '');
 
     }
 
@@ -60,10 +60,28 @@ class StudentYearController extends Controller
         $year -> name = $request->name;
         $year -> save();
 
-        return redirect()-> route('student.year.view');
+        return redirect()-> route('student.year.view')->with('successUpdate', '');
 
     }
 
+
+    public function  StudentYearActive(Request $request, $id){
+
+        $class =  StudentYear::find($id);
+
+        $class_deactivate =  StudentYear::where('active', 1)->first();
+
+        $class_deactivate ->active = 0;
+
+
+        $class ->active = 1;
+
+        $class_deactivate -> save();
+        $class -> save();
+
+        return redirect()-> route('student.year.view')->with('successActive', '');
+
+    }
 
     public function  StudentYearDelete(Request $request, $id){
 

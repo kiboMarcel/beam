@@ -56,14 +56,14 @@ class StudentRegistrationController extends Controller
             $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
             where('year_id', $request->year_id)->
             where('class_id', $request->class_id)->
-            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
             $count = count($data['allData']);
         }elseif($request->group_id == null){
             $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
             where('year_id', $request->year_id)->
             where('class_id', $request->class_id)->
             where('branch_id', $request->branch_id)->
-            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
             $count = count($data['allData']);
 
         }else{
@@ -72,7 +72,7 @@ class StudentRegistrationController extends Controller
             where('class_id', $request->class_id)->
             where('branch_id', $request->branch_id)->
             where('group_id', $request->group_id)->
-            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
 
             $count = count($data['allData']);
             
@@ -170,7 +170,7 @@ class StudentRegistrationController extends Controller
             $discount_student->save(); */
         });
 
-        return redirect()-> route('student.registration.view');
+        return redirect()-> route('student.registration.view')->with('success', '');
 
     }
 
@@ -229,7 +229,7 @@ class StudentRegistrationController extends Controller
             $discount_student->save(); */
         });
 
-        return redirect()-> route('student.registration.view');
+        return redirect()-> route('student.registration.view')->with('successUpdate', '');
     }
 
 
@@ -297,7 +297,7 @@ class StudentRegistrationController extends Controller
             where('year_isd', $year_id)->
             where('class_id', $class_id)->
             where('branch_id', $branch_id)->
-            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get(); 
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get(); 
             
        
         }else{
@@ -306,7 +306,7 @@ class StudentRegistrationController extends Controller
             where('class_id', $class_id)->
             where('branch_id', $branch_id)->
             where('group_id', $group_id)->
-            leftjoin('users', 'assign_students.id', '=', 'users.id')->orderBy('users.name', 'asc')->get(); 
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get(); 
        
         }
             
@@ -357,9 +357,4 @@ class StudentRegistrationController extends Controller
     }
 
     
-
-
-
-      
-       
 }

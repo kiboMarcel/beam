@@ -65,12 +65,12 @@
                         <form method="post" action="{{ route('schooling.store', $student->student_id) }}" >
                             @csrf
                             <div class="row">
-                                <div class="col-lg-9 col-md-9 col-sm-9 ">
+                                <div class="col-lg-6 col-md-6 col-sm-6 ">
                                     <label for="formGroupExampleInput">Montant a payer <span class="text-danger">*</span></label>
-                                    <input  type="text" name="schooling_fee" class="form-control search-form-control " placeholder="Search...">
+                                    <input  type="text" name="schooling_fee" class="form-control search-form-control " >
                             
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
     
                                     <input type="submit" value="payer" class="btn btn-outline-info search mb-2">
     

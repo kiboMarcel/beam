@@ -42,7 +42,7 @@ class AssignClassController extends Controller
             }
         }
 
-        return redirect()-> route('assign.class.view');
+        return redirect()-> route('assign.class.view')->with('success', '');
 
     }
 
@@ -83,7 +83,7 @@ class AssignClassController extends Controller
                 }
             }
         }
-        return redirect()-> route('assign.class.view');
+        return redirect()-> route('assign.class.view')->with('successUpdate', '');
 
    
     }

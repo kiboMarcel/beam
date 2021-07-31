@@ -64,7 +64,7 @@
                                     <select name="year_id" id="year_id" class="custom-select" required>
                                         <option value="" selected="" disabled="">Selectionner Année</option>
                                         @foreach ($years as $year)
-                                            <option value="{{ $year->id }}">
+                                            <option value="{{ $year->id }}" {{ $year->active == 1 ? 'selected' : '' }}>
                                                 {{ $year->name }}</option>
                                         @endforeach
 
@@ -86,7 +86,8 @@
                                     <label for="text">Serie</label>
                                     <select name="branch_id" id="branch_id" class="custom-select">
                                         <option " selected="" disabled="">Selectionner Serie</option>
-                                                        @foreach ($branchs as $branch)
+                                                             @foreach ($branchs as
+                                            $branch)
                                         <option value="{{ $branch->id }}">
                                             {{ $branch->name }}</option>
                                         @endforeach
@@ -109,7 +110,7 @@
                                     <label for="text">Groupe</label>
                                     <select name="group_id" id="group_id" class="custom-select">
                                         <option " selected="" disabled=""> Selectionner Groupe</option>
-                                             @foreach ($groups as $group)
+                                                  @foreach ($groups as $group)
                                         <option value="{{ $group->id }}">
                                             {{ $group->name }}</option>
                                         @endforeach
@@ -119,19 +120,17 @@
                                 </div>
 
 
-                             {{--    <div class="col-lg-3 col-md-3 col-sm-3 ">
+                                {{-- <div class="col-lg-3 col-md-3 col-sm-3 ">
                                     <label for="text">Type D'examen</label>
                                     <select name="exam_type_id" id="exam_type_id" class="custom-select">
                                         <option " selected="" disabled="">Selectionner examen</option>
-                                                        @foreach ($exam_types as
-                                            $exam_type)
+                                                        @foreach ($exam_types as $exam_type)
                                         <option value="{{ $exam_type->id }}">
                                             {{ $exam_type->name }}</option>
                                         @endforeach
 
                                     </select>
-                                </div>
- --}}
+                                </div> --}}
 
                                 <div class="col-lg-3 col-md-3 col-sm-3 find">
 
@@ -206,8 +205,8 @@
                     $.each(data, function(key, v) {
                         let student_id = v.student_id;
                         let assign_subject_id = v.assign_subject_id;
-                        let detail_url =   '{{ route('students.edit.detail', ['',''] )}}'+
-                        '/'+student_id+'/'+assign_subject_id+' ';
+                        let detail_url = '{{ route('students.edit.detail', ['', '']) }}' +
+                            '/' + student_id + '/' + assign_subject_id + ' ';
                         html +=
                             '<tr class="tr_style">' +
 
@@ -221,24 +220,24 @@
                             '<td>' + v.student_class.name + '</td>' +
                             '<td>' + v.student_branch.name + '</td>' +
                             '<td>' + v.student_group.name + '</td>' +
-                            
-                            '<td> <a target="blank" href=" '+detail_url+' " '+
-                                'class="bs-tooltip" data-toggle="tooltip" '+
-                               ' data-placement="top" title="" data-original-title="Detail"> '+
-                               ' <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" '+
-                               ' viewBox="0 0 24 24" fill="none" color="#185ADB" '+
-                               ' stroke="currentColor" stroke-width="2" stroke-linecap="round" '+
-                               ' stroke-linejoin="round" class="feather feather-file-text"> '+
-                               ' <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"> </path> '+
-                               ' <polyline points="14 2 14 8 20 8"></polyline> '+
-                               ' <line x1="16" y1="13" x2="8" y2="13"></line> '+
-                               ' <line x1="16" y1="17" x2="8" y2="17"></line> '+
-                               ' <polyline points="10 9 9 9 8 9"></polyline> '+
-                               ' </svg> '+
-                               ' </a></td>' +
+
+                            '<td> <a target="blank" href=" ' + detail_url + ' " ' +
+                            'class="bs-tooltip" data-toggle="tooltip" ' +
+                            ' data-placement="top" title="" data-original-title="Detail"> ' +
+                            ' <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ' +
+                            ' viewBox="0 0 24 24" fill="none" color="#185ADB" ' +
+                            ' stroke="currentColor" stroke-width="2" stroke-linecap="round" ' +
+                            ' stroke-linejoin="round" class="feather feather-file-text"> ' +
+                            ' <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"> </path> ' +
+                            ' <polyline points="14 2 14 8 20 8"></polyline> ' +
+                            ' <line x1="16" y1="13" x2="8" y2="13"></line> ' +
+                            ' <line x1="16" y1="17" x2="8" y2="17"></line> ' +
+                            ' <polyline points="10 9 9 9 8 9"></polyline> ' +
+                            ' </svg> ' +
+                            ' </a></td>' +
                             '</tr>';
 
-                            console.log( v.marks)
+                        console.log(v.marks)
                     });
                     html = $('#mark-enrty-tr').html(html);
 
@@ -253,7 +252,7 @@
             $(document).on('change', '#branch_id', function() {
                 var class_id = $('#class_id').val();
                 var branch_id = $('#branch_id').val();
-               
+
                 $.ajax({
                     url: "{{ route('marks.getsubject') }}",
                     type: "GET",
@@ -273,5 +272,62 @@
             });
         });
     </script>
+
+
+    {{-- GET CLASS BRANCH START --}}
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#class_id', function() {
+                var class_id = $('#class_id').val();
+
+                $.ajax({
+                    url: "{{ route('student.getclass.branch') }}",
+                    type: "GET",
+                    data: {
+                        class_id: class_id,
+                    },
+                    success: function(data) {
+                        var html = '<option value="">Selectionner Serie</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.branch_id + '"  >' + v
+                                .student_branch
+                                .name + '</option>';
+                        });
+                        $('#branch_id').html(html);
+                    }
+                });
+            });
+        });
+    </script>
+    {{-- GET CLASS BRANCH END --}}
+
+    {{-- GET CLASS GROUP START --}}
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#branch_id', function() {
+                var class_id = $('#class_id').val();
+                var branch_id = $('#branch_id').val();
+
+                $.ajax({
+                    url: "{{ route('student.getclass.group') }}",
+                    type: "GET",
+                    data: {
+                        class_id: class_id,
+                        branch_id: branch_id,
+                    },
+                    success: function(data) {
+                        var html = '<option value="">Selectionner groupe</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.group_id + '">' + v
+                                .student_group
+                                .name + '</option>';
+                        });
+                        $('#group_id').html(html);
+                    }
+                });
+            });
+        });
+    </script>
+    {{-- GET CLASS GROUP END --}}
 
 @endsection

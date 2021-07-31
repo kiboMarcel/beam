@@ -28,7 +28,7 @@
     <link href="{{ asset('backend/plugins/sweetalerts/sweetalert.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend/assets/css/components/custom-sweetalert.css') }}" rel="stylesheet"
         type="text/css" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/forms/theme-checkbox-radio.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/forms/theme-checkbox-radio.css') }}">
     <!-- END THEME GLOBAL STYLES -->
 
     <!--  BEGIN CUSTOM STYLE FILE USER ACCOUNT  -->
@@ -166,7 +166,7 @@
 
     <!--BEGIN SWEET ALERT SUCCESS SCRIPTS -->
     <script>
-        $('.widget-content .mixin').on('load', function() {
+        $('.widget-content .mixin').on('click', function() {
             const toast = swal.mixin({
                 toast: true,
                 position: 'top-end',

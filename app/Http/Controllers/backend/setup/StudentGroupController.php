@@ -39,7 +39,7 @@ class StudentGroupController extends Controller
         $data->save();
 
 
-        return redirect()-> route('student.group.view');
+        return redirect()-> route('student.group.view')->with('success', '');
 
     }
 
@@ -60,7 +60,7 @@ class StudentGroupController extends Controller
         $year -> name = $request->name;
         $year -> save();
 
-        return redirect()-> route('student.group.view');
+        return redirect()-> route('student.group.view')->with('successUpdate', '');
 
     }
 

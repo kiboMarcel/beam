@@ -99,7 +99,7 @@
                                             <label for="formGroupExampleInput">coefficient<span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="subjective_mark[]" class="form-control"
-                                            value="{{ $edit->subjective_mark }} " >
+                                            value="{{ $edit->coef }} " >
                                             @error('amount')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -178,7 +178,7 @@
                     </div>
                     <div class="col-2 col-md-2">
                         <div class="form-group mb-4">
-                            <label for="formGroupExampleInput">Note subjective<span class="text-danger">*</span></label>
+                            <label for="formGroupExampleInput">Coefficient<span class="text-danger">*</span></label>
                             <input type="text" name="subjective_mark[]" class="form-control" id="formGroupExampleInput">
                             @error('amount')
                                 <span class="text-danger">{{ $message }}</span>

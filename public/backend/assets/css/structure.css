@@ -614,10 +614,10 @@ code {
       font-weight: 600; }
     .sub-header-container .breadcrumb-one .breadcrumb-item + .breadcrumb-item {
       padding: 0px; }
-      .sub-header-container .breadcrumb-one .breadcrumb-item + .breadcrumb-item::before {
+      /* .sub-header-container .breadcrumb-one .breadcrumb-item + .breadcrumb-item::before {
         color: #e0e6ed;
         padding: 0 6px 0 6px;
-        vertical-align: bottom; }
+        vertical-align: bottom; } */
 
 .sub-header-container .more-dropdown .custom-dropdown-icon {
   padding-right: 20px; }
@@ -983,8 +983,8 @@ code {
     color: #888ea8; }
 
 .footer-wrapper .footer-section svg {
-  color: #e7515a;
-  fill: rgba(231, 81, 90, 0.419608);
+  /* color: #e7515a;
+  fill: rgba(231, 81, 90, 0.419608); */
   width: 15px;
   height: 15px;
   vertical-align: text-top; }

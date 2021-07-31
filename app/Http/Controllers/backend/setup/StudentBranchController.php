@@ -39,7 +39,7 @@ class StudentBranchController extends Controller
         $data->save();
 
 
-        return redirect()-> route('student.branch.view');
+        return redirect()-> route('student.branch.view')->with('success', '');
 
     }
 
@@ -60,7 +60,7 @@ class StudentBranchController extends Controller
         $year -> name = $request->name;
         $year -> save();
 
-        return redirect()-> route('student.branch.view');
+        return redirect()-> route('student.branch.view')->with('successUpdate', '');
 
     }
 

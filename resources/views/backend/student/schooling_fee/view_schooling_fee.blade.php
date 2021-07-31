@@ -59,6 +59,14 @@
                 <div class="widget-content widget-content-area">
                     <h3>Chercher Eleve</h3>
 
+                     {{-- GET STATUS FOR SWEET ALERT  START --}}
+                     @php
+                     $getstatus = \Session::has('success');
+                     $getUpdateStatus = \Session::has('successUpdate');
+                     
+                 @endphp
+                 {{-- GET STATUS FOR SWEET ALERT START --}}
+
                     <div class="head">
                               
                         <div class="row">
@@ -107,7 +115,7 @@
 
     </div>
 
-
+    {{-- GET STUDENT ON SEARCH START --}}
     <script type="text/javascript">
         $(document).on('click', '#search', function() {
             var searchText = $('#searchText').val();
@@ -129,5 +137,32 @@
              });
         });
     </script>
+    {{-- GET STUDENT ON SEARCH END --}}
 
+
+ {{-- SWEET ALERT SCRIPT --}}
+ <script>
+    window.addEventListener('load', function() {
+        var isCreate = <?php echo json_encode($getstatus); ?>;
+        var isUpdate = <?php echo json_encode($getUpdateStatus); ?>;
+
+        if (isCreate) {
+            const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                padding: '2em'
+            });
+
+            toast({
+                type: 'success',
+                title: 'Creer avec Success',
+                padding: '2em',
+            })
+        }
+
+
+    });
+</script>
 @endsection

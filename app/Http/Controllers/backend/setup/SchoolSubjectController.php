@@ -37,7 +37,7 @@ class SchoolSubjectController extends Controller
 
         //$flash = 'ok';
 
-        return redirect()-> route('subject.type.view')->with('message', 'IT WORKS!');
+        return redirect()-> route('subject.type.view')->with('success', '');
 
     }
 
@@ -62,7 +62,7 @@ class SchoolSubjectController extends Controller
         $subjectType -> name = $request->name;
         $subjectType -> save();
 
-        return redirect()-> route('subject.type.view');
+        return redirect()-> route('subject.type.view')->with('successUpdate', '');
 
     }
 

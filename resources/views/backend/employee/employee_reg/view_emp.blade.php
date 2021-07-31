@@ -125,7 +125,7 @@
 
                                             <a  target="blank" href=" {{ route('employee.detail.pdf', $employee->id) }} "
                                                 class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                                data-original-title="Detail">
+                                                data-original-title="Detail/Pdf">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" color="#185ADB"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"

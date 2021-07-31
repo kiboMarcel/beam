@@ -46,7 +46,7 @@ class FeeAmountController extends Controller
             }
         }
 
-        return redirect()-> route('fee.amount.view');
+        return redirect()-> route('fee.amount.view')->with('success', '');
 
     }
 
@@ -81,7 +81,7 @@ class FeeAmountController extends Controller
                 }
             }
         }
-        return redirect()-> route('fee.amount.view');
+        return redirect()-> route('fee.amount.view')->with('successUpdate', '');
 
    
     }

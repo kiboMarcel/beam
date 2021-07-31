@@ -29,7 +29,7 @@ $route = Route::current()->getName();
 
             @if (Auth::user()->role == 'Admin')
                 <li class="menu">
-                    <a href="#user" data-toggle="collapse" data-active="{{ $prefix == '/users' ? 'true' : 'false' }}"
+                    <a href="#users" data-toggle="collapse" data-active="{{ $prefix == '/users' ? 'true' : 'false' }}"
                         aria-expanded="false" class="dropdown-toggle">
                         <div class="">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -50,7 +50,7 @@ $route = Route::current()->getName();
                             </svg>
                         </div>
                     </a>
-                    <ul class="collapse submenu list-unstyled {{ $prefix == '/users' ? 'show' : '' }}"" id=" user"
+                    <ul class="collapse submenu list-unstyled {{ $prefix == '/users' ? 'show' : '' }}"" id="users"
                         data-parent="#accordionExample">
                         <li class="{{ $route == 'user.view' ? 'active' : '' }}">
                             <a href="{{ route('user.view') }}"> Voir Utilisateurs </a>
@@ -171,9 +171,12 @@ $route = Route::current()->getName();
                         <a type="submit" href="{{ route('student.registration.view') }}"> Eleve </a>
                     </li>
 
-                    <li class="{{ $route == 'registration.fee.view' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('registration.fee.view') }}"> Inscription </a>
+                    <li class="{{ $route == 'student.registration.add' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('student.registration.add') }}"> Inscription </a>
                     </li>
+                   {{--  <li class="{{ $route == 'registration.fee.view' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('registration.fee.view') }}"> Inscription </a>
+                    </li> --}}
 
                     <li class="{{ $route == 'schooling.fee.view' ? 'active' : '' }}">
                         <a type="submit" href="{{ route('schooling.fee.view') }}"> Scolarité </a>
@@ -344,7 +347,7 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            <li class="menu">
+           {{--  <li class="menu">
                 <a href="#app" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -397,7 +400,7 @@ $route = Route::current()->getName();
                         <a href="apps_calendar.html"> Calendar </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
 
             <li class="menu">

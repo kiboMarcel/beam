@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\DefaultController;
+use App\Http\Controllers\backend\DashboradController;
 
 use App\Http\Controllers\backend\ProfileController;
 use App\Http\Controllers\backend\setup\StudentClassController;
@@ -18,7 +20,7 @@ use App\Http\Controllers\backend\setup\AssignSubjectController;
 use App\Http\Controllers\backend\setup\AssignClassController;
 use App\Http\Controllers\backend\setup\DesignationController;
 use App\Http\Controllers\backend\setup\SchoolSeasonController;
-use App\Http\Controllers\backend\setup\SliceController;
+use App\Http\Controllers\backend\setup\SlicePaymentController;
 
 use App\Http\Controllers\backend\student\StudentRegistrationController;
 use App\Http\Controllers\backend\student\RegistrationFeeController;
@@ -123,6 +125,8 @@ Route::group(['middleware' => 'auth'], function(){
         
         Route::post('/student/year/update/{id} ', [StudentYearController::class, 'StudentYearUpdate']) -> name('student.year.update');
         
+        Route::get('/student/year/active/{id}', [StudentYearController::class, 'StudentYearActive']) -> name('student.year.active');
+
         Route::get('/student/year/delete/{id}', [StudentYearController::class, 'StudentYearDelete']) -> name('student.year.delete');
         
 
@@ -275,16 +279,16 @@ Route::group(['middleware' => 'auth'], function(){
     
 
         /////slice route
-        Route::get('/slice/view', [SliceController::class, 'ViewSlice']) -> 
+        Route::get('/slice/view', [SlicePaymentController::class, 'ViewSlice']) -> 
         name('slice.view');
         
-        Route::get('/slice/add', [SliceController::class, 'SliceAdd']) -> 
+        Route::get('/slice/add', [SlicePaymentController::class, 'SliceAdd']) -> 
         name('slice.add');
         
-        Route::post('/slice/store', [SliceController::class, 'SliceStore']) -> 
+        Route::post('/slice/store', [SlicePaymentController::class, 'SliceStore']) -> 
         name('slice.store');
         
-        Route::get('/slice/detail/{class_id} ', [SliceController::class, 'SliceDetail']) -> 
+        Route::get('/slice/detail/{class_id} ', [SlicePaymentController::class, 'SliceDetail']) -> 
         name('slice.detail');
 
     });
@@ -455,7 +459,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('mark/edit/student/detail/{student_id}/{assign_subject_id}', [MarksController::class, 'MarksStudentDetail']) -> 
         name('students.edit.detail');
 
-        Route::post('mark/student/update/{student_id}/{assign_subject_id}', [MarksController::class, 'MarksStudentUpdate']) -> 
+        Route::post('mark/student/update/{student_id}/{assign_subject_id}/{year_id}/{season_id}', [MarksController::class, 'MarksStudentUpdate']) -> 
         name('marks.update');
 
         ///DEFAULT CLASS CONNTROLLERS START

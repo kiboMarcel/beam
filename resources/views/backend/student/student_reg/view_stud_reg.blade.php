@@ -58,9 +58,9 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 ">
                         <label for="text">Annnée</label>
                         <select name="year_id" class="custom-select" required>
-                            <option value="" selected="" disabled="">Selectionner Année</option>
+                            <option value="" disabled="">Selectionner Année</option>
                             @foreach ($years as $year)
-                                <option value="{{ $year->id }}" {{ @$year_id == $year->id ? 'selected' : '' }}>
+                                <option value="{{ $year->id }}" {{ $year->active == 1 ? 'selected' : '' }}>
                                     {{ $year->name }}</option>
                             @endforeach
 
@@ -124,7 +124,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-9 find ">
 
                         <input type="submit" name="search" value="Chercher" class="btn btn-outline-info mb-2">
-                        
+
                     </div>
                 </div>
             </form>
@@ -144,16 +144,37 @@
                             @if ($count != 0)
                                 <h2 class="badge outline-badge-info">{{ $count }} Eleves</h2>
 
-                                <a href=" {{ route('student.list.print',[ $year_id ,$class_id, $branch_id, $group_id] ) }} "
-                                class="btn btn-outline-secondary mb-2" target="blank">Imprimer</a>
-                            @endif
-                           
-                           
+                               
 
-                            <a href=" {{ route('student.registration.add') }} "
-                                class="btn btn-outline-secondary mb-2">Ajouter</a>
+                                    <a href=" {{ route('student.list.print', [$year_id, $class_id, $branch_id, $group_id]) }} "
+                                        class="btn btn-outline-success mb-2" data-toggle="tooltip" data-placement="top" title="Imprimer"
+                                        data-original-title="Imprimer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-printer">
+                                        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2">
+                                        </path>
+                                        <rect x="6" y="14" width="12" height="8"></rect>
+                                    </svg>
+                                    </a>
+                              
+                            @endif
+
+
+
+                            {{-- <a href=" {{ route('student.registration.add') }} "
+                                class="btn btn-outline-secondary mb-2">Ajouter</a> --}}
 
                         </div>
+
+                        {{-- GET STATUS FOR SWEET ALERT  START --}}
+                        @php
+                            $getstatus = \Session::has('success');
+                            $getUpdateStatus = \Session::has('successUpdate');
+                            
+                        @endphp
+                        {{-- GET STATUS FOR SWEET ALERT START --}}
 
                         @if (!@search)
                             <table id="style-2" class="table table-bordered  table-hover">
@@ -400,7 +421,7 @@
 
 
 
-
+    {{-- GET CLASS BRANCH START --}}
     <script type="text/javascript">
         $(function() {
             $(document).on('change', '#class_id', function() {
@@ -425,7 +446,9 @@
             });
         });
     </script>
+    {{-- GET CLASS BRANCH END --}}
 
+    {{-- GET CLASS GROUP START --}}
     <script type="text/javascript">
         $(function() {
             $(document).on('change', '#branch_id', function() {
@@ -450,6 +473,48 @@
                     }
                 });
             });
+        });
+    </script>
+    {{-- GET CLASS GROUP END --}}
+
+    {{-- SWEET ALERT SCRIPT --}}
+    <script>
+        window.addEventListener('load', function() {
+            var isCreate = <?php echo json_encode($getstatus); ?>;
+            var isUpdate = <?php echo json_encode($getUpdateStatus); ?>;
+
+            if (isCreate) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Creer avec Success',
+                    padding: '2em',
+                })
+            }
+            if (isUpdate) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Modifier avec Success',
+                    padding: '2em',
+                })
+            }
+
+
         });
     </script>
 @endsection

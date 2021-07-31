@@ -9,7 +9,8 @@
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
-                <h3>Augmenter Salaire Employer</h3>
+                <h3>Augmenter Salaire </h3>
+                <h6>Employer : <strong> {{$editData->name}} </strong></h6>
                 <hr>
                 <form method="post" action=" {{ route('update.salary.increment.store',  $editData->id)}}  ">
                     @csrf

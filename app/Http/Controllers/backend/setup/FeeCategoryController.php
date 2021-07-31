@@ -36,7 +36,7 @@ class FeeCategoryController extends Controller
         $data->save();
 
 
-        return redirect()-> route('fee.category.view');
+        return redirect()-> route('fee.category.view')->with('success', '');
 
     }
 
@@ -57,7 +57,7 @@ class FeeCategoryController extends Controller
         $year -> name = $request->name;
         $year -> save();
 
-        return redirect()-> route('fee.category.view');
+        return redirect()-> route('fee.category.view')->with('successUpdate', '');
 
     }
 

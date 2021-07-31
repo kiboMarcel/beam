@@ -62,9 +62,9 @@
                                 <div class="col-lg-3 col-md-3 col-sm-9 ">
                                     <label for="text">Annnée</label>
                                     <select name="year_id" id="year_id" class="custom-select" required>
-                                        <option value="" selected="" disabled="">Selectionner Année</option>
+                                        <option value="" disabled="">Selectionner Année</option>
                                         @foreach ($years as $year)
-                                            <option value="{{ $year->id }}">
+                                            <option value="{{ $year->id }}"  {{ $year->active==1 ? 'selected': '' }}>
                                                 {{ $year->name }}</option>
                                         @endforeach
 
@@ -232,7 +232,7 @@
                             '<td>' + v.student_class.name + '</td>' +
                             '<td>' + v.student_branch.name + '</td>' +
                             '<td>' + v.student_group.name + '</td>' +
-                            '<td><input type="text" class="form-control form-control-sm" name="marks[]"></td>' +
+                            '<td><input type="text" value="0" class="form-control form-control-sm" name="marks[]"></td>' +
                             '</tr>';
                     });
                     html = $('#mark-enrty-tr').html(html);

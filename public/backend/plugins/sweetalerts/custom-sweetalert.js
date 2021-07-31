@@ -234,7 +234,7 @@ $('.widget-content .RTL').on('click', function () {
 
 })
 
-$('.widget-content .mixin').on('click', function () {
+/* $('.widget-content .mixin').on('click', function () {
   const toast = swal.mixin({
     toast: true,
     position: 'top-end',
@@ -248,4 +248,4 @@ $('.widget-content .mixin').on('click', function () {
     padding: '2em',
   })
 
-})
+}) */

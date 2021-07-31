@@ -2,12 +2,15 @@
 
 
 <style>
-    
+    .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('admin')
     <div class="row layout-top-spacing layout-spacing">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="statbox widget box box-shadow">
                 <h3>Modifier Matiere</h3>
                 <hr>
@@ -27,8 +30,9 @@
                     </div>
                   
                       
-                     
-                    <button class="btn btn-primary" type="submit">Mettre à jour</button>
+                     <div class="bt-position">
+                         <button class="btn btn-primary" type="submit">Mettre à jour</button>
+                     </div>
 
                     </div>
             

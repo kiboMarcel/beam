@@ -39,7 +39,7 @@ class UserController extends Controller
 
         
 
-        return redirect()-> route('user.view');
+        return redirect()-> route('user.view')->with('success', '');
 
     }
 
@@ -61,7 +61,7 @@ class UserController extends Controller
         $data -> save();
         
 
-        return redirect()-> route('user.view');
+        return redirect()-> route('user.view')->with('successUpdate', '');
 
     }
 

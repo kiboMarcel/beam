@@ -2,7 +2,10 @@
 
 
 <style>
-
+.bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('admin')
@@ -150,9 +153,10 @@
                             <div class="form-group mb-4">
                                 <label for="text">Annnée</label>
                                 <select name="year_id" id="select" class="custom-select" required>
-                                    <option value="" selected="" disabled="">Selectionner Année</option>
+                                    <option value="" " disabled="">Selectionner Année</option>
                                     @foreach ($years as $year)
-                                        <option value="{{ $year->id }}">{{ $year->name }}</option>
+                                        <option value="{{ $year->id }}" {{ $year->active==1 ? 'selected': '' }}>
+                                            {{ $year->name }}</option>
                                     @endforeach
 
                                 </select>
@@ -163,8 +167,9 @@
                     {{-- end row --}}
 
 
-
-                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    </div>
 
             </div>
 
