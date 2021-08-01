@@ -47,12 +47,16 @@
         margin-top: 17px !important;
     }
 
+    .row{
+        align-items: flex-end;
+    }
+
 </style>
 
 @section('admin')
 
     <div class="row layout-top-spacing layout-spacing">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="statbox widget box box-shadow">
 
                 <div class="widget-content widget-content-area">

@@ -151,7 +151,7 @@
 
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
-                                <label for="text">Annnée</label>
+                                <label for="text">Année</label>
                                 <select name="year_id" id="select" class="custom-select" required>
                                     <option value="" " disabled="">Selectionner Année</option>
                                     @foreach ($years as $year)

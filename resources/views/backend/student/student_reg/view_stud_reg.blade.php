@@ -56,7 +56,7 @@
             <form method="GET" action="{{ route('student.year.class.wise') }} ">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4 ">
-                        <label for="text">Annnée</label>
+                        <label for="text">Année</label>
                         <select name="year_id" class="custom-select" required>
                             <option value="" disabled="">Selectionner Année</option>
                             @foreach ($years as $year)
@@ -146,7 +146,7 @@
 
                                
 
-                                    <a href=" {{ route('student.list.print', [$year_id, $class_id, $branch_id, $group_id]) }} "
+                                    <a target="blank" href=" {{ route('student.list.print', [$year_id, $class_id, $branch_id, $group_id]) }} "
                                         class="btn btn-outline-success mb-2" data-toggle="tooltip" data-placement="top" title="Imprimer"
                                         data-original-title="Imprimer">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

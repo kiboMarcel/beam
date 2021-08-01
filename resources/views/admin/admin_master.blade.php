@@ -192,34 +192,7 @@
     <!-- END  USER ACCOUNT SCRIPT -->
 
 
-    <!-- BEGIN TIMER  SCRIPT -->
-
-    <script>
-        function checkTime(i) {
-            if (i < 10) {
-                i = "0" + i;
-            }
-            return i;
-        }
-
-        function startTime() {
-            var today = new Date();
-            //var m = today.toLocaleString('default', { month: 'long' });
-            var h = today.getHours();
-            var m = today.getMinutes();
-            var s = today.getSeconds();
-            // add a zero in front of numbers<10
-            m = checkTime(m);
-            s = checkTime(s);
-
-            document.getElementById('time').innerHTML = " <h1> " + h + ":" + m + ":" + s + " </h1> ";
-            t = setTimeout(function() {
-                startTime()
-            }, 500);
-        }
-        startTime();
-    </script>
-    <!-- END  TIMER  -->
+    
 
     <!-- END PAGE LEVEL SCRIPTS -->
 

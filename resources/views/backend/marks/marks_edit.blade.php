@@ -44,6 +44,11 @@
         margin-top: 17px !important;
     }
 
+    #loaderDiv{
+        display: flex;
+        flex-direction:column;
+    }
+
 </style>
 
 @section('admin')
@@ -60,7 +65,7 @@
                         <div class="head">
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 col-sm-9 ">
-                                    <label for="text">Annnée</label>
+                                    <label for="text">Année</label>
                                     <select name="year_id" id="year_id" class="custom-select" required>
                                         <option value="" selected="" disabled="">Selectionner Année</option>
                                         @foreach ($years as $year)
@@ -144,6 +149,12 @@
                         </div>
                         <hr>
 
+                        {{-- SPINNER LOAD START --}} 
+                        <div id="loaderDiv" class="  justify-content-between mx-5 mt-3 mb-5">
+                            
+                            <div class="spinner-grow text-warning align-self-center"></div>
+                        </div>
+                        {{-- SPINNER LOAD END --}} 
 
                         {{-- mark entry table start --}}
                         <div class="table-responsive mb-4">
@@ -191,6 +202,7 @@
             $.ajax({
                 url: "{{ route('students.edit.getstudents') }}",
                 type: "GET",
+
                 data: {
                     'year_id': year_id,
                     'class_id': class_id,
@@ -199,6 +211,12 @@
                     'exam_type_id': exam_type_id,
                     'group_id': group_id
                 },
+                beforeSend: function() {
+                    $("#loaderDiv").show();
+                },
+                complete: function() {
+                $("#loaderDiv").hide();
+                 },
                 success: function(data) {
                     $('#mark-entry').removeClass('d-none');
                     var html = '';
@@ -223,7 +241,7 @@
 
                             '<td> <a target="blank" href=" ' + detail_url + ' " ' +
                             'class="bs-tooltip" data-toggle="tooltip" ' +
-                            ' data-placement="top" title="" data-original-title="Detail"> ' +
+                            ' data-placement="top" title="Modifier" data-original-title="Detail"> ' +
                             ' <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ' +
                             ' viewBox="0 0 24 24" fill="none" color="#185ADB" ' +
                             ' stroke="currentColor" stroke-width="2" stroke-linecap="round" ' +
@@ -261,7 +279,7 @@
                         branch_id: branch_id
                     },
                     success: function(data) {
-                        var html = '<option value="">Selectionner Matiere</option>';
+                        var html = '<option value="" disabled="">Selectionner Matiere</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.id + '">' + v.school_subject
                                 .name + '</option>';
@@ -274,20 +292,27 @@
     </script>
 
 
+    <script>
+         $("#loaderDiv").hide();
+    </script>
+
     {{-- GET CLASS BRANCH START --}}
     <script type="text/javascript">
         $(function() {
             $(document).on('change', '#class_id', function() {
                 var class_id = $('#class_id').val();
-
                 $.ajax({
                     url: "{{ route('student.getclass.branch') }}",
                     type: "GET",
+                    async: true,
                     data: {
                         class_id: class_id,
                     },
+                   
                     success: function(data) {
-                        var html = '<option value="">Selectionner Serie</option>';
+                        
+                        $("#loaderDiv").hide();
+                        var html = '<option value="" disabled="">Selectionner Serie</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.branch_id + '"  >' + v
                                 .student_branch

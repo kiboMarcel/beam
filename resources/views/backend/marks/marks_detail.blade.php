@@ -51,12 +51,12 @@
                 <div class="table-responsive mb-4 content">
                     <h3> Modifier Notes</h3>
 
-                    <h4>Eleve: {{ $detail['0']['student']['name'] }} </h4>
-                    <h4>Classe: {{ $detail['0']['student_class']['name'] }} </h4>
+                    <h6>Elève: <strong> {{ $detail['0']['student']['name'] }}</strong> </h6>
+                    <h6>Classe: <strong>{{ $detail['0']['student_class']['name'] }}</strong> </h6>
                   
-                    <h4>Matiere: {{ $devoirMarks[0]['assign_subject']['school_subject']['name'] }} </h4>
+                    <h6>Matière: <strong>{{ $devoirMarks[0]['assign_subject']['school_subject']['name'] }}</strong> </h6>
 
-                    <h4>Trimestre: {{ $devoirMarks[0]['season']['name'] }} </h4>
+                    <h6>Trimestre: <strong>{{ $devoirMarks[0]['season']['name'] }}</strong>  </h6>
                     <hr>
                    
                     <form method="post" action=" {{ route('marks.update',[ $detail[0]->student_id, 

@@ -44,6 +44,11 @@
         margin-top: 17px !important;
     }
 
+    #loaderDiv{
+        display: flex;
+        flex-direction:column;
+    }
+
 </style>
 
 @section('admin')
@@ -60,7 +65,7 @@
                         <div class="head">
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 col-sm-9 ">
-                                    <label for="text">Annnée</label>
+                                    <label for="text">Année</label>
                                     <select name="year_id" id="year_id" class="custom-select" required>
                                         <option value="" disabled="">Selectionner Année</option>
                                         @foreach ($years as $year)
@@ -158,6 +163,13 @@
                         <hr>
 
 
+                           {{-- SPINNER LOAD START --}} 
+                        <div id="loaderDiv" class="  justify-content-between mx-5 mt-3 mb-5">
+                            
+                            <div class="spinner-grow text-warning align-self-center"></div>
+                        </div>
+                        {{-- SPINNER LOAD END --}} 
+
                         {{-- mark entry table start --}}
                         <div class="table-responsive mb-4">
 
@@ -193,6 +205,11 @@
 
     </div>
 
+
+    <script>
+        $("#loaderDiv").hide();
+   </script>
+
     <script type="text/javascript">
         $(document).on('click', '#search', function() {
             //console.log('makima')
@@ -215,6 +232,12 @@
                     'group_id': group_id,
                     'season_id': season_id
                 },
+                beforeSend: function() {
+                    $("#loaderDiv").show();
+                },
+                complete: function() {
+                $("#loaderDiv").hide();
+                 },
                 success: function(data) {
                     $('#mark-entry').removeClass('d-none');
                     var html = '';

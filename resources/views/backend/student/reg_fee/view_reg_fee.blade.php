@@ -61,7 +61,7 @@
                     <div class="head">
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-9 ">
-                                <label for="text">Annnée</label>
+                                <label for="text">Année</label>
                                 <select name="year_id" id="year_id" class="custom-select" required>
                                     <option value="" selected="" disabled="">Selectionner Année</option>
                                     @foreach ($years as $year)
