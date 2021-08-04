@@ -498,7 +498,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         
 
-        Route::get('/marksheet/student/{year_id}/{class_id}/{group_id}/{branch_id}/{student_id}', [MarkSheetController::class, 'MarkSheetGet']) -> 
+        Route::get('/marksheet/student/{year_id}/{class_id}/{group_id}/{branch_id}/{student_id}/{season_id}', [MarkSheetController::class, 'MarkSheetGet']) -> 
         name('marksheet.student.get');
 
 

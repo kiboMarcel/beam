@@ -1,6 +1,8 @@
 @extends('admin.admin_master')
 
 
+<script src=" {{ asset('js/jquery-3.6.0.js') }}"></script>
+
 <style>
 .bt-position {
         display: flex;
@@ -109,10 +111,10 @@
                         </div>
                         <div class="col-4 col-md-4">
                             <label for="text">Classe</label>
-                            <select name="class_id" id="select" class="custom-select" required>
+                            <select name="class_id" id="class_id" class="custom-select" required>
                                 <option value="" selected="" disabled="">Selectionner classe</option>
                                 @foreach ($classes as $class)
-                                    <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                    <option value="{{ $class['student_class']['id'] }}">{{ $class['student_class']['name'] }}</option>
                                 @endforeach
 
                             </select>
@@ -127,7 +129,7 @@
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
                                 <label for="text">Serie</label>
-                                <select name="branch_id" id="select" class="custom-select" required>
+                                <select name="branch_id" id="branch_id" class="custom-select" required>
                                     <option value="" selected="" disabled="">Selectionner Serie</option>
                                     @foreach ($branchs as $branch)
                                         <option value="{{ $branch->id }}">{{ $branch->name }}</option>
@@ -139,7 +141,7 @@
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
                                 <label for="text">Groupe</label>
-                                <select name="group_id" id="select" class="custom-select" required>
+                                <select name="group_id" id="group_id" class="custom-select" required>
                                     <option value="" selected="" disabled="">Selectionner groupe</option>
                                     @foreach ($groups as $group)
                                         <option value="{{ $group->id }}">{{ $group->name }}</option>
@@ -176,5 +178,63 @@
             </form>
         </div>
     </div>
-    </div>
+
+     {{-- GET CLASS BRANCH START --}}
+     <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#class_id', function() {
+                var class_id = $('#class_id').val();
+                $.ajax({
+                    url: "{{ route('student.getclass.branch') }}",
+                    type: "GET",
+                    async: true,
+                    data: {
+                        class_id: class_id,
+                    },
+                   
+                    success: function(data) {
+                        
+                        $("#loaderDiv").hide();
+                        var html = '<option value="" selected="" disabled="">Selectionner Serie</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.branch_id + '"  >' + v
+                                .student_branch
+                                .name + '</option>';
+                        });
+                        $('#branch_id').html(html);
+                    }
+                });
+            });
+        });
+    </script>
+    {{-- GET CLASS BRANCH END --}}
+
+    {{-- GET CLASS GROUP START --}}
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#branch_id', function() {
+                var class_id = $('#class_id').val();
+                var branch_id = $('#branch_id').val();
+
+                $.ajax({
+                    url: "{{ route('student.getclass.group') }}",
+                    type: "GET",
+                    data: {
+                        class_id: class_id,
+                        branch_id: branch_id,
+                    },
+                    success: function(data) {
+                        var html = '<option value="">Selectionner groupe</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.group_id + '">' + v
+                                .student_group
+                                .name + '</option>';
+                        });
+                        $('#group_id').html(html);
+                    }
+                });
+            });
+        });
+    </script>
+    {{-- GET CLASS GROUP END --}}
 @endsection

@@ -80,8 +80,8 @@
                                     <select name="class_id" id="class_id" class="custom-select" required>
                                         <option value="" selected="" disabled="">Selectionner classe</option>
                                         @foreach ($classes as $class)
-                                            <option value="{{ $class->id }}">
-                                                {{ $class->name }}</option>
+                                            <option value="{{ $class['student_class']['id'] }}">
+                                                {{ $class['student_class']['name'] }}</option>
                                         @endforeach
 
                                     </select>
@@ -279,7 +279,7 @@
                         branch_id: branch_id
                     },
                     success: function(data) {
-                        var html = '<option value="" disabled="">Selectionner Matiere</option>';
+                        var html = '<option value="" selected="" disabled="">Selectionner Matiere</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.id + '">' + v.school_subject
                                 .name + '</option>';
@@ -312,7 +312,7 @@
                     success: function(data) {
                         
                         $("#loaderDiv").hide();
-                        var html = '<option value="" disabled="">Selectionner Serie</option>';
+                        var html = '<option value="" selected="" disabled="">Selectionner Serie</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.branch_id + '"  >' + v
                                 .student_branch

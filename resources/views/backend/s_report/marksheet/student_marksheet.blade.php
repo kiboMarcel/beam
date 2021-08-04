@@ -102,6 +102,30 @@
             font-size: 12px;
         }
 
+
+        
+
+        .habit{
+            float: left;
+            width: 15%;
+        }
+
+        .season-avg {
+            float: right;
+            margin-top: 12px;
+            margin-left: 100px;
+        }
+
+        .final-avg{
+            border: 1px solid gray;
+            padding: 5px;
+            width: 7%;
+            display: inline-block;
+        }
+
+        .final-avg strong{
+        }
+
     </style>
 
 </head>
@@ -129,67 +153,12 @@
 
 
     <h2>BULLETIN D'EVALUATION </h2>
-    <h3> ELEVE: <strong> {{ $marks['0']['student']['name'] }}</strong> </h3>
+    <h3 class="eleve" > ELEVE: <strong> {{ $marks['0']['student']['name'] }}</strong> </h3>
     <hr>
     <h4>
         Année-Scolaire: <strong> {{ $marks['0']['student_year']['name'] }}</strong> -
         Trimestre: <strong> {{ $marks['0']['season']['name'] }}</strong>
     </h4>
-
-
-    {{-- MARKS GET BY SUBJECT START --}}
-
-    {{-- @foreach ($subjects as $subject)
-        @php
-            $marksBysubjectDevoir = App\Models\StudentMarks::where('assign_subject_id', $subject->id)->
-            where('exam_type_id', '1')->get();
-            
-            $marksBysubjectExam = App\Models\StudentMarks::where('assign_subject_id', $subject->id)->
-            where('exam_type_id', '2')->get();
-            
-        @endphp
-        {{ $subject['school_subject']['name'] }}:
-        @php
-            dd($marksBysubjectExam);
-        @endphp
-        @foreach ($marksBysubject as $mark)
-            {{ $mark->marks }}
-
-        @endforeach <br>
-    @endforeach
-    {{-- MARKS GET BY SUBJECT END --}}
-
-
-
-
-
-
-
-
-
-
-    {{-- @foreach ($subjects as $subject)
-        @php
-            $marksBysubjectDevoir = App\Models\StudentMarks::where('assign_subject_id', $subject->id)
-                ->where('exam_type_id', '1')
-                ->get();
-            
-            $marksBysubjectExam = App\Models\StudentMarks::where('assign_subject_id', $subject->id)
-                ->where('exam_type_id', '2')
-                ->get();
-            
-        @endphp
-        {{ $subject['school_subject']['name'] }}:
-
-        @foreach ($marksBysubjectDevoir as $Devoirmark)
-            {{ $mark->Devoirmark }}
-
-        @endforeach <br>
-    @endforeach --}}
-
-
-
-
 
 
     <table style="width: 100%;">
@@ -216,24 +185,28 @@
 
                 @php
                     $marksBysubjectDevoir = App\Models\StudentMarks::where('assign_subject_id', $subject->id)
-                        ->where('exam_type_id', '1')->where('student_id', $marks[0]->student_id)
-                        ->where('season_id', $marks[0]->season_id)->where('year_id', $marks[0]->year_id)->get();
-
-                       
+                        ->where('exam_type_id', '1')
+                        ->where('student_id', $marks[0]->student_id)
+                        ->where('season_id', $marks[0]->season_id)
+                        ->where('year_id', $marks[0]->year_id)
+                        ->get();
                     
                     $marksByDevoirAVG = App\Models\StudentMarks::where('assign_subject_id', $subject->id)
-                        ->where('exam_type_id', '1')->where('student_id', $marks[0]->student_id)
-                        ->where('season_id', $marks[0]->season_id)->where('year_id', $marks[0]->year_id)
+                        ->where('exam_type_id', '1')
+                        ->where('student_id', $marks[0]->student_id)
+                        ->where('season_id', $marks[0]->season_id)
+                        ->where('year_id', $marks[0]->year_id)
                         ->avg('marks');
                     
-                    
-
                     $marksBysubjectExam = App\Models\StudentMarks::where('assign_subject_id', $subject->id)
-                        ->where('exam_type_id', '2')->where('student_id', $marks[0]->student_id)
-                        ->where('season_id', $marks[0]->season_id)->where('year_id', $marks[0]->year_id)
+                        ->where('exam_type_id', '2')
+                        ->where('student_id', $marks[0]->student_id)
+                        ->where('season_id', $marks[0]->season_id)
+                        ->where('year_id', $marks[0]->year_id)
                         ->first();
-
-                        //dd($marksByDevoirAVG);
+                    
+                    //dd($marksByDevoirAVG);
+                    
                 @endphp
 
                 {{-- SUBJECT NAME --}}
@@ -252,12 +225,12 @@
 
                 @endforeach
                 @if ($devoirmark_count == 0)
-                <td style="width: 3.75%;" class="td-text"></td>
-                <td style="width: 3.75%;" class="td-text"></td>
-                <td style="width: 3.75%;" class="td-text"></td>
-                <td style="width: 3.75%;" class="td-text"></td>
+                    <td style="width: 3.75%;" class="td-text"></td>
+                    <td style="width: 3.75%;" class="td-text"></td>
+                    <td style="width: 3.75%;" class="td-text"></td>
+                    <td style="width: 3.75%;" class="td-text"></td>
 
-            @endif
+                @endif
                 @if ($devoirmark_count == 1)
                     <td style="width: 3.75%;" class="td-text"></td>
                     <td style="width: 3.75%;" class="td-text"></td>
@@ -275,7 +248,7 @@
                 {{-- DEVOIR MARKS END --}}
 
                 {{-- DEVOIR AVG START --}}
-                <td style="width: 3.75%;" class="td-text">{{  round($marksByDevoirAVG, 2)  }}</td>
+                <td style="width: 3.75%;" class="td-text">{{ round($marksByDevoirAVG, 2) }}</td>
                 {{-- DEVOIR AVG END --}}
 
                 {{-- EXAM MARKS START --}}
@@ -289,17 +262,15 @@
 
                 {{-- TOTAL AVERAGE EXAM + DEVOIR AVERAGE START --}}
                 @php
-                if ($marksBysubjectExam == null) {
-
-                    $totalAVG = $marksByDevoirAVG/2;
+                    if ($marksBysubjectExam == null) {
+                        $totalAVG = $marksByDevoirAVG / 2;
+                    } else {
+                        $totalAVG = ($marksBysubjectExam->marks + $marksByDevoirAVG) / 2;
+                    }
                     
-                } else {
-                    $totalAVG = ($marksBysubjectExam->marks + $marksByDevoirAVG)/2; 
-                }
-                
                 @endphp
 
-                <td style="width: 3.75%;" class="td-text">  {{ round($totalAVG, 2) }}</td>
+                <td style="width: 3.75%;" class="td-text"> {{ round($totalAVG, 2) }}</td>
                 {{-- TOTAL AVERAGE EXAM + DEVOIR AVERAGE END --}}
 
                 {{-- SUBJECT COEF START --}}
@@ -307,61 +278,45 @@
                 {{-- SUBJECT COEF END --}}
 
 
-                {{-- FINAL MARK START --}}
+                {{-- NOTE DEFINITIF/ FINAL MARK START --}}
                 @php
-                    $finalMark =   $totalAVG * $subject->coef ;
-
-                        $getfinal_marks = App\Models\Student_final_mark::where( 'student_id', $marks['0']->student_id )
-                        ->where( 'year_id',  $marks['0']->year_id )->where( 'season_id', $marks['0']->season_id )
-                        ->where( 'assign_subject_id', $subject->id )->first();
-                        
-                      /*   if ($getfinal_marks->toArray() == null) {
-                            
-                            $finalMrk = new App\Models\student_final_mark();
-                            $finalMrk->student_id =  $marks['0']->student_id;
-                            $finalMrk->id_no =  $marks['0']->id_no;
-                            $finalMrk->year_id =   $marks['0']->year_id;
-                            $finalMrk->class_id =  $marks['0']->class_id;
-                            $finalMrk->group_id =  $marks['0']->group_id;
-                            $finalMrk->branch_id =  $marks['0']->branch_id;
-                            $finalMrk->assign_subject_id = $subject->id;
-                            $finalMrk->season_id = $marks['0']->season_id;
-                            $finalMrk->final_marks = $finalMark ;
-
-                        $finalMrk->save();
-                        } */
-                        
-                         //dd($getfinal_marks->final_marks);
+                    $finalMark = $totalAVG * $subject->coef;
+                    
+                    $getfinal_marks = App\Models\Student_final_mark::where('student_id', $marks['0']->student_id)
+                        ->where('year_id', $marks['0']->year_id)
+                        ->where('season_id', $marks['0']->season_id)
+                        ->where('assign_subject_id', $subject->id)
+                        ->first();
+             
                     
                 @endphp
                 <td class="td-text"> {{ $getfinal_marks->final_marks }}</td>
-                {{-- FINAL MARK END --}}
+                {{-- NOTE DEFINITIF/ FINAL MARK END --}}
 
 
                 {{-- POSITION MARK START --}}
                 @php
                     
-      
-                     DB::statement(DB::raw('set @rank:=0'));
-
-                     $rank = App\Models\Student_final_mark::selectRaw('*, @rank:=@rank+1 as rank')
-                     ->where('assign_subject_id',$subject->id)
-                     ->orderBy('final_marks', 'DESC')->get();
-
-                    for ($i=0; $i < count($rank->toArray()) ; $i++) { 
-                        if( $rank[$i]->student_id ==  $marks['0']->student_id ){
+                    DB::statement(DB::raw('set @rank:=0'));
+                    
+                    $rank = App\Models\Student_final_mark::selectRaw('*, @rank:=@rank+1 as rank')
+                        ->where('assign_subject_id', $subject->id)
+                        ->orderBy('final_marks', 'DESC')
+                        ->get();
+                    
+                    for ($i = 0; $i < count($rank->toArray()); $i++) {
+                        if ($rank[$i]->student_id == $marks['0']->student_id) {
                             $subjectrank = $rank[$i]->rank;
                         }
-                       
-                    } 
+                    }
                 @endphp
 
                 <td class="td-text"> {{ $subjectrank }}e</td>
-               
+
                 {{-- POSITION MARK END --}}
 
                 {{-- SUGJFECT TEACHER  START --}}
-                <td>OURO-AGORO</td>
+                <td> {{ $subject['user']['name'] }} </td>
                 {{-- SUGJFECT TEACHER END --}}
 
 
@@ -376,41 +331,49 @@
 
             @endforeach
 
-            {{-- <tr>
-                <td> Anglais</td>
-                <td  class="td-text"> 10</td>
-                <td  class="td-text"> 15</td>
-                <td  class="td-text"> </td>
-                <td> </td>
-                <td  class="td-text">11 </td>
-                <td  class="td-text">09</td>
-                <td  class="td-text">10</td>
-                <td  class="td-text">4</td>
-                <td  class="td-text">40</td>
-                <td  class="td-text">24ex</td>
-                <td>OURO-AGORO</td>
-                <td class="observation_td">passable. peut mieut faire</td>
+            <tr class="border_style">
                 <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="td-text" colspan="2">TOTAL</td>
+                <td class="td-text"> {{ $coefSum }} </td>
+                <td class="td-text"> {{ $seasonAvg }} </td>
+                {{-- <td class="td-text"> {{ $marks_avg->final_avg }} </td> --}}
+                
+
             </tr>
 
-            <tr class="border_style" >
-                <td  ></td>
-                <td ></td>
-                <td ></td>
-                <td ></td>
-                <td ></td>
-                <td ></td>
-                <td class="td-text" colspan="2">Total</td>
-                <td class="td-text">4</td>
-                <td class="td-text">40</td>
-                <td class="td-text">Rang</td>
-                <td class="td-text">Sur Eleves Classé</td>
-                
-            </tr> --}}
+
+     
         </tbody>
 
 
     </table>
+
+    <div>
+        <div class="habit">
+            <span> Retards:</span><br>
+            <span>Abscences:</span><br>
+            <span>Punitions:</span><br>
+            <span>Exclusions:</span><br>
+        </div>
+
+        <div class="season-avg">
+            <span> <strong> Moyenne Generale du Trimestre</strong>  </span>
+            <span class="final-avg"> {{ $marks_avg->final_avg }}  </span> <br>
+
+            <span >  Rang  </span>
+            <span > <strong class="final-avg">4e</strong > sur {{ $totalStudent }}  Eleves classés </span>
+           
+        </div>
+    </div>
+
+
+
+
 
 </body>
 

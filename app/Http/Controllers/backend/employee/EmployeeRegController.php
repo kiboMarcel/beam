@@ -35,6 +35,7 @@ class EmployeeRegController extends Controller
 
 
     public function EmployeeStore(Request $request){
+        
         DB::transaction(function () use ($request) {
             $checkYear = date('Ym', strtotime($request->join_date));
             //dd($checkYear);
@@ -100,7 +101,7 @@ class EmployeeRegController extends Controller
            
         });
 
-        return redirect()-> route('employee.registration.view');
+        return redirect()-> route('employee.registration.view')->with('success', '');
     }
 
     public function EmployeeEdit($id){
@@ -126,7 +127,7 @@ class EmployeeRegController extends Controller
 
             $user->save();
 
-        return redirect()-> route('employee.registration.view');
+        return redirect()-> route('employee.registration.view')->with('successUpdate', '');
     }
 
     public function EmployeeDetail(Request $request ,$id){

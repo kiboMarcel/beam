@@ -17,6 +17,8 @@ use App\Models\StudentClass;
 use App\Models\StudentGroup;
 use App\Models\ExamType;
 use App\Models\SchoolSeason;
+use App\Models\Student_final_mark;
+use App\Models\StudentFinalAVG;
 
 use DB;
 use PDF;
@@ -26,7 +28,7 @@ class MarkSheetController extends Controller
 {
     public function MarkSheetView(){
         $data['years'] = StudentYear::all();
-        $data['classes'] = StudentClass::all();
+        $data['classes'] = AssignClasse::all();
         $data['branchs'] = StudentBranch::all();
         $data['groups'] = StudentGroup::all();
         $data['exam_types'] = ExamType::all();
@@ -36,7 +38,7 @@ class MarkSheetController extends Controller
     }
 
 
-    public function MarkSheetGet($year_id, $class_id, $branch_id, $group_id, $student_id){
+    public function MarkSheetGet($year_id, $class_id, $branch_id, $group_id, $student_id, $season_id){
 
         //dd($group_id);
         $data['year_id'] =  $year_id;
@@ -44,15 +46,49 @@ class MarkSheetController extends Controller
         $data['branch_id'] =  $branch_id;
         $data['group_id'] =  $group_id;
         $data['student_id'] =  $student_id;
+        $data['season_id'] =  $season_id;
        
+        //count student
+        $data['totalStudent'] = AssignStudent::where('class_id', $class_id)
+        ->where('branch_id', $branch_id)->where('year_id', $year_id)->count();
+
         //get subject
         $data['subjects'] = AssignSubject::with(['school_subject'])->where('class_id', $class_id)
         ->where('branch_id', $branch_id)->get();
+
+        //get coef sum
+        $data['coefSum'] = AssignSubject::where('class_id', $class_id)
+        ->where('branch_id', $branch_id)->sum('coef');
 
         //get marks
         $data['marks'] = StudentMarks::with(['student', 'student_class', 'student_branch', 'student_group' ,'season'])
         ->where('student_id', $student_id)->where('year_id', $year_id)->where('class_id', $class_id)
         ->where('group_id', $group_id)->where('branch_id', $branch_id)->get();
+
+        //total season avg
+        $data['seasonAvg'] = StudentMarks::where('student_id', $student_id)->where('year_id', $year_id)->where('class_id', $class_id)
+        ->where('season_id', $season_id)->sum('marks');
+
+        //final mark avg
+        $data['marks_avg'] = StudentFinalAVG::where('student_id', $student_id)
+        ->where('year_id', $year_id)->where('class_id', $class_id)
+        ->where('season_id', $season_id)->first();
+
+        if($data['marks_avg'] == null ){
+            return view('backend.s_report.marksheet.avg_error', $data);
+        } else{
+            $pdf = PDF::loadView('backend.s_report.marksheet.student_marksheet', 
+            $data, 
+            [], 
+            [ 
+              'title' => 'Certificate', 
+              'format' => 'A4-L',
+              'orientation' => 'L'
+            ]);
+            $pdf->SetProtection(['copy', 'print'], '', 'pass');
+            return $pdf->stream('document.pdf');
+        }   
+        
 
         //dd($data['marks']->toArray());
 
@@ -60,16 +96,7 @@ class MarkSheetController extends Controller
 
 
 
-        $pdf = PDF::loadView('backend.s_report.marksheet.student_marksheet', 
-        $data, 
-        [], 
-        [ 
-          'title' => 'Certificate', 
-          'format' => 'A4-L',
-          'orientation' => 'L'
-        ]);
-        $pdf->SetProtection(['copy', 'print'], '', 'pass');
-        return $pdf->stream('document.pdf');
+       
         
         //return view('backend.s_report.marksheet.student_marksheet', $data);
     }

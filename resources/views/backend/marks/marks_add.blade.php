@@ -80,8 +80,8 @@
                                     <select name="class_id" id="class_id" class="custom-select" required>
                                         <option value="" selected="" disabled="">Selectionner classe</option>
                                         @foreach ($classes as $class)
-                                            <option value="{{ $class->id }}">
-                                                {{ $class->name }}</option>
+                                            <option value="{{ $class['student_class']['id'] }}">
+                                                {{ $class['student_class']['name'] }}</option>
                                         @endforeach
 
                                     </select>
@@ -279,7 +279,7 @@
                         branch_id: branch_id
                     },
                     success: function(data) {
-                        var html = '<option disabled="" value="">Selectionner Matiere</option>';
+                        var html = '<option disabled="" selected="" value="">Selectionner Matiere</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.id + '">' + v.school_subject
                                 .name + '</option>';
@@ -290,5 +290,65 @@
             });
         });
     </script>
+
+
+ {{-- GET CLASS BRANCH START --}}
+ <script type="text/javascript">
+    $(function() {
+        $(document).on('change', '#class_id', function() {
+            var class_id = $('#class_id').val();
+            $.ajax({
+                url: "{{ route('student.getclass.branch') }}",
+                type: "GET",
+                async: true,
+                data: {
+                    class_id: class_id,
+                },
+               
+                success: function(data) {
+                    
+                    $("#loaderDiv").hide();
+                    var html = '<option value="" selected="" disabled="">Selectionner Serie</option>';
+                    $.each(data, function(key, v) {
+                        html += '<option value="' + v.branch_id + '"  >' + v
+                            .student_branch
+                            .name + '</option>';
+                    });
+                    $('#branch_id').html(html);
+                }
+            });
+        });
+    });
+</script>
+{{-- GET CLASS BRANCH END --}}
+
+{{-- GET CLASS GROUP START --}}
+<script type="text/javascript">
+    $(function() {
+        $(document).on('change', '#branch_id', function() {
+            var class_id = $('#class_id').val();
+            var branch_id = $('#branch_id').val();
+
+            $.ajax({
+                url: "{{ route('student.getclass.group') }}",
+                type: "GET",
+                data: {
+                    class_id: class_id,
+                    branch_id: branch_id,
+                },
+                success: function(data) {
+                    var html = '<option value="">Selectionner groupe</option>';
+                    $.each(data, function(key, v) {
+                        html += '<option value="' + v.group_id + '">' + v
+                            .student_group
+                            .name + '</option>';
+                    });
+                    $('#group_id').html(html);
+                }
+            });
+        });
+    });
+</script>
+{{-- GET CLASS GROUP END --}}
 
 @endsection

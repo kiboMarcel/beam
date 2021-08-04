@@ -27,119 +27,10 @@ $route = Route::current()->getName();
 
             </li>
 
-            @if (Auth::user()->role == 'Admin')
-                <li class="menu">
-                    <a href="#users" data-toggle="collapse" data-active="{{ $prefix == '/users' ? 'true' : 'false' }}"
-                        aria-expanded="false" class="dropdown-toggle">
-                        <div class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-users">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                            <span>Utilisateurs</span>
-                        </div>
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="feather feather-chevron-right">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                        </div>
-                    </a>
-                    <ul class="collapse submenu list-unstyled {{ $prefix == '/users' ? 'show' : '' }}"" id="users"
-                        data-parent="#accordionExample">
-                        <li class="{{ $route == 'user.view' ? 'active' : '' }}">
-                            <a href="{{ route('user.view') }}"> Voir Utilisateurs </a>
-                        </li>
-                        <li class="{{ $route == 'user.add' ? 'active' : '' }}">
-                            <a href="{{ route('user.add') }}"> Ajouter Utilisateur </a>
-                        </li>
-                    </ul>
-                </li>
-            @endif
+          
 
 
-            <li class="menu">
-                <a href="#setups" data-toggle="collapse" data-active="{{ $prefix == '/setups' ? 'true' : 'false' }}"
-                    aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-layers">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                        </svg>
-                        <span>Gestion globale</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-chevron-right">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled {{ $prefix == '/setups' ? 'show' : '' }}" id="setups"
-                    data-parent="#accordionExample">
-                    <li class="{{ $route == 'student.class.view' ? 'active' : '' }}">
-                        <a href="{{ route('student.class.view') }}"> Classe </a>
-                    </li>
-
-                    <li class="{{ $route == 'student.year.view' ? 'active' : '' }}">
-                        <a href="{{ route('student.year.view') }}"> Année Scolaire </a>
-                    </li>
-
-                    <li class="{{ $route == 'student.branch.view' ? 'active' : '' }}">
-                        <a href="{{ route('student.branch.view') }}"> Series / Filieres </a>
-                    </li>
-
-                    <li class="{{ $route == 'student.group.view' ? 'active' : '' }}">
-                        <a href="{{ route('student.group.view') }}"> Groupes </a>
-                    </li>
-
-                    <li class="{{ $route == 'fee.category.view' ? 'active' : '' }}">
-                        <a href="{{ route('fee.category.view') }}"> Type de Paymement </a>
-                    </li>
-
-                    <li class="{{ $route == 'fee.amount.view' ? 'active' : '' }}">
-                        <a href="{{ route('fee.amount.view') }}"> Montant des Payements </a>
-                    </li>
-
-                    <li class="{{ $route == 'exam.type.view' ? 'active' : '' }}">
-                        <a href="{{ route('exam.type.view') }}"> types D'examen</a>
-                    </li>
-
-                    <li class="{{ $route == 'slice.view' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('slice.view') }}"> Tranche </a>
-                    </li>
-
-                    <li class="{{ $route == 'subject.type.view' ? 'active' : '' }}">
-                        <a href="{{ route('subject.type.view') }}"> Matières</a>
-                    </li>
-
-                    <li class="{{ $route == 'assign.subject.view' ? 'active' : '' }}">
-                        <a href="{{ route('assign.subject.view') }}"> Attribuer Matière </a>
-                    </li>
-
-                    <li class="{{ $route == 'assign.class.view' ? 'active' : '' }}">
-                        <a href="{{ route('assign.class.view') }}"> Attribuer Classe </a>
-                    </li>
-
-                    <li class="{{ $route == 'designation.view' ? 'active' : '' }}">
-                        <a href="{{ route('designation.view') }}"> Designation </a>
-                    </li>
-
-                    <li class="{{ $route == 'season.view' ? 'active' : '' }}">
-                        <a href="{{ route('season.view') }}"> Trim/Sem </a>
-                    </li>
-
-                </ul>
-            </li>
+         
 
 
             <li class="menu">
@@ -183,6 +74,125 @@ $route = Route::current()->getName();
                     </li>
 
 
+
+                </ul>
+            </li>
+
+
+            <li class="menu">
+                <a href="#marks" data-toggle="collapse" data-active="{{ $prefix == '/marks' ? 'true' : 'false' }}"
+                    aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-pen-tool">
+                            <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                            <path d="M2 2l7.586 7.586"></path>
+                            <circle cx="11" cy="11" r="2"></circle>
+                        </svg>
+                        <span>Gest. Note</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/marks' ? 'show' : '' }}" id="marks"
+                    data-parent="#accordionExample">
+
+                    <li class="{{ $route == 'marks.entry.add' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('marks.entry.add') }}"> Ajouter Note </a>
+                    </li>
+
+                    <li class="{{ $route == 'marks.entry.edit' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('marks.entry.edit') }}"> Modifier Note </a>
+                    </li>
+
+
+
+
+                </ul>
+            </li>
+
+            <li class="menu">
+                <a href="#setups" data-toggle="collapse" data-active="{{ $prefix == '/setups' ? 'true' : 'false' }}"
+                    aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-layers">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        <span>Gestion globale</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/setups' ? 'show' : '' }}" id="setups"
+                    data-parent="#accordionExample">
+                 
+                    <li class="{{ $route == 'student.year.view' ? 'active' : '' }}">
+                        <a href="{{ route('student.year.view') }}"> Année Scolaire </a>
+                    </li>
+
+                    <li class="{{ $route == 'student.class.view' ? 'active' : '' }}">
+                        <a href="{{ route('student.class.view') }}"> Classe </a>
+                    </li>
+
+                    <li class="{{ $route == 'student.branch.view' ? 'active' : '' }}">
+                        <a href="{{ route('student.branch.view') }}"> Series / Filieres </a>
+                    </li>
+
+                    <li class="{{ $route == 'student.group.view' ? 'active' : '' }}">
+                        <a href="{{ route('student.group.view') }}"> Groupes </a>
+                    </li>
+
+                    <li class="{{ $route == 'assign.class.view' ? 'active' : '' }}">
+                        <a href="{{ route('assign.class.view') }}"> Attribuer Classe </a>
+                    </li>
+
+                    <li class="{{ $route == 'fee.category.view' ? 'active' : '' }}">
+                        <a href="{{ route('fee.category.view') }}"> Type de Paymement </a>
+                    </li>
+
+                    <li class="{{ $route == 'fee.amount.view' ? 'active' : '' }}">
+                        <a href="{{ route('fee.amount.view') }}"> Montant des Payements </a>
+                    </li>
+
+                    <li class="{{ $route == 'exam.type.view' ? 'active' : '' }}">
+                        <a href="{{ route('exam.type.view') }}"> types D'examen</a>
+                    </li>
+
+                    <li class="{{ $route == 'slice.view' ? 'active' : '' }}">
+                        <a type="submit" href="{{ route('slice.view') }}"> Tranche </a>
+                    </li>
+
+                    <li class="{{ $route == 'subject.type.view' ? 'active' : '' }}">
+                        <a href="{{ route('subject.type.view') }}"> Matières</a>
+                    </li>
+
+                    <li class="{{ $route == 'assign.subject.view' ? 'active' : '' }}">
+                        <a href="{{ route('assign.subject.view') }}"> Attribuer Matière </a>
+                    </li>
+
+                    <li class="{{ $route == 'designation.view' ? 'active' : '' }}">
+                        <a href="{{ route('designation.view') }}"> Designation </a>
+                    </li>
+
+                    <li class="{{ $route == 'season.view' ? 'active' : '' }}">
+                        <a href="{{ route('season.view') }}"> Trim/Sem </a>
+                    </li>
 
                 </ul>
             </li>
@@ -236,44 +246,7 @@ $route = Route::current()->getName();
                 </ul>
             </li>
 
-            <li class="menu">
-                <a href="#marks" data-toggle="collapse" data-active="{{ $prefix == '/marks' ? 'true' : 'false' }}"
-                    aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-pen-tool">
-                            <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
-                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
-                            <path d="M2 2l7.586 7.586"></path>
-                            <circle cx="11" cy="11" r="2"></circle>
-                        </svg>
-                        <span>Gest. Note</span>
-                    </div>
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-chevron-right">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </div>
-                </a>
-                <ul class="collapse submenu list-unstyled {{ $prefix == '/marks' ? 'show' : '' }}" id="marks"
-                    data-parent="#accordionExample">
-
-                    <li class="{{ $route == 'marks.entry.add' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('marks.entry.add') }}"> Ajouter Note </a>
-                    </li>
-
-                    <li class="{{ $route == 'marks.entry.edit' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('marks.entry.edit') }}"> Modifier Note </a>
-                    </li>
-
-
-
-
-                </ul>
-            </li>
+          
 
             <li class="menu">
                 <a href="#accountManagement" data-toggle="collapse"
@@ -401,6 +374,41 @@ $route = Route::current()->getName();
                     </li>
                 </ul>
             </li> --}}
+
+            @if (Auth::user()->role == 'Admin')
+            <li class="menu">
+                <a href="#users" data-toggle="collapse" data-active="{{ $prefix == '/users' ? 'true' : 'false' }}"
+                    aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-users">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        <span>Utilisateurs</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-chevron-right">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/users' ? 'show' : '' }}"" id="users"
+                    data-parent="#accordionExample">
+                    <li class="{{ $route == 'user.view' ? 'active' : '' }}">
+                        <a href="{{ route('user.view') }}"> Voir Utilisateurs </a>
+                    </li>
+                    <li class="{{ $route == 'user.add' ? 'active' : '' }}">
+                        <a href="{{ route('user.add') }}"> Ajouter Utilisateur </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
 
 
             <li class="menu">

@@ -18,9 +18,10 @@ class CreateAssignSubjectsTable extends Migration
             $table->integer('class_id');
             $table->integer('branch_id');
             $table->integer('subject_id');
+            $table->integer('teacher_id');
             $table->double('full_mark');
-            $table->double('pass_mark');
-            $table->double('subjective_mark');
+            $table->double('pass_mark')->nullable();
+            $table->int('coef');
             $table->timestamps();
         });
     }

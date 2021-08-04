@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 
+use App\Models\AssignClasse;
 use App\Models\StudentMarks;
 use App\Models\AssignStudent;
 use App\Models\User;
@@ -18,6 +19,7 @@ use App\Models\ExamType;
 use App\Models\SchoolSeason;
 use App\Models\AssignSubject;
 use App\Models\Student_final_mark;
+use App\Models\StudentFinalAVG;
 
 use DB;
 use PDF;
@@ -28,7 +30,7 @@ class MarksController extends Controller
     public function MarksAdd(){
 
             $data['years'] = StudentYear::all();
-            $data['classes'] = StudentClass::all();
+            $data['classes'] = AssignClasse::all();
             $data['branchs'] =  StudentBranch::all();
             $data['groups'] =  StudentGroup::all();
             $data['exam_types'] = ExamType::all();
@@ -108,67 +110,114 @@ class MarksController extends Controller
 
            /// MARKS AVERAGE START
 
-           for ($j=0 ; $j<count($request->student_id) ; $j++){
+        for ($j=0 ; $j<count($request->student_id) ; $j++){
  
-                //get subject
-                $subjects = AssignSubject::with(['school_subject'])
+            //get subject
+            $subjects = AssignSubject::with(['school_subject'])
                 ->where('id', $request->assign_subject_id )->first();
 
 
-                /*  $marksBysubjectDevoir = StudentMarks::where('assign_subject_id', $request->assign_subject_id)
-                ->where('exam_type_id', '1')->where('student_id', $request->student_id[$j])
-                ->where('year_id', $request->year_id)
-                ->get();
- */
+            /*  $marksBysubjectDevoir = StudentMarks::where('assign_subject_id', $request->assign_subject_id)
+            ->where('exam_type_id', '1')->where('student_id', $request->student_id[$j])
+            ->where('year_id', $request->year_id)
+            ->get();
+            */
         
-                $marksByDevoirAVG = StudentMarks::where('assign_subject_id', $request->assign_subject_id)
-                ->where('exam_type_id', '1')->where('student_id', $request->student_id[$j])
-                ->where('year_id', $request->year_id)->avg('marks');
+            $marksByDevoirAVG = StudentMarks::where('assign_subject_id', $request->assign_subject_id)
+            ->where('exam_type_id', '1')->where('student_id', $request->student_id[$j])
+            ->where('year_id', $request->year_id)->avg('marks');
         
-                $marksBysubjectExam = StudentMarks::where('assign_subject_id', $request->assign_subject_id)
-                ->where('exam_type_id', '2')->where('student_id', $request->student_id[$j])
-                ->where('year_id', $request->year_id)->first();
-
-                //dd($marksByDevoirAVG);
-                $examMArk = $marksBysubjectExam->marks;
-                $totalAVG =( $examMArk + $marksByDevoirAVG)/2;
-                
-                $finalMark =   $totalAVG * $subjects->coef ;
-           
-                $getfinal_marks = Student_final_mark::where( 'student_id', $request->student_id[$j] )
-                ->where( 'year_id', $request->year_id )->where( 'season_id', $request->season_id )
-                ->where( 'assign_subject_id',$request->assign_subject_id )->get();
+            $marksBysubjectExam = StudentMarks::where('assign_subject_id', $request->assign_subject_id)
+            ->where('exam_type_id', '2')->where('student_id', $request->student_id[$j])
+            ->where('year_id', $request->year_id)->first();
             
-                    if ($getfinal_marks->toArray() == null) {
+            //dd($marksByDevoirAVG);
+            $examMArk = $marksBysubjectExam->marks;
+            $totalAVG =( $examMArk + $marksByDevoirAVG)/2;
                 
-                        $finalMrk = new Student_final_mark();
-                        $finalMrk->student_id =  $request->student_id[$j];
-                        $finalMrk->id_no =  $request->id_no[$j];
-                        $finalMrk->year_id =   $request->year_id;
-                        $finalMrk->class_id =  $request->class_id;
-                        $finalMrk->group_id =  $request->group_id;
-                        $finalMrk->branch_id =  $request->branch_id;
-                        $finalMrk->assign_subject_id =  $request->assign_subject_id;
-                        $finalMrk->season_id = $request->season_id;
-                        $finalMrk->final_marks = $finalMark ;
+            $finalMark =   $totalAVG * $subjects->coef ;
+           
+            $getfinal_marks = Student_final_mark::where( 'student_id', $request->student_id[$j] )
+            ->where( 'year_id', $request->year_id )->where( 'season_id', $request->season_id )
+            ->where( 'assign_subject_id',$request->assign_subject_id )->get();
+            
+            if ($getfinal_marks->toArray() == null) {
+                
+                $finalMrk = new Student_final_mark();
+                $finalMrk->student_id =  $request->student_id[$j];
+                $finalMrk->id_no =  $request->id_no[$j];
+                $finalMrk->year_id =   $request->year_id;
+                $finalMrk->class_id =  $request->class_id;
+                $finalMrk->group_id =  $request->group_id;
+                $finalMrk->branch_id =  $request->branch_id;
+                $finalMrk->assign_subject_id =  $request->assign_subject_id;
+                $finalMrk->season_id = $request->season_id;
+                $finalMrk->final_marks = round($finalMark, 2) ;
 
-                        $finalMrk->save();
-                    }else{
+                $finalMrk->save();
 
-                        $finalMrk =  Student_final_mark::where( 'student_id', $request->student_id[$j] )
-                        ->where( 'year_id', $request->year_id )->where( 'season_id', $request->season_id )
-                        ->where( 'assign_subject_id',$request->assign_subject_id )->first();
 
-                        
-                        $finalMrk->final_marks =  round($finalMark, 2) ;
+            }else{
+                //find the existing mark to update
+                $finalMrk =  Student_final_mark::where( 'student_id', $request->student_id[$j] )
+                ->where( 'year_id', $request->year_id )->where( 'season_id', $request->season_id )
+                ->where( 'assign_subject_id',$request->assign_subject_id )->first();
+                
+                $finalMrk->final_marks =  round($finalMark, 2) ;
+                
+                 $finalMrk->save();
+                
+                 //UPPDATE FINAL AVG TABLE 
+                 //find the sum of all the final mark for the student
+                 $sum_final_mark = Student_final_mark::where('student_id', $request->student_id[$j])
+                 ->where('year_id', $request->year_id)->where('season_id', $request->season_id)
+                 ->sum('final_marks');
+ 
+                 //find the sum of the coef of the current class
+                 $coef_sum = AssignSubject::where('class_id', $request->class_id)
+                 ->where('branch_id', $request->branch_id)->sum('coef');
+         
+                  $fmarkAVG = ($sum_final_mark / $coef_sum) ;
 
-                        $finalMrk->save();
-                    }
+
+                  //check if student final average exist 
+                  $Avgcheck = StudentFinalAVG::where('student_id', $request->student_id[$j])
+                  ->where('year_id', $request->year_id)->where('season_id', $request->season_id)->get();
+
+                  if($Avgcheck->toArray() == null){
+                    $avg = new StudentFinalAVG();
+
+                    $avg->year_id  = $request->year_id;
+                    $avg->season_id  = $request->season_id;
+                    $avg->class_id  = $request->class_id;
+                    $avg->final_avg  = round($fmarkAVG, 2);
+                    $avg->student_id  = $request->student_id[$j];
+  
+                    $avg->save();
+                  }else{
+                    $Avgcheck = StudentFinalAVG::where('student_id', $request->student_id[$j])
+                  ->where('year_id', $request->year_id)
+                  ->where('season_id', $request->season_id)->delete();
+
+                  $avg = new StudentFinalAVG();
+
+                  $avg->year_id  = $request->year_id;
+                  $avg->season_id  = $request->season_id;
+                  $avg->class_id  = $request->class_id;
+                  $avg->final_avg  = round($fmarkAVG, 2);
+                  $avg->student_id  = $request->student_id[$j];
+
+                  $avg->save();
+                  }
+                
+                //UPPDATE FINAL AVG TABLE 
+
+            }
 
             
        
 
-           }
+        }
          
            /// MARKS AVERAGE END
 
@@ -180,7 +229,7 @@ class MarksController extends Controller
     public function MarksEdit(Request $request){
 
         $data['years'] = StudentYear::all();
-        $data['classes'] = StudentClass::all();
+        $data['classes'] = AssignClasse::all();
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['exam_types'] = ExamType::all();
@@ -348,6 +397,54 @@ class MarksController extends Controller
             //dd($updateFinalMark);
 
             /// MARKS AVERAGE END
+
+
+             //UPPDATE FINAL AVG TABLE 
+                 //find the sum of all the final mark for the student
+                 $sum_final_mark = Student_final_mark::where('student_id', $student_id)
+                 ->where('year_id', $year_id)->where('season_id', $season_id)
+                 ->sum('final_marks');
+ 
+                 //find the sum of the coef of the current class
+                 $coef_sum = AssignSubject::where('class_id', $request->class_id)
+                 ->where('branch_id',  $request->branch_id)->sum('coef');
+         
+                  $fmarkAVG = ($sum_final_mark / $coef_sum) ;
+                
+
+                  //check if student final average exist 
+                  $Avgcheck = StudentFinalAVG::where('student_id', $request->student_id)
+                  ->where('year_id', $request->year_id)->where('season_id', $request->season_id)->get();
+
+                  if($Avgcheck->toArray() == null){
+                    $avg = new StudentFinalAVG();
+
+                    $avg->year_id  = $year_id;
+                    $avg->season_id  = $season_id;
+                    $avg->class_id  =  $request->class_id;
+                    $avg->final_avg  = round($fmarkAVG, 2);
+                    $avg->student_id  = $student_id;
+  
+                    $avg->save();
+                  }else{
+                    $Avgcheck = StudentFinalAVG::where('student_id', $request->student_id)
+                    ->where('year_id', $request->year_id)
+                    ->where('season_id', $request->season_id)->delete();
+  
+
+                    $avg = new StudentFinalAVG();
+
+                    $avg->year_id  = $year_id;
+                    $avg->season_id  = $season_id;
+                    $avg->class_id  =  $request->class_id;
+                    $avg->final_avg  = round($fmarkAVG, 2);
+                    $avg->student_id  = $student_id;
+  
+                    $avg->save();
+                  }
+
+                
+                //UPPDATE FINAL AVG TABLE
             
              return redirect()->back();
         }

@@ -9,6 +9,7 @@ use App\Models\AssignSubject;
 use App\Models\StudentClass;
 use App\Models\SchoolSubject;
 use App\Models\StudentBranch;
+use App\Models\User;
 
 class AssignSubjectController extends Controller
 {
@@ -25,6 +26,7 @@ class AssignSubjectController extends Controller
         $data['subjects']= SchoolSubject::all();
         $data['classes'] = StudentClass::all();
         $data['branchs'] = StudentBranch::all();
+        $data['teachers'] = User::where('designation_id', 2)->get();
         return view('backend.setup.assign_subject.add_assign_subject', $data);
 
     }
@@ -39,7 +41,7 @@ class AssignSubjectController extends Controller
                 $assign_subject-> branch_id = $request->branch_id;
                 $assign_subject->subject_id = $request->subject_id[$i];
                 $assign_subject->full_mark = $request->full_mark[$i];
-                $assign_subject->pass_mark = $request->pass_mark[$i];
+                $assign_subject->teacher_id = $request->teacher_id[$i];
                 $assign_subject->coef = $request->subjective_mark[$i];
 
                 $assign_subject->save();
@@ -83,7 +85,7 @@ class AssignSubjectController extends Controller
                     $assign_subject-> branch_id = $request->branch_id;
                     $assign_subject->subject_id = $request->subject_id[$i];
                     $assign_subject->full_mark = $request->full_mark[$i];
-                    $assign_subject->pass_mark = $request->pass_mark[$i];
+                    $assign_subject->teacher_id = $request->teacher_id[$i];
                     $assign_subject->coef = $request->subjective_mark[$i];
     
                     $assign_subject->save();

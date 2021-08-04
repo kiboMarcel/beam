@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend\student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\AssignClasse;
 use App\Models\AssignStudent;
 use App\Models\User;
 use App\Models\DiscountStudent;
@@ -85,7 +86,7 @@ class StudentRegistrationController extends Controller
 
 
     public function RegistrationAdd(){
-        $data['classes'] =  StudentClass::all();
+        $data['classes'] =  AssignClasse::all();
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['years'] =  StudentYear::all();
