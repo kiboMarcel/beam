@@ -59,6 +59,13 @@
                     <h6>Trimestre: <strong>{{ $devoirMarks[0]['season']['name'] }}</strong>  </h6>
                     <hr>
                    
+                     {{-- GET STATUS FOR SWEET ALERT  START--}}
+                     @php
+                     $getstatus =  \Session::has('error');  
+                     
+                     @endphp
+                     {{-- GET STATUS FOR SWEET ALERT START --}}
+
                     <form method="post" action=" {{ route('marks.update',[ $detail[0]->student_id, 
                     $devoirMarks[0]->assign_subject_id ,  $detail[0]->year_id,  $detail[0]->season_id ] ) }}  ">
                         @csrf
@@ -357,6 +364,31 @@
                 counter -= 1
             })
         })
+    </script>
+
+      {{-- SWEET ALERT SCRIPT --}}
+      <script> 
+        window.addEventListener('load', function() {
+            var isAbort = <?php echo json_encode($getstatus); ?>;
+
+            if (isAbort) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'error',
+                    title: 'Vueillez Saisir une note au minimum',
+                    padding: '2em',
+                })
+            }  
+
+
+        });
     </script>
 
 @endsection

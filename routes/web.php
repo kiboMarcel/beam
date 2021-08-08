@@ -181,7 +181,7 @@ Route::group(['middleware' => 'auth'], function(){
         
         Route::get('/fee/amount/edit/{fee_category_id}', [FeeAmountController::class, 'FeeAmountEdit']) -> name('fee.amount.edit');
         
-        Route::post('/fee/amount/update/{fee_category_id} ', [FeeAmountController::class, 'FeeAmountUpdate']) -> name('fee.amount.update');
+        Route::post('/fee/amount/update/{fee_category_id}/{jsonId} ', [FeeAmountController::class, 'FeeAmountUpdate']) -> name('fee.amount.update');
         
         Route::get('/fee/amount/detail/{fee_category_id}', [FeeAmountController::class, 'FeeAmountDetail']) -> name('fee.amount.detail');
         
@@ -222,9 +222,13 @@ Route::group(['middleware' => 'auth'], function(){
         
         Route::get('/assign/subject/edit/{class_id}/{branch_id}', [AssignSubjectController::class, 'AssignSubjectEdit']) -> name('assign.subject.edit');
         
-        Route::post('/assign/subject/update/{class_id}/{branch_id} ', [AssignSubjectController::class, 'AssignSubjectUpdate']) -> name('assign.subject.update');
+        Route::post('/assign/subject/update/{class_id}/{branch_id}/{jsonId} ', [AssignSubjectController::class, 'AssignSubjectUpdate']) -> name('assign.subject.update');
         
         Route::get('/assign/subject/detail/{class_id}/{branch_id} ', [AssignSubjectController::class, 'AssignSubjectDetail']) -> name('assign.subject.detail');
+        
+        Route::get('/assign/subject/delete/{class_id}/{branch_id} ', [AssignSubjectController::class, 'AssignSubjectDelete']) -> name('assign.subject.delete');
+        
+        Route::get('/assign/subject/delete/{id} ', [AssignSubjectController::class, 'AssignSubjectDeleteSingle']) -> name('assign.subject.delete.single');
         
         //assign classes
         Route::get('/assign/class/view', [AssignClassController::class, 'ViewAssignClass']) -> name('assign.class.view');
@@ -235,9 +239,13 @@ Route::group(['middleware' => 'auth'], function(){
         
         Route::get('/assign/class/edit/{class_id}/{branch_id}', [AssignClassController::class, 'AssignClassEdit']) -> name('assign.class.edit');
         
-        Route::post('/assign/class/update/{class_id}/{branch_id} ', [AssignClassController::class, 'AssignClassUpdate']) -> name('assign.class.update');
+        Route::post('/assign/class/update/{class_id}/{branch_id}/{jsonId} ', [AssignClassController::class, 'AssignClassUpdate']) -> name('assign.class.update');
         
         Route::get('/assign/class/detail/{class_id}/{branch_id} ', [AssignClassController::class, 'AssignClassDetail']) -> name('assign.class.detail');
+        
+        Route::get('/assign/class/delete/{class_id}/{branch_id} ', [AssignClassController::class, 'AssignClassDetail']) -> name('assign.class.delete');
+        
+        Route::get('/assign/class/delete/{id}', [AssignClassController::class, 'AssignClassDeleteSingle']) -> name('assign.class.delete.single');
         
         //subject type
         Route::get('/designation/view', [DesignationController::class, 'ViewDesignation']) -> 
@@ -363,7 +371,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/schooling/store/{student_id}', [SchoolingController::class, 'SchoolingPayementStore']) -> 
         name('schooling.store');
 
-
+        Route::get('/schooling/delete/single/{id}', [SchoolingController::class, 'SchoolingPaymentDelete']) -> 
+        name('schooling.delete.single');
 
   
     });

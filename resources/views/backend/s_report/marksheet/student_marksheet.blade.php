@@ -110,9 +110,14 @@
             width: 15%;
         }
 
-        .season-avg {
+        .rank  {
             float: right;
             margin-top: 12px;
+            margin-left: 500px;
+        }
+
+        .season-avg {
+            float: right;
             margin-left: 100px;
         }
 
@@ -157,7 +162,14 @@
     <hr>
     <h4>
         Année-Scolaire: <strong> {{ $marks['0']['student_year']['name'] }}</strong> -
-        Trimestre: <strong> {{ $marks['0']['season']['name'] }}</strong>
+        Trimestre: <strong> {{ $marks['0']['season']['name'] }}</strong> -
+
+        Classe: <strong> {{ $marks['0']['student_class']['name'] }}</strong>
+        <strong> {{ $marks['0']['student_branch']['name'] }}</strong>
+        <strong> {{ $marks['0']['student_group']['name'] }}</strong> - 
+
+        Effectif: <strong> {{ $totalStudent }}  </strong>
+        
     </h4>
 
 
@@ -361,14 +373,37 @@
             <span>Exclusions:</span><br>
         </div>
 
+        <div class="rank">
+            <span>  Moyenne la plus forte de la classe / 20: <strong>{{ $marks_avg_max}}</strong>  </span> <br>
+            <span>  Moyenne la plus failbe de la classe / 20: <strong>  {{ $marks_avg_min}}</strong> </span> <br>
+            <span>  Moyenne generale de la classe / 20: <strong>{{ $class_avg}}</strong> </span>
+        </div>
+
         <div class="season-avg">
             <span> <strong> Moyenne Generale du Trimestre</strong>  </span>
-            <span class="final-avg"> {{ $marks_avg->final_avg }}  </span> <br>
-
-            <span >  Rang  </span>
-            <span > <strong class="final-avg">4e</strong > sur {{ $totalStudent }}  Eleves classés </span>
-           
+            <span >  <strong> {{ $marks_avg->final_avg }}  </strong>  </span> <br>    
+            <span >  Rang   </span>
+            <span > <strong>4e</strong > sur  <strong> {{ $totalStudent }}  </strong>  Eleves classés </span>
+                
         </div>
+      
+    </div>
+    <hr>
+    <div>
+        <div class="habit">
+          
+            <span>Exclusions:</span><br>
+        </div>
+
+        <div class="rank">
+           
+            <span> <strong>Observations générales du Conseil de Classe</strong>  </span>
+        </div>
+
+        <div class="season-avg">
+            <span> La Directirice </span>
+        </div>
+      
     </div>
 
 

@@ -71,9 +71,9 @@
                         <select id="class_id" name="class_id" class="custom-select" required>
                             <option value="" selected="" disabled="">Selectionner classe</option>
                             @foreach ($classes as $class)
-                                <option value="{{ $class->id }}" {{ @$class_id == $class->id ? 'selected' : '' }}>
-                                    {{ $class->name }}</option>
-                            @endforeach
+                            <option value="{{ $class['student_class']['id'] }}">{{ $class['student_class']['name'] }}</option>
+                        @endforeach
+
 
                         </select>
                     </div>
@@ -375,7 +375,7 @@
                                                 </a>
 
                                                 <a href=" {{ route('student.registration.promotion', $value->student_id) }} "
-                                                    class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
+                                                    class="bs-tooltip" target="blank" data-toggle="tooltip" data-placement="top" title=""
                                                     data-original-title="Promotion">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24" fill="none" color="#25d5e4"

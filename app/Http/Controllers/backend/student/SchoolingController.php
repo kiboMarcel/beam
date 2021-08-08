@@ -46,7 +46,15 @@ class SchoolingController extends Controller
         where('users.usertype', 'Student')->where('assign_students.year_id', $findYear->id)->
         where('users.name',  'like', '%' . $request->searchText . '%' )->
         leftjoin('users', 'assign_students.student_id', '=', 'users.id')->get();
-         //dd($student);
+        //dd($student);
+
+        if($student->toArray() == null || $request->searchText== '' ){
+
+            $html['h5source']  = '<h5>Pas de correspondance</h5>';
+            return response()->json(@$html); 
+        }
+        else{
+         //dd($student->toArray());
         $html['thsource']  = '<th>#</th>';
         $html['thsource'] .= '<th>ID No</th>';
         $html['thsource'] .= '<th> Nom</th>';
@@ -63,9 +71,16 @@ class SchoolingController extends Controller
             ->where('class_id',$v->class_id)->first();
 
             $schooling = Schooling::where('student_id',$v->student_id)->first();
-             //dd($schooling->payed);
+             //dd($student);
             $color = 'success';
             $color2nd = 'info';
+
+            if($schoolingfee == null){
+                $html1['h5source']  = '<h5>La scolarité de la
+                 classe de l\'eleve n\'a pas  ete attribuer- Veuillez le faire dans
+                 \'Gestion Globale/ Montant de payment\' </h5>';
+                return response()->json(@$html1); 
+            }
 
             $html[$key]['tdsource']  = '<td>'.($key+1).'</td>';
             $html[$key]['tdsource'] .= '<td>'.$v['student']['id_no'].'</td>';
@@ -94,8 +109,10 @@ class SchoolingController extends Controller
             
             $html[$key]['tdsource'] .= '</td>';
 
-        }  
-       return response()->json(@$html);
+        } 
+        return response()->json(@$html); 
+    }
+       
     }
 
     public function SchoolingPaymentView(Request $request, $student_id){
@@ -109,43 +126,44 @@ class SchoolingController extends Controller
 
         return view('backend.student.schooling_fee.pay_schooling', $data);
     }
+   
 
 
     public function SchoolingPayementStore(Request $request, $student_id ){
 
 
-        $student =  AssignStudent::with(['student'])->where('student_id', $student_id)
+        $data['student'] =  AssignStudent::with(['student'])->where('student_id', $student_id)
         ->first();
 
-        $class_id = $student->class_id;
-        $branch_id = $student->branch_id;
+        $data['class_id'] = $data['student']->class_id;
+        $data['branch_id'] = $data['student']->branch_id;
         
         
 
-        $schoolingfee = FeeCategoryAmount::where('fee_category_id','6')
-        ->where('class_id',$student->class_id)->first();
+        $data['schoolingfee'] = FeeCategoryAmount::where('fee_category_id','6')
+        ->where('class_id',$data['student']->class_id)->first();
         
         //$schoolingfee->amount
-        
+        $data['paying'] =$request->schooling_fee;
 
         $validateData = $request->validate([
             'schooling_fee' => 'required',
         ]);
         
-        $get_paid_fee = Schooling::where('student_id', $student_id)
-        ->where('class_id', $class_id)->first();
+        $data['get_paid_fee'] = Schooling::where('student_id', $student_id)
+        ->where('class_id', $data['student']->class_id)->first();
+        
+        $data['new_fee'] = $data['get_paid_fee']->payed + $request->schooling_fee;
 
-        $new_fee = $get_paid_fee->payed + $request->schooling_fee;
 
-
-        if($request->schooling_fee > $schoolingfee->amount || $new_fee > $schoolingfee->amount){
+        if($request->schooling_fee > $data['schoolingfee']->amount || $data['new_fee'] > $data['schoolingfee']->amount){
             dd('montan plus gran que la scol');
         }else{
             //dd( $get_paid_fee->payed);
             
-            $get_paid_fee->payed = $new_fee;
+            $data['get_paid_fee']->payed = $data['new_fee'];
 
-            $get_paid_fee->save();
+            $data['get_paid_fee']->save();
 
             /* return redirect()-> route('schooling.fee.view')->with('success', ''); */
 
@@ -162,5 +180,14 @@ class SchoolingController extends Controller
  */
         
 
+    }
+
+    public function SchoolingPaymentDelete( $id){
+
+        //dd($id);
+        $schoolingfee = FeeCategoryAmount::find($id);
+
+        $schoolingfee->delete();
+        return redirect()->back();
     }
 }

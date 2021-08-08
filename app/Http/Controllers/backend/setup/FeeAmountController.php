@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\FeeCategoryAmount;
 use App\Models\FeeCategory;
+use App\Models\AssignClasse;
 use App\Models\StudentClass;
 
 class FeeAmountController extends Controller
@@ -54,30 +55,53 @@ class FeeAmountController extends Controller
     public function  FeeAmountEdit( $fee_category_id){
 
         $data['editData'] =  FeeCategoryAmount::where( 'fee_category_id' ,$fee_category_id)->
-        orderBy('class_id', 'asc')->get();
+        get();
         //dd($data['editData']->toArray());
         $data['fee_categories']= FeeCategory::all();
-        $data['classes'] = StudentClass::all();
+        $data['classes'] = AssignClasse::groupBy('class_id')->get();
         return view('backend.setup.fee_amount.edit_fee_amount', $data);
 
     }
 
-    public function FeeAmountUpdate(Request $request, $fee_category_id){
-
+    public function FeeAmountUpdate(Request $request, $fee_category_id, $jsonId){
+        $idArray=json_decode($jsonId);
+        //dd($request->class_id);
         if($request->class_id == NULL){
             dd('Error');
         }else{
              
             $countClass = count($request->class_id);
-            FeeCategoryAmount::where( 'fee_category_id' ,$fee_category_id)->delete();
-            if($countClass != NULL){
+            $fee_Record = FeeCategoryAmount::where( 'fee_category_id' ,$fee_category_id)->get();
+            $countRecord = count($fee_Record);
+
+            if($countClass == $countRecord  ){
                 for($i=0; $i< $countClass; $i++) {
-                    $fee_amount = new FeeCategoryAmount();
+                    $fee_amount = FeeCategoryAmount::find($idArray[$i]);
                     $fee_amount-> fee_category_id = $request->category_id;
                     $fee_amount->class_id = $request->class_id[$i];
                     $fee_amount->amount = $request->amount[$i];
     
                     $fee_amount->save();
+                }
+            }else{
+                for($i=0; $i< $countRecord; $i++) {
+                    $fee_amount = FeeCategoryAmount::find($idArray[$i]);
+                    $fee_amount-> fee_category_id = $request->category_id;
+                    $fee_amount->class_id = $request->class_id[$i];
+                    $fee_amount->amount = $request->amount[$i];
+    
+                    $fee_amount->save();
+                }
+                $last =$countClass - $countRecord  ;
+                
+                for($i=0; $i< $last; $i++) {
+                    $new_fee_amount = new FeeCategoryAmount();
+                    $j = ($i + $last);
+                    $new_fee_amount-> fee_category_id = $request->category_id;
+                    $new_fee_amount->class_id = $request->class_id[$j];
+                    $new_fee_amount->amount = $request->amount[$j];
+    
+                    $new_fee_amount->save();
                 }
             }
         }

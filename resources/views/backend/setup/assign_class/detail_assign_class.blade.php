@@ -32,13 +32,13 @@
 
 @section('admin')
     <div class="row layout-top-spacing layout-spacing">
-        <div class="col-lg-12">
+        <div class="col-lg-9">
             <div class="statbox widget box box-shadow">
 
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Details</h3>
+                            <h3>Details Classe Attribuer</h3>
                             
                         </div>
 

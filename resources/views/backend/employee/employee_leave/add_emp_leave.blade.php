@@ -4,7 +4,10 @@
 <script src=" {{ asset('js/jquery-3.6.0.js') }}"></script>
 
 <style>
-
+    .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('admin')
@@ -71,13 +74,13 @@
 
 
 
-                    <button class="btn btn-primary" type="submit">Enregistrer</button>
-
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    </div>
             </div>
 
             </form>
         </div>
-    </div>
     </div>
 
 

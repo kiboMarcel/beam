@@ -2,7 +2,10 @@
 
 
 <style>
-
+ .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('admin')
@@ -142,7 +145,7 @@
                     </div>
                     {{-- end row --}}
 
-                    <div class="row">
+                    <div class="bt-position">
                         <button class="btn btn-primary" type="submit">Enregistrer</button>
                     </div>
 
@@ -152,6 +155,5 @@
 
             </form>
         </div>
-    </div>
     </div>
 @endsection

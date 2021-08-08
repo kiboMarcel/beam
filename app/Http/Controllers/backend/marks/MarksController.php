@@ -30,7 +30,7 @@ class MarksController extends Controller
     public function MarksAdd(){
 
             $data['years'] = StudentYear::all();
-            $data['classes'] = AssignClasse::all();
+            $data['classes'] = AssignClasse::groupBy('class_id')->get();
             $data['branchs'] =  StudentBranch::all();
             $data['groups'] =  StudentGroup::all();
             $data['exam_types'] = ExamType::all();
@@ -190,6 +190,8 @@ class MarksController extends Controller
                     $avg->year_id  = $request->year_id;
                     $avg->season_id  = $request->season_id;
                     $avg->class_id  = $request->class_id;
+                    $avg->branch_id  = $request->branch_id;
+                    $avg->group_id  = $request->group_id;
                     $avg->final_avg  = round($fmarkAVG, 2);
                     $avg->student_id  = $request->student_id[$j];
   
@@ -203,6 +205,8 @@ class MarksController extends Controller
 
                   $avg->year_id  = $request->year_id;
                   $avg->season_id  = $request->season_id;
+                  $avg->branch_id  = $request->branch_id;
+                  $avg->group_id  = $request->group_id;
                   $avg->class_id  = $request->class_id;
                   $avg->final_avg  = round($fmarkAVG, 2);
                   $avg->student_id  = $request->student_id[$j];
@@ -229,7 +233,7 @@ class MarksController extends Controller
     public function MarksEdit(Request $request){
 
         $data['years'] = StudentYear::all();
-        $data['classes'] = AssignClasse::all();
+        $data['classes'] = AssignClasse::groupBy('class_id')->get();
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['exam_types'] = ExamType::all();
@@ -291,7 +295,7 @@ class MarksController extends Controller
 
         
         if($request->d_marks == null  ){
-            dd('Error');
+            return redirect()->back()->with('error', '');
         }else{
             $count_d_marks = count($request->d_marks);
             $count_e_marks = count($request->e_marks);
@@ -422,6 +426,8 @@ class MarksController extends Controller
                     $avg->year_id  = $year_id;
                     $avg->season_id  = $season_id;
                     $avg->class_id  =  $request->class_id;
+                    $avg->branch_id  =  $request->branch_id;
+                    $avg->group_id  =  $request->group_id;
                     $avg->final_avg  = round($fmarkAVG, 2);
                     $avg->student_id  = $student_id;
   
@@ -437,6 +443,8 @@ class MarksController extends Controller
                     $avg->year_id  = $year_id;
                     $avg->season_id  = $season_id;
                     $avg->class_id  =  $request->class_id;
+                    $avg->branch_id  =  $request->branch_id;
+                    $avg->group_id  =  $request->group_id;
                     $avg->final_avg  = round($fmarkAVG, 2);
                     $avg->student_id  = $student_id;
   

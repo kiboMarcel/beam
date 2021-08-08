@@ -110,7 +110,7 @@
 
                                             </a>
 
-                                            <a href=" "
+                                            <a href=" {{ route('assign.subject.delete', [$assign->class_id,$assign->branch_id]) }} "
                                                 id="delete" class="bs-tooltip" data-toggle="tooltip" data-placement="top"
                                                 title="" data-original-title="Delete">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

@@ -6,7 +6,10 @@
         float: right;
         margin-top: 33px;
     }
-
+    .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('admin')
@@ -78,8 +81,10 @@
                 </div>
 
 
-
+                <div class="bt-position">
                     <button class="btn btn-primary" type="submit">Enregistrer</button>
+                </div>
+                   
 
             </div>
 

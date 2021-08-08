@@ -12,7 +12,7 @@
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-6">
             <div class="statbox widget box box-shadow">
-                <h3>Modifier designation</h3>
+                <h3>Modifier Trim/Sem</h3>
                 <hr>
                 <form method="post" action=" {{ route('season.update', $editSeason->id)}}  ">
                     @csrf
@@ -39,5 +39,4 @@
                 </form>
             </div>
         </div>
-    </div>
 @endsection

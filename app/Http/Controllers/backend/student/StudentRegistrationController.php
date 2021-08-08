@@ -21,7 +21,7 @@ class StudentRegistrationController extends Controller
 {
     //
     public function ViewRegistration(){
-        $data['classes'] =  StudentClass::orderBy('name', 'asc')->get();
+        $data['classes'] =  AssignClasse::groupBy('class_id')->get();
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['years'] =  StudentYear::all();
@@ -86,7 +86,7 @@ class StudentRegistrationController extends Controller
 
 
     public function RegistrationAdd(){
-        $data['classes'] =  AssignClasse::all();
+        $data['classes'] =  AssignClasse::groupBy('class_id')->get();
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['years'] =  StudentYear::all();
@@ -237,7 +237,7 @@ class StudentRegistrationController extends Controller
     public function  StudentPromotionView(Request $request, $student_id){
 
 
-        $data['classes'] =  StudentClass::all();
+        $data['classes'] =  AssignClasse::groupBy('class_id')->get();
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['years'] =  StudentYear::all();

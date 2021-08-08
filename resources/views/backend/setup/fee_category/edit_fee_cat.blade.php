@@ -2,14 +2,17 @@
 
 
 <style>
-    
+    .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('admin')
     <div class="row layout-top-spacing layout-spacing">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="statbox widget box box-shadow">
-                <h3>Modifier class</h3>
+                <h3>Modifier Type de Frais</h3>
                 <hr>
                 <form method="post" action=" {{ route('fee.category.update', $editFeeCat->id)}}  ">
                     @csrf
@@ -28,12 +31,12 @@
                   
                       
                      
-                    <button class="btn btn-primary" type="submit">Mettre à jour</button>
-
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Mettre à jour</button>
+                    </div>
                     </div>
             
                 </form>
             </div>
         </div>
-    </div>
 @endsection

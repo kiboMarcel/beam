@@ -38,7 +38,7 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Categorie de frais</h3>
+                            <h3>Type de Frais</h3>
                             <a href=" {{route('fee.category.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
                         </div>
 

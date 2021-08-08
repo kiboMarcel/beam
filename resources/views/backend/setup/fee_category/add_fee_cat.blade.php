@@ -2,14 +2,17 @@
 
 
 <style>
-    
+     .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('admin')
     <div class="row layout-top-spacing layout-spacing">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="statbox widget box box-shadow">
-                <h3>Ajouter Categorie de Frais</h3>
+                <h3>Ajouter Type de Frais</h3>
                 <hr>
                 <form method="post" action=" {{ route('fee.category.store')}}  ">
                     @csrf
@@ -27,13 +30,14 @@
                     </div>
                   
                       
-                     
-                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                    </div>
+                   
 
                     </div>
             
                 </form>
             </div>
         </div>
-    </div>
 @endsection

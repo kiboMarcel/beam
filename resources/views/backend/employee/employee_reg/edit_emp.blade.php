@@ -169,5 +169,4 @@ $joindate = date('Y-m-d', strtotime($editData->join_date));
             </form>
         </div>
     </div>
-    </div>
 @endsection

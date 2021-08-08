@@ -1,13 +1,18 @@
 @extends('admin.admin_master')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
     .add,
-    .remove {
+    .remove,
+    .delete {
         float: right;
         margin-top: 33px;
     }
-
+    .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @section('admin')
@@ -16,8 +21,16 @@
             <div class="statbox widget box box-shadow">
                 <h3>Modifier frais</h3>
                 <hr>
+                @php
+                $id = array();
+                    for ($i=0 ; $i< count($editData); $i++ ){
+                        $id[] = $editData[$i]->id;
+                    }
+                    $jsonId = json_encode($id) ;
+                   //dd($jsonId);
+                @endphp
                 <form method="post" action=" {{ route('fee.amount.update', 
-                $editData[0]->fee_category_id) }}  ">
+                [$editData[0]->fee_category_id, $jsonId ]) }}  ">
                     @csrf
 
                     <div class="add_item">
@@ -51,10 +64,9 @@
                                             <select name="class_id[]" id="select" class="custom-select" required>
                                                 <option value="" selected="" disabled=""> Selectionner classe </option>
                                                 @foreach ($classes as $class)
-                                                    <option value="{{ $class->id }}"
-                                                        {{ $edit->class_id == $class->id ? 'selected' : '' }}>
-                                                        {{ $class->name }}
-                                                    </option>
+                                                    <option value="{{ $class['student_class']['id'] }}" 
+                                                    {{ $class['student_class']['id'] == $edit->class_id ? 'selected': '' }}>
+                                                    {{ $class['student_class']['name'] }}</option>
                                                 @endforeach
 
                                             </select>
@@ -74,15 +86,18 @@
                                     </div>
 
                                     <div class="col-3 col-md-3">
-                                        <span class="btn btn-danger mb-2 mr-2 remove">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                       <a id="delete"  href=" {{ route('schooling.delete.single', $edit->id ) }} ">
+                                        <span  class="btn btn-danger mb-2 mr-2 delete ">
+                                            <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
                                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                                             </svg>
                                         </span>
-                                        <span class="btn btn-success   mb-2 mr-2 add">
+                                       </a>
+                                       
+                                        <span class="btn btn-success  mb-2 mr-2 add">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
@@ -98,9 +113,9 @@
                     </div>
 
 
-
-                    <button class="btn btn-primary" type="submit">Mettre à jour</button>
-
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Mettre à jour</button>
+                    </div>
             </div>
 
             </form>
@@ -118,7 +133,8 @@
                             <select name="class_id[]" id="select" class="custom-select" required>
                                 <option value="" selected="" disabled=""> Selectionner classe </option>
                                 @foreach ($classes as $class)
-                                    <option value="{{ $class->id }}"> {{ $class->name }} </option>
+                                    <option value="{{ $class['student_class']['id'] }}">
+                                    {{ $class['student_class']['name'] }}</option>
                                 @endforeach
 
                             </select>
@@ -175,5 +191,31 @@
             })
         })
     </script>
+
+     <!--BEGIN SWEET ALERT DELETE CONFIRMATION SCRIPTS -->
+     <script>
+       $(document).on("click", "#delete", function(event) {
+               //console.log('ok');
+               event.preventDefault();
+            var link = $(this).attr("href")
+            swal({
+                title: 'Etes vous Sûr ?',
+                text: "Cette action est irreversible et supprimera tout objet lié a celui-ci!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                padding: '2em'
+            }).then(function(result) {
+                if (result.value) {
+                    
+                    window.location.href = link
+                    swal(
+                        'Supression en cours!',
+                    )
+                }
+            })
+            })
+    </script>
+    <!-- END SWEET ALERT DELETE CONFIRMATION  SCRIPTS -->
 
 @endsection

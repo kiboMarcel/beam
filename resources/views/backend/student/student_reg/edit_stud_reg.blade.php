@@ -2,7 +2,10 @@
 
 
 <style>
-
+.bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 </style>
 
 @php
@@ -186,13 +189,14 @@
                     {{-- end row --}}
 
 
-
-                    <button class="btn btn-primary" type="submit">Mettre à jour</button>
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Mettre à jour</button>
+                    </div>
+                    
 
             </div>
 
             </form>
         </div>
-    </div>
     </div>
 @endsection

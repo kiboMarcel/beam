@@ -13,7 +13,7 @@
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-6">
             <div class="statbox widget box box-shadow">
-                <h3>Ajouter Année</h3>
+                <h3>Ajouter Année-Scolaire</h3>
                 <hr>
                 <form method="post" action=" {{ route('student.year.store') }}  ">
                     @csrf
@@ -38,6 +38,5 @@
 
             </form>
         </div>
-    </div>
     </div>
 @endsection

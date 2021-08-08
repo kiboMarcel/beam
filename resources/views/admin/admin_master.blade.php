@@ -146,8 +146,8 @@
             e.preventDefault();
             var link = $(this).attr("href")
             swal({
-                title: 'Ete vous Sûr ?',
-                text: "Cette action est irreversible!",
+                title: 'Etes vous Sûr ?',
+                text: "Cette action est irreversible et supprimera tout objet lié a celui-ci!",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Delete',
@@ -164,26 +164,7 @@
     </script>
     <!-- END SWEET ALERT DELETE CONFIRMATION  SCRIPTS -->
 
-    <!--BEGIN SWEET ALERT SUCCESS SCRIPTS -->
-    <script>
-        $('.widget-content .mixin').on('click', function() {
-            const toast = swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                padding: '2em'
-            });
-
-            toast({
-                type: 'success',
-                title: 'Signed in successfully',
-                padding: '2em',
-            })
-
-        })
-    </script>
-    <!-- END SWEET ALERT SUCCESS  SCRIPTS -->
+  
 
     <!-- BEGIN USER ACCOUNT SCRIPT -->
     <script src="{{ asset('backend/plugins/dropify/dropify.min.js') }}"></script>

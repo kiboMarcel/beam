@@ -28,7 +28,7 @@ class MarkSheetController extends Controller
 {
     public function MarkSheetView(){
         $data['years'] = StudentYear::all();
-        $data['classes'] = AssignClasse::all();
+        $data['classes'] = AssignClasse::groupBy('class_id')->get();
         $data['branchs'] = StudentBranch::all();
         $data['groups'] = StudentGroup::all();
         $data['exam_types'] = ExamType::all();
@@ -65,14 +65,26 @@ class MarkSheetController extends Controller
         ->where('student_id', $student_id)->where('year_id', $year_id)->where('class_id', $class_id)
         ->where('group_id', $group_id)->where('branch_id', $branch_id)->get();
 
-        //total season avg
+        //total season avg --Moyenne Totale des matiere du trimestre ou semestre
         $data['seasonAvg'] = StudentMarks::where('student_id', $student_id)->where('year_id', $year_id)->where('class_id', $class_id)
         ->where('season_id', $season_id)->sum('marks');
 
-        //final mark avg
+        //final mark avg -- Moyenne final du trimestre
         $data['marks_avg'] = StudentFinalAVG::where('student_id', $student_id)
         ->where('year_id', $year_id)->where('class_id', $class_id)
         ->where('season_id', $season_id)->first();
+
+        //max avg of the class -- Moyenne Max du trimestre de la classe
+        $data['marks_avg_max'] = StudentFinalAVG::where('year_id', $year_id)
+        ->where('class_id', $class_id)->where('branch_id', $branch_id)
+        ->where('group_id', $group_id)->where('season_id', $season_id)->max('final_avg');
+
+        //min avg of the class -- Moyenne Min du trimestre de la classe
+        $data['marks_avg_min'] = StudentFinalAVG::where('year_id', $year_id)
+        ->where('class_id', $class_id)->where('branch_id', $branch_id)
+        ->where('group_id', $group_id)->where('season_id', $season_id)->min('final_avg');
+
+        $data['class_avg'] = ($data['marks_avg_min'] + $data['marks_avg_min']) / 2 ; 
 
         if($data['marks_avg'] == null ){
             return view('backend.s_report.marksheet.avg_error', $data);

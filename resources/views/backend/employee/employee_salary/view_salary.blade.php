@@ -41,7 +41,7 @@
                     <div class="table-responsive mb-4">
                         <div class="head">
                             <h3>Salaire Employer</h3>
-                            <a href=" {{ route('employee.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
+                           
                         </div>
 
 

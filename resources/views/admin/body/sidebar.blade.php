@@ -1,7 +1,7 @@
 @php
 $prefix = Request::route()->getprefix();
 $route = Route::current()->getName();
-
+//dd("$prefix/assign/class");
 @endphp
 
 
@@ -59,7 +59,7 @@ $route = Route::current()->getName();
                     data-parent="#accordionExample">
 
                     <li class="{{ $route == 'student.registration.view' ? 'active' : '' }}">
-                        <a type="submit" href="{{ route('student.registration.view') }}"> Eleve </a>
+                        <a type="submit" href="{{ route('student.registration.view') }}"> Eleves </a>
                     </li>
 
                     <li class="{{ $route == 'student.registration.add' ? 'active' : '' }}">
@@ -162,6 +162,14 @@ $route = Route::current()->getName();
                         <a href="{{ route('assign.class.view') }}"> Attribuer Classe </a>
                     </li>
 
+                    <li class="{{ $route == 'subject.type.view' ? 'active' : '' }}">
+                        <a href="{{ route('subject.type.view') }}"> Matières</a>
+                    </li>
+
+                    <li class="{{ $route == 'assign.subject.view' ? 'active' : '' }}">
+                        <a href="{{ route('assign.subject.view') }}"> Attribuer Matière </a>
+                    </li>
+
                     <li class="{{ $route == 'fee.category.view' ? 'active' : '' }}">
                         <a href="{{ route('fee.category.view') }}"> Type de Paymement </a>
                     </li>
@@ -171,28 +179,22 @@ $route = Route::current()->getName();
                     </li>
 
                     <li class="{{ $route == 'exam.type.view' ? 'active' : '' }}">
-                        <a href="{{ route('exam.type.view') }}"> types D'examen</a>
+                        <a href="{{ route('exam.type.view') }}"> Types D'examen</a>
                     </li>
 
-                    <li class="{{ $route == 'slice.view' ? 'active' : '' }}">
+                  {{--   <li class="{{ $route == 'slice.view' ? 'active' : '' }}">
                         <a type="submit" href="{{ route('slice.view') }}"> Tranche </a>
-                    </li>
+                    </li> --}}
 
-                    <li class="{{ $route == 'subject.type.view' ? 'active' : '' }}">
-                        <a href="{{ route('subject.type.view') }}"> Matières</a>
-                    </li>
-
-                    <li class="{{ $route == 'assign.subject.view' ? 'active' : '' }}">
-                        <a href="{{ route('assign.subject.view') }}"> Attribuer Matière </a>
+                    <li class="{{ $route == 'season.view' ? 'active' : '' }}">
+                        <a href="{{ route('season.view') }}"> Trim/Sem </a>
                     </li>
 
                     <li class="{{ $route == 'designation.view' ? 'active' : '' }}">
                         <a href="{{ route('designation.view') }}"> Designation </a>
                     </li>
 
-                    <li class="{{ $route == 'season.view' ? 'active' : '' }}">
-                        <a href="{{ route('season.view') }}"> Trim/Sem </a>
-                    </li>
+                   
 
                 </ul>
             </li>

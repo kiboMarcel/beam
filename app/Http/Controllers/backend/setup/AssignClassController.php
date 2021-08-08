@@ -61,25 +61,49 @@ class AssignClassController extends Controller
 
     }
 
-    public function AssignClassUpdate(Request $request, $class_id,$branch_id){
+    public function AssignClassUpdate(Request $request, $class_id,$branch_id, $jsonId){
+        $idArray=json_decode($jsonId);
 
         if($request->branch_id == NULL){
             dd('Error');
         }else{
              
             $countClass = count($request->branch_id);
-            AssignClasse::where( [
+            $class_Record = AssignClasse::where( [
                 [ 'class_id' ,$class_id], 
                 ['branch_id', $branch_id]
-                ])->delete();
-            if($countClass != NULL){
+                ])->get();
+
+            $countRecord = count($class_Record);
+            
+            if($countClass == $countRecord){
                 for($i=0; $i< $countClass; $i++) {
-                    $assign_class = new AssignClasse();
-                    $assign_class-> class_id = $request->class_id;
+                    $assign_class =  AssignClasse::find($idArray[$i]);
+                    $assign_class->class_id = $request->class_id;
                     $assign_class->branch_id = $request->branch_id[$i];
                     $assign_class->group_id = $request->group_id[$i];
     
                     $assign_class->save();
+                }
+            }else{
+                for($i=0; $i< $countRecord; $i++) {
+                    $assign_class = AssignClasse::find($idArray[$i]);
+                    $assign_class->class_id = $request->class_id;
+                    $assign_class->branch_id = $request->branch_id[$i];
+                    $assign_class->group_id = $request->group_id[$i];
+    
+                    $assign_class->save();
+                }
+                $last =$countClass - $countRecord  ;
+                
+                for($i=0; $i< $last; $i++) {
+                    $new_assign_class = new AssignClasse();
+                    $j = ($i + $last);
+                    $new_assign_class->class_id = $request->class_id;
+                    $new_assign_class->branch_id = $request->branch_id[$j];
+                    $new_assign_class->group_id = $request->group_id[$j];
+    
+                    $new_assign_class->save();
                 }
             }
         }
@@ -101,5 +125,14 @@ class AssignClassController extends Controller
 
         return view('backend.setup.assign_class.detail_assign_class', $data);
 
+    }
+
+    public function AssignClassDeleteSingle( $id){
+
+       
+        $schoolingfee = AssignClasse::find($id);
+
+        $schoolingfee->delete();
+        return redirect()->back();
     }
 }

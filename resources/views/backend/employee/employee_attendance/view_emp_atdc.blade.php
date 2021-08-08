@@ -43,7 +43,7 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Presence Employer</h3>
+                            <h3>Présence Employer</h3>
                             <a href=" {{ route('attendance.add') }} " class="btn btn-outline-secondary mb-2">Ajouter </a>
                         </div>
 

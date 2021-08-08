@@ -48,6 +48,10 @@
         margin-top: 17px !important;
     }
 
+    #loaderDiv{
+        display: flex;
+        flex-direction:column;
+    }
 </style>
 
 @section('admin')
@@ -77,17 +81,21 @@
                             <div class="col-lg-3 col-md-3 col-sm-3">
 
                                 <a id="search" name="search" class="btn btn-outline-info search mb-2">Chercher</a>
-
-                            </div>
+                                 </div>
                         </div>
                     </div>
                     <hr>
                     <div class="table-responsive mb-4">
-
+                        {{-- SPINNER LOAD START --}} 
+                        <div id="loaderDiv" class="  justify-content-between mx-5 mt-3 mb-5">
+                            
+                            <div class="spinner-grow text-warning align-self-center"></div>
+                        </div>
+                        {{-- SPINNER LOAD END --}} 
                         <div id="DocumentResults">
 
                             <script id="document-template" type="text/x-handlebars-template">
-
+                                @{{{ h5source }}}
                                 <table class="table table-bordered  table-hover">
                                     <thead>
                                         <tr>
@@ -115,9 +123,13 @@
 
     </div>
 
+    <script>
+        $("#loaderDiv").hide();
+   </script>
+
     {{-- GET STUDENT ON SEARCH START --}}
     <script type="text/javascript">
-        $(document).on('click', '#search', function() {
+       /*  $(document).on('click', '#search', function() {
             var searchText = $('#searchText').val();
             
               $.ajax({
@@ -130,14 +142,54 @@
                  var source = $("#document-template").html();
                  var template = Handlebars.compile(source);
                  var html = template(data);
-                 $('#DocumentResults').html(html);
-                 $('[data-toggle="tooltip"]').tooltip();
-                 //console.log('makima')
+                 $('#DocumentResults').empty().append(html);
+                 //$('[data-toggle="tooltip"]').tooltip();
+                 console.log(this)
                }
              });
+        }); */
+
+               
+    </script>
+    
+    <script>
+          $(document).on('click', '#search', function() {
+            var searchText = $('#searchText').val();
+
+            feetch(searchText);
         });
+
+        function feetch(searchText){
+            $.ajax({
+                url: "{{ route('schooling.fee.get') }}",
+                type: "get",
+                data: {'searchText':searchText,},
+                beforeSend: function() {  
+                    $("#loaderDiv").show();     
+                }, 
+                complete: function() {
+                    $("#loaderDiv").hide();
+                 },
+                success: function (data) {
+                    console.log(data);
+                    render(data);
+                }
+
+            });
+        } 
+        var source = $("#document-template").html();
+        var template = Handlebars.compile(source);
+        
+
+        function render(data){
+            var html = template(data);
+            $('#DocumentResults').empty().html(html);
+         //$('[data-toggle="tooltip"]').tooltip();
+        }
     </script>
     {{-- GET STUDENT ON SEARCH END --}}
+
+    
 
 
  {{-- SWEET ALERT SCRIPT --}}
