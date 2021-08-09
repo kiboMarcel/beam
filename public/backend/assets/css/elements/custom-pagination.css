@@ -41,7 +41,8 @@
 .pagination-default li {
   border: 2px solid #191e3a; }
   .pagination-default li:hover {
-    border: 2px solid #009688 !important; }
+    border: 2px solid #009688; 
+    /* border: 2px solid #009688 !important; */ }
     .pagination-default li:hover a {
       color: #009688; }
   .pagination-default li.active {

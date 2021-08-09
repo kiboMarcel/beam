@@ -25,7 +25,8 @@ class EmployeeAttendanceController extends Controller
 
     public function AtdceView(){
         //$data['allData'] = EmployeeAttendance::orderBy('id', 'desc')->get();
-        $data['allData'] = EmployeeAttendance::select('date')->groupBy('date')->orderBy('date', 'desc')->get();
+        $data['allData'] = EmployeeAttendance::select('date')->groupBy('date')->orderBy('date', 'desc')
+        ->cursorPaginate(20);
 
         return view('backend.employee.employee_attendance.view_emp_atdc', $data);
     }
@@ -40,7 +41,13 @@ class EmployeeAttendanceController extends Controller
 
     public function AtdceStore(Request $request){
        
-
+        $check = EmployeeAttendance::where('date', date('Y-m-d', strtotime($request->date)))->get();
+        
+        if($check->toArray() != null){
+            $status = 'update';
+        }else{
+            $status = 'create';
+        }
         EmployeeAttendance::where('date', date('Y-m-d', strtotime($request->date)))->delete();
 
         $countemployee = count($request->employee_id);
@@ -56,7 +63,7 @@ class EmployeeAttendanceController extends Controller
             $attend->save();
         }
 
-        return redirect()-> route('employee.attendance.view');
+        return redirect()-> route('employee.attendance.view')->with($status, '');
     }
 
     public function AtdceEdit($date){

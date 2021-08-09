@@ -142,7 +142,7 @@
                         <div class="head">
                             <h3>Liste des Eleves</h3>
                             @if ($count != 0)
-                                <h2 class="badge outline-badge-info">{{ $count }} Eleves</h2>
+                                <h2 class="badge outline-badge-info">{{ count($countstudent) }} Eleves</h2>
 
                                
 
@@ -291,14 +291,14 @@
 
                                 </tbody>
                             </table>
-
+                            
 
                             {{-- search section data start --}}
                         @else
                             <table id="style-2" class="table  table-bordered  table-hover">
                                 <thead>
                                     <tr class="thead_tr">
-                                        <th> # </th>
+                                        <th> #</th>
                                         <th> Nom</th>
                                         <th> Num mat</th>
                                         <th> Classe</th>
@@ -314,7 +314,6 @@
                                     @foreach ($allData as $key => $value)
                                         <tr class="tr_style">
                                             <td> {{ $key + 1 }} </td>
-
 
                                             <td>
                                                 <div class="d-flex">
@@ -409,7 +408,10 @@
 
                                 </tbody>
                             </table>
+                            <div  class="paginating-container pagination-default">
 
+                                {!! $allData->appends(request()->query())->links('vendor.pagination.custom') !!}
+                            </div>
                         @endif
                         {{-- search section data end --}}
                     </div>

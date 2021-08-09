@@ -43,6 +43,15 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
+
+                        {{-- GET STATUS FOR SWEET ALERT  START--}}
+                            @php
+                            $getStatus = \Session::has('create');
+                            $getStatus1 = \Session::has('update');
+                            //dd($getStatus);
+                            @endphp
+                        {{-- GET STATUS FOR SWEET ALERT START --}}
+
                             <h3>Présence Employer</h3>
                             <a href=" {{ route('attendance.add') }} " class="btn btn-outline-secondary mb-2">Ajouter </a>
                         </div>
@@ -112,10 +121,56 @@
 
                             </tbody>
                         </table>
+                       
+                    </div>
+                   
+                    <div  class="paginating-container pagination-default">
+                        {!! $allData->links('vendor.pagination.custom') !!}
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
+
+     {{-- SWEET ALERT SCRIPT --}}
+     <script> 
+        window.addEventListener('load', function() {
+            var isOK = <?php echo json_encode($getStatus); ?>;
+            var isUpdate = <?php echo json_encode($getStatus1); ?>;
+            var isOk
+            if (isOK) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Ajouter avec Success',
+                    padding: '2em',
+                })
+            }
+            if (isUpdate) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Modifier avec success',
+                    padding: '2em',
+                })
+            }  
+
+
+        });
+    </script>
 @endsection

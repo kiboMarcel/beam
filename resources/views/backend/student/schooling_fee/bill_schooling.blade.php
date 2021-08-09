@@ -39,11 +39,15 @@
         }
 
 
-     r-bottom: 2px solid #009879;
-        }   .styled-table thead tr {
-            background-color: #009879;
-            color: #ffffff;
-            text-align: left;
+        .signature  {
+            float: right;
+            margin-top: 12px;
+            margin-left: 500px;
+        }
+
+        .paid {
+            float: right;
+            margin-left: 100px;
         }
 
         
@@ -91,11 +95,19 @@
     
         <h3> Reste a payer: <strong> {{ $schoolingfee->amount - $get_paid_fee->payed }} cfa</strong></h3>
     
-    
+        <div>
+            <div class="signature">
+                <span > Signature </span>
+                 </div>
+            <div class="paid">
+                <span >Payé le <span style="font-size: 10px;  margin-top: 10px"> {{ date("d-m-Y") }}</span> </span>
+           
+            </div>
+        </div>
     </div>
 
 
-<hr>
+<hr  style="border:dashed 2px; width: 95%; color:#0000; margin: 30px 0" >
 
     <div>
         <div class="header">
@@ -125,7 +137,16 @@
     
         <h3> Reste a payer: <strong> {{ $schoolingfee->amount - $get_paid_fee->payed }} cfa</strong></h3>
     
-    
+        <div>
+            <div class="signature">
+                <span > Signature </span>
+                 </div>
+            <div class="paid">
+                <span >Payé le <span style="font-size: 10px;  margin-top: 10px"> {{ date("d-m-Y") }}</span> </span>
+           
+            </div>
+        </div>
+        
     </div>
     
 

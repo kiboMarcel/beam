@@ -33,7 +33,7 @@ class StudentRegistrationController extends Controller
         $data['class_id'] =  StudentClass::orderBy('id', 'desc')->first()->id;
         //dd($data['year_id']);
         $data['allData'] =  AssignStudent::where('year_id',$data['year_id'])->
-        where('class_id', $data['class_id'])->get();
+        where('class_id', $data['class_id'])->cursorPaginate(1);
         return view('backend.student.student_reg.view_stud_reg', $data);
 
     }
@@ -54,28 +54,52 @@ class StudentRegistrationController extends Controller
         where('class_id', $request->class_id)->where('branch_id', $request->branch_id)->get(); */
 
         if($request->branch_id == null){
+            $data['countstudent'] =  AssignStudent::select('assign_students.*')->with(['student'])->
+            where('year_id', $request->year_id)->
+            where('class_id', $request->class_id)->
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')->get();
+
             $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
             where('year_id', $request->year_id)->
             where('class_id', $request->class_id)->
-            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
-            $count = count($data['allData']);
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')->simplepaginate(20);
+            $count = count($data['countstudent']);
         }elseif($request->group_id == null){
+            $data['countstudent'] =  AssignStudent::select('assign_students.*')->with(['student'])->
+            where('year_id', $request->year_id)->
+            where('class_id', $request->class_id)->
+            where('branch_id', $request->branch_id)->
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')->get();
+
             $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
             where('year_id', $request->year_id)->
             where('class_id', $request->class_id)->
             where('branch_id', $request->branch_id)->
-            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
-            $count = count($data['allData']);
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')->simplepaginate(20);
+            $count = count($data['countstudent']);
 
         }else{
+            $data['countstudent'] =  AssignStudent::select('assign_students.*')->with(['student'])->
+            where('year_id', $request->year_id)->
+            where('class_id', $request->class_id)->
+            where('branch_id', $request->branch_id)->
+            where('group_id', $request->group_id)->
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')->get();
+
             $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
             where('year_id', $request->year_id)->
             where('class_id', $request->class_id)->
             where('branch_id', $request->branch_id)->
             where('group_id', $request->group_id)->
-            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get();
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')->simplepaginate(20);
 
-            $count = count($data['allData']);
+            $count = count($data['countstudent']);
             
         }
         $data['count'] = $count;
@@ -298,7 +322,8 @@ class StudentRegistrationController extends Controller
             where('year_isd', $year_id)->
             where('class_id', $class_id)->
             where('branch_id', $branch_id)->
-            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get(); 
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')->get(); 
             
        
         }else{
@@ -307,7 +332,8 @@ class StudentRegistrationController extends Controller
             where('class_id', $class_id)->
             where('branch_id', $branch_id)->
             where('group_id', $group_id)->
-            leftjoin('users', 'assign_students.student_id', '=', 'users.id')->orderBy('users.name', 'asc')->get(); 
+            leftjoin('users', 'assign_students.student_id', '=', 'users.id')
+            ->orderBy('users.name', 'asc')->get(); 
        
         }
             

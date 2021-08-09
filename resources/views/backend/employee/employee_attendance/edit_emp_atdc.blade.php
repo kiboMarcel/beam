@@ -16,6 +16,10 @@
         margin: auto ;
     }
 
+    .bt-position {
+        display: flex;
+        justify-content: flex-end;
+    }
 
 </style>
 
@@ -115,8 +119,9 @@
                     </div>
 
 
-
-                    <button class="btn btn-primary" type="submit">Mettre à jour</button>
+                    <div class="bt-position">
+                        <button class="btn btn-primary" type="submit">Mettre à jour</button>
+                    </div>
 
             </div>
 

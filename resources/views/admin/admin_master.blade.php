@@ -31,6 +31,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/forms/theme-checkbox-radio.css') }}">
     <!-- END THEME GLOBAL STYLES -->
 
+    <link href="{{ asset('backend/assets/css/elements/custom-pagination.css')}}" rel="stylesheet" type="text/css" />
+
     <!--  BEGIN CUSTOM STYLE FILE USER ACCOUNT  -->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/plugins/dropify/dropify.min.css') }}">
     <link href="{{ asset('backend/assets/css/users/account-setting.css') }}" rel="stylesheet" type="text/css" />
