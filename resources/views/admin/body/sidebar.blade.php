@@ -249,7 +249,8 @@ if($student->toArray()== null ){
                         </svg>
                     </div>
                 </a>
-                <ul class="collapse submenu list-unstyled {{ $prefix == '/employees' ? 'show' : '' }}" id="employee"
+                <ul class="collapse submenu list-unstyled {{ $prefix == '/employees' ? 'show' : '' ||
+                $prefix == '/accountSalary' ? 'show' : '' }}" id="employee"
                     data-parent="#accordionExample">
 
                     <li class="{{ $route == 'employee.registration.view' ? 'active' : '' }}">
@@ -316,7 +317,8 @@ if($student->toArray()== null ){
 
                 </ul>
             </li> --}}
-
+            @endif
+            
             <li class="menu    {{ $checkStudent == 'false'? 'disabled ': ''}} ">
                 <a href="#reportManagement" data-toggle="collapse"
                     data-active="{{ $prefix == '/reportManagement' ? 'true' : 'false' }}" aria-expanded="false"
@@ -351,7 +353,7 @@ if($student->toArray()== null ){
 
                 </ul>
             </li>
-            @endif
+            
             {{-- <li class="menu">
                 <a href="#app" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">

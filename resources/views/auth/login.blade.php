@@ -27,7 +27,7 @@
                     <div class="form-content">
 
                         <h1 class="">Se Connecter</h1>
-                        <p class="">se connecter pour continuer.</p>
+                        <p class=""> pour continuer.</p>
 
                         <form method="POST" action="{{ route('login') }}" class="text-left">
                             @csrf
@@ -47,9 +47,9 @@
 
                                 <div id="password-field" class="field-wrapper input mb-2">
                                     <div class="d-flex justify-content-between">
-                                        <label for="password">PASSWORD</label>
-                                        <a href="{{ route('password.request') }}" class="forgot-pass-link">Forgot
-                                            Password?</a>
+                                        <label for="password">MOT DE PASSE</label>
+                                        <a href="{{ route('password.request') }}" class="forgot-pass-link">mot
+                                            de passe oublié ?</a>
                                     </div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="d-sm-flex justify-content-between">
                                     <div class="field-wrapper">
-                                        <button type="submit" class="btn btn-primary" value="">Log In</button>
+                                        <button type="submit" class="btn btn-primary" value="">Se Connecter</button>
                                     </div>
                                 </div>
 

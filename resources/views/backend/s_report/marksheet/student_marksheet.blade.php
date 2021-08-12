@@ -147,7 +147,7 @@
         </div>
 
         <div class="text-div">
-            <h1>College Moderne Le JOURDAIN</h1>
+            <h1>College Moderne Kibo</h1>
             <h5>Adresse: bo 42 - Telephone: 75 64 78 96 - Email: nouletamemarcel@gmail.com</h5>
             <h5><strong>Prier-Travailler-Reussir</strong></h5>
 

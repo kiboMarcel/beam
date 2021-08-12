@@ -107,7 +107,7 @@ $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
   <div>
     <div class="header">
         <div class="text">
-            <h3>College Moderne Le JOURDAIN</h3>
+            <h3>College Moderne Kibo</h3>
             <p>Adresse: bo 42</p>
             <p>Telephone; 75 64 78 96</p>
             <p>Email: nouletamemarcel@gmail.com</p>
@@ -184,7 +184,7 @@ $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
   <div>
     <div class="header">
         <div class="text">
-            <h3>College Moderne Le JOURDAIN</h3>
+            <h3>College Moderne Kibo</h3>
             <p>Adresse: bo 42</p>
             <p>Telephone; 75 64 78 96</p>
             <p>Email: nouletamemarcel@gmail.com</p>

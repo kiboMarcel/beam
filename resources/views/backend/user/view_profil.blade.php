@@ -15,14 +15,17 @@
             <form method="post" action=" {{ route('profil.update', $user->id) }} " class="section general-info">
                 @csrf
                 <div class="info">
+                    @if (Auth::user()->role == 'Admin')
                     <div class="bt-position">
                         <a href="{{ route('profil.password') }}" class="btn btn-warning ">Modifier mot de passe</a>
                     </div>
+                    @endif
+                   
                     <h6 class="">Information Generale</h6>
                     <div class="row">
                         <div class="col-lg-11 mx-auto">
                             <div class="row">
-                                <div class="col-xl-2 col-lg-12 col-md-4">
+                              {{--   <div class="col-xl-2 col-lg-12 col-md-4">
                                     <div class="upload mt-4 pr-md-4">
                                         <input type="file" id="input-file-max-fs" class="dropify"
                                             data-default-file="{{ asset('backend/assets/img/200x200.jpg') }}"
@@ -30,7 +33,7 @@
                                         <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture
                                         </p>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
                                     <div class="form">
                                         <div class="row">
@@ -77,7 +80,7 @@
                                                 <div class="form-group">
                                                     <label for="email">Genre</label>
                                                     <select name="gender" id="select" class="custom-select" required>
-                                                        <option value="" selected="" disabled="">Selectionner un role
+                                                        <option value="" selected="" disabled="">Selectionner un genre
                                                         </option>
                                                         <option value="masculin"
                                                             {{ $user->gender == 'masculin' ? 'selected' : '' }}>Masuclin

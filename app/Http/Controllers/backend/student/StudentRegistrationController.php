@@ -207,7 +207,7 @@ class StudentRegistrationController extends Controller
 
     public function  RegistrationEdit( $student_id){
 
-        $data['classes'] =  StudentClass::all();
+        $data['classes'] =   AssignClasse::groupBy('class_id')->get();
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['years'] =  StudentYear::all();

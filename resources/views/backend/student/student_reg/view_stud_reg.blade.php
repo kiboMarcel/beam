@@ -150,8 +150,8 @@
 
                                
 
-                                    <a target="blank" href=" {{ route('student.list.print', [$year_id, $class_id, $branch_id, $group_id]) }} "
-                                        class="btn btn-outline-success mb-2" data-toggle="tooltip" data-placement="top" title="Imprimer"
+                                    <a target="blank"  href=" {{ route('student.list.print', [$year_id, $class_id, $branch_id, $group_id]) }} "
+                                        class="btn btn-outline-success mb-2 {{ @$group_id==''? 'disabled': ''  }} " data-toggle="tooltip" data-placement="top" title="Imprimer"
                                         data-original-title="Imprimer">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -190,9 +190,9 @@
                                         <th> Classe</th>
                                         <th> Filiere</th>
                                         <th> Année</th>
-                                        @if (Auth::User()->role = 'Admin')
+                                      {{--   @if (Auth::User()->role = 'Admin')
                                             <th> code</th>
-                                        @endif
+                                        @endif --}}
                                         <th class="text-center" colspan="3">Actions</th>
                                     </tr>
                                 </thead>
@@ -235,13 +235,13 @@
                                                         {{ $value['student_year']['name'] }} </p>
                                                 </div>
                                             </td>
-                                            <td>
+                                          {{--   <td>
                                                 <div class="d-flex">
                                                     <p class="align-self-center mb-0 "> {{ $value['student']['code'] }}
                                                     </p>
                                                 </div>
                                             </td>
-
+ --}}
 
 
 
@@ -306,10 +306,11 @@
                                         <th> Num mat</th>
                                         <th> Classe</th>
                                         <th style=" width:10% "> Filiere</th>
-                                        <th> Année</th>
+                                        <th style=" width:10% "> Groupe</th>
+                                       {{--  <th> Année</th>
                                         @if (Auth::User()->role = 'Admin')
                                             <th> code</th>
-                                        @endif
+                                        @endif --}}
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -348,15 +349,15 @@
                                             <td>
                                                 <div class="d-flex">
                                                     <p class="align-self-center mb-0 ">
-                                                        {{ $value['student_year']['name'] }} </p>
+                                                        {{ $value['student_group']['name'] }} </p>
                                                 </div>
                                             </td>
-                                            <td>
+                                         {{--    <td>
                                                 <div class="d-flex">
                                                     <p class="align-self-center mb-0 "> {{ $value['student']['code'] }}
                                                     </p>
                                                 </div>
-                                            </td>
+                                            </td> --}}
 
 
 
