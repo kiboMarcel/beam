@@ -29,14 +29,24 @@ class StudentBranchController extends Controller
 
     public function StudentBranchStore(Request $request){
         
-        $validateData = $request->validate([
-            'name' => 'required|unique:student_branches,name',
-        ]);
-        
-        $data =  new StudentBranch();
+        $countBranch = count($request->name);
+        if($countBranch != NULL){
+            for($i=0; $i< $countBranch; $i++) {
+                $data =  new StudentBranch();
 
-        $data->name = $request->name;
-        $data->save();
+               /*  $validateData = $request->validate([
+                    'name' => 'required|unique:school_subjects,name',
+                ]); */
+
+
+                $data->name = $request->name[$i];
+
+                $data->save();
+            }
+        }
+      
+        
+
 
 
         return redirect()-> route('student.branch.view')->with('success', '');

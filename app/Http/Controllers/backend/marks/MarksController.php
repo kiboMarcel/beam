@@ -125,11 +125,13 @@ class MarksController extends Controller
         
             $marksByDevoirAVG = StudentMarks::where('assign_subject_id', $request->assign_subject_id)
             ->where('exam_type_id', '1')->where('student_id', $request->student_id[$j])
-            ->where('year_id', $request->year_id)->avg('marks');
+            ->where('year_id', $request->year_id)
+            ->where('season_id', $request->season_id)->avg('marks');
         
             $marksBysubjectExam = StudentMarks::where('assign_subject_id', $request->assign_subject_id)
             ->where('exam_type_id', '2')->where('student_id', $request->student_id[$j])
-            ->where('year_id', $request->year_id)->first();
+            ->where('year_id', $request->year_id)
+            ->where('season_id', $request->season_id)->first();
             
             //dd($marksByDevoirAVG);
             $examMArk = $marksBysubjectExam->marks;
@@ -225,7 +227,7 @@ class MarksController extends Controller
          
            /// MARKS AVERAGE END
 
-            return redirect()->back();
+            return redirect()->back()->with('success', '');
     }
    
 
@@ -237,15 +239,17 @@ class MarksController extends Controller
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['exam_types'] = ExamType::all();
+        $data['seasons'] = SchoolSeason::all();
 
         return view('backend.marks.marks_edit', $data);
     }
 
-    public function MarksStudentEdit(Request $request){
+    public function MarksStudentEdit(Request $request){ /// to do the search 
         $year_id = $request->year_id;
         $class_id = $request->class_id;
         $branch_id = $request->branch_id;
         $group_id = $request->group_id;
+        $season_id = $request->season_id;
         /* $exam_type_id = $request->exam_type_id; */
         $assign_subject_id = $request->assign_subject_id;
 
@@ -253,6 +257,7 @@ class MarksController extends Controller
         ->with(['student', 'student_class', 'student_branch', 'student_group'])
         ->where('year_id', $year_id)->where('class_id', $class_id)->where('group_id', $group_id)
         ->where('assign_subject_id' ,$assign_subject_id)->where('branch_id', $branch_id)
+        ->where('season_id', $season_id)
         ->leftjoin('users', 'student_marks.student_id', '=', 'users.id')->orderBy('users.name')
         ->groupBy('student_id')->get();
 
@@ -262,13 +267,13 @@ class MarksController extends Controller
         ->where('group_id', $group_id)->where('branch_id', $branch_id)->groupBy('student_id')->get() */
 
 
-        //dd($getStudents);
+        //dd($getStudents[0]->season_id);
         return response()->json($getStudents);
 
     }
 
 
-    public function MarksStudentDetail($student_id, $assign_subject_id){
+    public function MarksStudentDetail($student_id, $assign_subject_id, $season_id){
         
         //dd($exam_type_id);
 
@@ -277,13 +282,15 @@ class MarksController extends Controller
 
       
         $data['devoirMarks'] = StudentMarks::select('student_marks.*')->with(['student','assign_subject', 'exam_type'])->
-        where('student_id', $student_id)->where('assign_subject_id', $assign_subject_id)->
-        where('exam_types.name', 'Devoir')->
+        where('student_id', $student_id)->where('assign_subject_id', $assign_subject_id)
+        ->where('season_id', $season_id)
+        ->where('exam_types.name', 'Devoir')->
         leftjoin('exam_types', 'student_marks.exam_type_id', '=', 'exam_types.id')->get();
 
         $data['examMarks'] = StudentMarks::select('student_marks.*')->with(['student','assign_subject', 'exam_type'])->
         where('student_id', $student_id)->where('assign_subject_id', $assign_subject_id)->
-        where('exam_types.name', 'Composition')->
+        where('season_id', $season_id)->
+        where('exam_types.name', 'Examen')->
         leftjoin('exam_types', 'student_marks.exam_type_id', '=', 'exam_types.id')->get();
 
         //dd($data['examMarks']);
@@ -293,18 +300,18 @@ class MarksController extends Controller
 
     public function MarksStudentUpdate(Request $request,  $student_id, $assign_subject_id,  $year_id,$season_id ){
 
-        
         if($request->d_marks == null  ){
             return redirect()->back()->with('error', '');
         }else{
             $count_d_marks = count($request->d_marks);
             $count_e_marks = count($request->e_marks);
 
+            
            
             //DEVOIR MARK UPDATE
             if($count_d_marks != NULL){
                
-                $updateMark = StudentMarks::where( [
+                 StudentMarks::where( [
                     [ 'student_id' ,$student_id], 
                     [ 'assign_subject_id' ,$assign_subject_id], 
                     ['season_id', $season_id],
@@ -313,7 +320,7 @@ class MarksController extends Controller
                     ])->delete();
 
 
-                   // dd($updateMark); 
+                    //dd($updateMark); 
 
                     for($i=0; $i< $count_d_marks; $i++) {
                  
@@ -325,7 +332,7 @@ class MarksController extends Controller
                     $e_mark-> branch_id = $request->branch_id;
                     $e_mark-> group_id = $request->group_id;
                     $e_mark->assign_subject_id = $assign_subject_id;
-                    $e_mark->season_id = $request->season_id;
+                    $e_mark->season_id = $season_id;
                     $e_mark->exam_type_id = '1'; 
                     $e_mark->marks = $request->d_marks[$i];
 
@@ -379,25 +386,49 @@ class MarksController extends Controller
 
             $marksByDevoirAVG = StudentMarks::where('assign_subject_id', $assign_subject_id)
             ->where('exam_type_id', '1')->where('student_id', $student_id)
-            ->where('year_id', $year_id)->avg('marks');
+            ->where('year_id', $year_id)
+            ->where('season_id', $season_id)->avg('marks');
     
             $marksBysubjectExam = StudentMarks::where('assign_subject_id', $assign_subject_id)
             ->where('exam_type_id', '2')->where('student_id', $student_id)
-            ->where('year_id', $year_id)->first();
+            ->where('year_id', $year_id)
+            ->where('season_id', $season_id)->first();
 
             $examMArk = $marksBysubjectExam->marks;
             $totalAVG =( $examMArk + $marksByDevoirAVG)/2;
             
             $finalMark =   $totalAVG * $subjects->coef ;
+            //dd($finalMark);
+            if ($updateFinalMark->toArray() == null) {
+                
+                $finalMrk = new Student_final_mark();
+                $finalMrk->student_id =  $request->student_id;
+                $finalMrk->id_no =  $request->id_no;
+                $finalMrk->year_id =   $request->year_id;
+                $finalMrk->class_id =  $request->class_id;
+                $finalMrk->group_id =  $request->group_id;
+                $finalMrk->branch_id =  $request->branch_id;
+                $finalMrk->assign_subject_id =  $request->assign_subject_id;
+                $finalMrk->season_id = $request->season_id;
+                $finalMrk->final_marks = round($finalMark, 2) ;
 
-            $finalMrk =  Student_final_mark::where( 'student_id', $student_id )
-            ->where( 'year_id', $year_id )->where( 'season_id', $season_id )
-            ->where( 'assign_subject_id',$assign_subject_id )->first();
+                $finalMrk->save();
 
-            
-            $finalMrk->final_marks = round($finalMark, 2)  ;
 
-            $finalMrk->save();
+            }else{
+             
+                //find the existing mark to update
+                $finalMrk =  Student_final_mark::where( 'student_id', $request->student_id )
+                ->where( 'year_id', $request->year_id )->where( 'season_id', $request->season_id )
+                ->where( 'assign_subject_id',$request->assign_subject_id )->first();
+                
+                $finalMrk->final_marks =  round($finalMark, 2) ;
+                
+                 $finalMrk->save();
+
+            }
+
+           
             //dd($updateFinalMark);
 
             /// MARKS AVERAGE END
@@ -454,7 +485,7 @@ class MarksController extends Controller
                 
                 //UPPDATE FINAL AVG TABLE
             
-             return redirect()->back();
+             return redirect()->back()->with('update', '');
         }
 
  

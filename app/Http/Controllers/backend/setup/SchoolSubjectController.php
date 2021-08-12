@@ -25,15 +25,28 @@ class SchoolSubjectController extends Controller
 
 
     public function SubjectTypeStore(Request $request){
-        
-        $validateData = $request->validate([
-            'name' => 'required|unique:school_subjects,name',
-        ]);
-        
-        $data =  new SchoolSubject();
+       
+        $countSubject = count($request->name);
+        if($countSubject != NULL){
+            for($i=0; $i< $countSubject; $i++) {
+                $data =  new SchoolSubject();
 
-        $data->name = $request->name;
-        $data->save();
+               /*  $validateData = $request->validate([
+                    'name' => 'required|unique:school_subjects,name',
+                ]); */
+
+
+                $data->name = $request->name[$i];
+
+                $data->save();
+            }
+        }
+
+
+        
+
+        
+        
 
         //$flash = 'ok';
 

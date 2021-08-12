@@ -38,7 +38,7 @@ class SlicePaymentController extends Controller
         
         $class_id = $request->class_id;
         $countslice = count($request->slice_amount);
-        $amount = FeeCategoryAmount::where('fee_category_id', 6)->where('class_id',$class_id)->first();
+        $amount = FeeCategoryAmount::where('fee_category_id', 2)->where('class_id',$class_id)->first();
         //$val = floatval($amount);
         $sum=0;
 

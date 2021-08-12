@@ -2,7 +2,7 @@
 <html>
 
 @php
- $registrationfee = App\Models\FeeCategoryAmount::where('fee_category_id','5')
+ $registrationfee = App\Models\FeeCategoryAmount::where('fee_category_id','2')
             ->where('class_id',$details->class_id)->first();
     $originalfee = $registrationfee->amount;
 @endphp

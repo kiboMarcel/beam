@@ -15,13 +15,26 @@ class CreateAssignSubjectsTable extends Migration
     {
         Schema::create('assign_subjects', function (Blueprint $table) {
             $table->id();
-            $table->integer('class_id');
-            $table->integer('branch_id');
-            $table->integer('subject_id');
+            $table->unsignedBigInteger('class_id');
+            $table->foreign('class_id')
+                ->references('id')->on('student_classes')
+                ->onDelete('cascade');
+
+            $table->unsignedBigInteger('branch_id');
+            $table->foreign('branch_id')
+                ->references('id')->on('student_branches')
+                ->onDelete('cascade');
+            
+            $table->unsignedBigInteger('subject_id');
+            $table->foreign('subject_id')
+                ->references('id')->on('school_subjects')
+                ->onDelete('cascade');
+            
             $table->integer('teacher_id');
+
             $table->double('full_mark');
             $table->double('pass_mark')->nullable();
-            $table->int('coef');
+            $table->integer('coef');
             $table->timestamps();
         });
     }

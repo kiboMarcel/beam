@@ -15,9 +15,25 @@ class CreateAssignClassesTable extends Migration
     {
         Schema::create('assign_classes', function (Blueprint $table) {
             $table->id();
-            $table->integer('class_id');
-            $table->integer('branch_id');
-            $table->integer('group_id');
+
+            $table->unsignedBigInteger('class_id');
+            $table->foreign('class_id')
+                ->references('id')->on('student_classes')
+                ->onDelete('cascade')
+                ->change();
+            
+            $table->unsignedBigInteger('branch_id');
+            $table->foreign('branch_id')
+                ->references('id')->on('student_branches')
+                ->onDelete('cascade')
+                ->change();
+
+            $table->unsignedBigInteger('group_id');
+            $table->foreign('group_id')
+                ->references('id')->on('student_groups')
+                ->onDelete('cascade')
+                ->change();
+
             $table->timestamps();
         });
     }

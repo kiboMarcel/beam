@@ -16,11 +16,25 @@ class CreateSchoolingsTable extends Migration
         Schema::create('schoolings', function (Blueprint $table) {
             $table->id();
             $table->double('payed');
+
             $table->integer('student_id');
             $table->integer('fee_category_id');
-            $table->integer('class_id');
-            $table->integer('branch_id');
-            $table->integer('group_id');
+            
+            $table->unsignedBigInteger('class_id');
+            $table->foreign('class_id')
+                ->references('id')->on('student_classes')
+                ->onDelete('cascade');
+
+            $table->unsignedBigInteger('branch_id');
+            $table->foreign('branch_id')
+                ->references('id')->on('student_branches')
+                ->onDelete('cascade');
+
+            $table->unsignedBigInteger('group_id');
+            $table->foreign('group_id')
+                ->references('id')->on('student_groups')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class CreateStudentFinalAVGSTable extends Migration
             $table->integer('year_id')->nullable();
             $table->integer('class_id')->nullable();
             $table->integer('branch_id')->nullable();
+            $table->integer('group_id')->nullable();
             $table->integer('season_id')->nullable();
             $table->double('final_avg')->nullable();
             $table->timestamps();

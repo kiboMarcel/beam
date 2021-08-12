@@ -26,7 +26,7 @@ class AssignSubjectController extends Controller
         $data['subjects']= SchoolSubject::all();
         $data['classes'] = StudentClass::all();
         $data['branchs'] = StudentBranch::all();
-        $data['teachers'] = User::where('designation_id', 2)->get();
+        $data['teachers'] = User::where('designation_id', 1)->get();
         return view('backend.setup.assign_subject.add_assign_subject', $data);
 
     }

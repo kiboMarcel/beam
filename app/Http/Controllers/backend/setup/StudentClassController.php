@@ -27,15 +27,22 @@ class StudentClassController extends Controller
 
     public function StudentClassStore(Request $request){
         
-        $validateData = $request->validate([
-            'name' => 'required|unique:student_classes,name',
-        ]);
-        
-        $data =  new StudentClass();
+        $countClass = count($request->name);
+        if($countClass != NULL){
+            for($i=0; $i< $countClass; $i++) {
+                $data =  new StudentClass();
 
-        $data->name = $request->name;
-        $data->save();
+               /*  $validateData = $request->validate([
+                    'name' => 'required|unique:school_subjects,name',
+                ]); */
 
+
+                $data->name = $request->name[$i];
+
+                $data->save();
+            }
+        }
+      
 
         return redirect()-> route('student.class.view')->with('success', '');
 

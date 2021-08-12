@@ -29,14 +29,23 @@ class StudentGroupController extends Controller
 
     public function StudentGroupStore(Request $request){
         
-        $validateData = $request->validate([
-            'name' => 'required|unique:student_groups,name',
-        ]);
-        
-        $data =  new StudentGroup();
+        $countGroup = count($request->name);
+        if($countGroup != NULL){
+            for($i=0; $i< $countGroup; $i++) {
+                $data =  new StudentGroup();
 
-        $data->name = $request->name;
-        $data->save();
+               /*  $validateData = $request->validate([
+                    'name' => 'required|unique:school_subjects,name',
+                ]); */
+
+
+                $data->name = $request->name[$i];
+
+                $data->save();
+            }
+        }
+        
+
 
 
         return redirect()-> route('student.group.view')->with('success', '');

@@ -29,7 +29,7 @@ class UserController extends Controller
 
         $data = new User();
         $code = rand(0000, 9999);
-        $data -> usertype = 'Admin';
+        $data -> usertype = 'admin';
         $data -> role = $request->role;
         $data -> name = $request->name;
         $data -> email = $request->email;

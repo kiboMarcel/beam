@@ -313,6 +313,7 @@
                     
                     $rank = App\Models\Student_final_mark::selectRaw('*, @rank:=@rank+1 as rank')
                         ->where('assign_subject_id', $subject->id)
+                        ->where('season_id', $marks['0']->season_id)
                         ->orderBy('final_marks', 'DESC')
                         ->get();
                     
@@ -383,7 +384,7 @@
             <span> <strong> Moyenne Generale du Trimestre</strong>  </span>
             <span >  <strong> {{ $marks_avg->final_avg }}  </strong>  </span> <br>    
             <span >  Rang   </span>
-            <span > <strong>4e</strong > sur  <strong> {{ $totalStudent }}  </strong>  Eleves classés </span>
+            <span > <strong>{{ $student_rank }} </strong > sur  <strong> {{ $totalStudent }}  </strong>  Eleves classés </span>
                 
         </div>
       

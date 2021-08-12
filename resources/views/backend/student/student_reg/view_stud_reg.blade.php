@@ -66,12 +66,16 @@
 
                         </select>
                     </div>
+                  
                     <div class="col-lg-4 col-md-4 col-sm-4 ">
                         <label for="text">Classe</label>
                         <select id="class_id" name="class_id" class="custom-select" required>
                             <option value="" selected="" disabled="">Selectionner classe</option>
                             @foreach ($classes as $class)
-                            <option value="{{ $class['student_class']['id'] }}">{{ $class['student_class']['name'] }}</option>
+                            
+                            <option value="{{ $class['student_class']['id'] }}" 
+                            {{ @$class_id == $class->id ? 'selected' : '' }}>
+                                {{ $class['student_class']['name'] }}</option>
                         @endforeach
 
 
@@ -180,7 +184,7 @@
                             <table id="style-2" class="table table-bordered  table-hover">
                                 <thead>
                                     <tr class="thead_tr">
-                                        <th> # </th>
+                                       
                                         <th> Nom</th>
                                         <th> Num mat</th>
                                         <th> Classe</th>
@@ -195,7 +199,7 @@
                                 <tbody>
                                     @foreach ($allData as $key => $value)
                                         <tr class="tr_style">
-                                            <td> {{ $key + 1 }} </td>
+                                            {{-- <td> {{ $key + 1 }} </td> --}}
 
 
                                             <td>
@@ -298,7 +302,6 @@
                             <table id="style-2" class="table  table-bordered  table-hover">
                                 <thead>
                                     <tr class="thead_tr">
-                                        <th> #</th>
                                         <th> Nom</th>
                                         <th> Num mat</th>
                                         <th> Classe</th>
@@ -313,7 +316,7 @@
                                 <tbody>
                                     @foreach ($allData as $key => $value)
                                         <tr class="tr_style">
-                                            <td> {{ $key + 1 }} </td>
+                                            {{-- <td> {{ $key + 1 }} </td> --}}
 
                                             <td>
                                                 <div class="d-flex">

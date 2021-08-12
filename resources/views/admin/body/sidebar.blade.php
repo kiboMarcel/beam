@@ -2,8 +2,31 @@
 $prefix = Request::route()->getprefix();
 $route = Route::current()->getName();
 //dd("$prefix/assign/class");
+
+$classes =   App\Models\AssignClasse::groupBy('class_id')->get();
+$years =  App\Models\StudentYear::all();
+
+$student =  App\Models\AssignStudent::all();
+
+$check= '';
+$checkStudent= '';
+
+if($classes->toArray()== null || $years->toArray()== null){
+           $check= 'false';
+        }
+
+if($student->toArray()== null ){
+           $checkStudent= 'false';
+        }
 @endphp
 
+<style>
+    .disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.6;
+    }
+</style>
 
 <div class="sidebar-wrapper sidebar-theme">
 
@@ -31,9 +54,11 @@ $route = Route::current()->getName();
 
 
 
+            @if (Auth::user()->role == 'Admin'|| Auth::user()->role == 'Operateur' )
+            
+           
 
-
-            <li class="menu">
+            <li class="menu  {{ $check == 'false'? 'disabled ': ''}} " >
                 <a href="#student" data-toggle="collapse"
                     data-active="{{ $prefix == '/students' ? 'true' : 'false' }}" aria-expanded="false"
                     class="dropdown-toggle">
@@ -79,7 +104,7 @@ $route = Route::current()->getName();
             </li>
 
 
-            <li class="menu">
+            <li class="menu   {{ $checkStudent == 'false'? 'disabled ': ''}}">
                 <a href="#marks" data-toggle="collapse" data-active="{{ $prefix == '/marks' ? 'true' : 'false' }}"
                     aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -175,7 +200,7 @@ $route = Route::current()->getName();
                     </li>
 
                     <li class="{{ $route == 'fee.amount.view' ? 'active' : '' }}">
-                        <a href="{{ route('fee.amount.view') }}"> Montant des Payements </a>
+                        <a href="{{ route('fee.amount.view') }}"> Montant de Payements </a>
                     </li>
 
                     <li class="{{ $route == 'exam.type.view' ? 'active' : '' }}">
@@ -198,7 +223,11 @@ $route = Route::current()->getName();
 
                 </ul>
             </li>
+            @endif
 
+            @if (Auth::user()->role == 'Admin')
+                
+           
             <li class="menu">
                 <a href="#employee" data-toggle="collapse"
                     data-active="{{ $prefix == '/employees' ? 'true' : 'false' }}" aria-expanded="false"
@@ -288,7 +317,7 @@ $route = Route::current()->getName();
                 </ul>
             </li> --}}
 
-            <li class="menu">
+            <li class="menu    {{ $checkStudent == 'false'? 'disabled ': ''}} ">
                 <a href="#reportManagement" data-toggle="collapse"
                     data-active="{{ $prefix == '/reportManagement' ? 'true' : 'false' }}" aria-expanded="false"
                     class="dropdown-toggle">
@@ -322,7 +351,7 @@ $route = Route::current()->getName();
 
                 </ul>
             </li>
-
+            @endif
             {{-- <li class="menu">
                 <a href="#app" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -377,7 +406,7 @@ $route = Route::current()->getName();
                     </li>
                 </ul>
             </li> --}}
-
+           
             @if (Auth::user()->role == 'Admin')
                 <li class="menu">
                     <a href="#users" data-toggle="collapse"

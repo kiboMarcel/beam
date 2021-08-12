@@ -44,9 +44,9 @@
         margin-top: 17px !important;
     }
 
-    #loaderDiv{
+    #loaderDiv {
         display: flex;
-        flex-direction:column;
+        flex-direction: column;
     }
 
 </style>
@@ -56,7 +56,12 @@
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
-
+                {{-- GET STATUS FOR SWEET ALERT  START --}}
+                @php
+                    $getstatus = \Session::has('success');
+                    
+                @endphp
+                {{-- GET STATUS FOR SWEET ALERT START --}}
                 <div class="widget-content widget-content-area">
                     <h3>Notes</h3>
                     <form method="post" action=" {{ route('marks.store') }}  ">
@@ -69,7 +74,8 @@
                                     <select name="year_id" id="year_id" class="custom-select" required>
                                         <option value="" disabled="">Selectionner Année</option>
                                         @foreach ($years as $year)
-                                            <option value="{{ $year->id }}"  {{ $year->active==1 ? 'selected': '' }}>
+                                            <option value="{{ $year->id }}"
+                                                {{ $year->active == 1 ? 'selected' : '' }}>
                                                 {{ $year->name }}</option>
                                         @endforeach
 
@@ -91,10 +97,10 @@
                                     <label for="text">Serie</label>
                                     <select name="branch_id" id="branch_id" class="custom-select">
                                         <option " selected="" disabled="">Selectionner Serie</option>
-                                                        @foreach ($branchs as $branch)
-                                        <option value="{{ $branch->id }}">
-                                            {{ $branch->name }}</option>
-                                        @endforeach
+                                             @foreach ($branchs as $branch)
+                                                <option value="{{ $branch->id }}">
+                                                {{ $branch->name }}</option>
+                                            @endforeach
 
                                     </select>
                                 </div>
@@ -128,8 +134,7 @@
                                     <label for="text">Type D'examen</label>
                                     <select name="exam_type_id" id="exam_type_id" class="custom-select">
                                         <option " selected="" disabled="">Selectionner examen</option>
-                                                        @foreach ($exam_types as
-                                            $exam_type)
+                                             @foreach ($exam_types as $exam_type)
                                         <option value="{{ $exam_type->id }}">
                                             {{ $exam_type->name }}</option>
                                         @endforeach
@@ -140,8 +145,8 @@
                                 <div class="col-lg-3 col-md-3 col-sm-3 ">
                                     <label for="text">Trimsetre/Semestre</label>
                                     <select name="season_id" id="season_id" class="custom-select">
-                                        <option " selected="" disabled="">Selectionner examen</option>
-                                                        @foreach ($seasons as $season)
+                                        <option " selected="" disabled="">Selectionner Trimes/Seme</option>
+                                                 @foreach ($seasons as $season)
                                         <option value="{{ $season->id }}">
                                             {{ $season->name }}</option>
                                         @endforeach
@@ -163,12 +168,12 @@
                         <hr>
 
 
-                           {{-- SPINNER LOAD START --}} 
+                        {{-- SPINNER LOAD START --}}
                         <div id="loaderDiv" class="  justify-content-between mx-5 mt-3 mb-5">
-                            
+
                             <div class="spinner-grow text-warning align-self-center"></div>
                         </div>
-                        {{-- SPINNER LOAD END --}} 
+                        {{-- SPINNER LOAD END --}}
 
                         {{-- mark entry table start --}}
                         <div class="table-responsive mb-4">
@@ -192,7 +197,7 @@
                                     </tbody>
                                 </table>
 
-                                
+
                                 <input type="submit" class="btn btn-outline-info search mb-2" value="Enregistrer" id="">
                             </div>
 
@@ -208,7 +213,7 @@
 
     <script>
         $("#loaderDiv").hide();
-   </script>
+    </script>
 
     <script type="text/javascript">
         $(document).on('click', '#search', function() {
@@ -236,8 +241,8 @@
                     $("#loaderDiv").show();
                 },
                 complete: function() {
-                $("#loaderDiv").hide();
-                 },
+                    $("#loaderDiv").hide();
+                },
                 success: function(data) {
                     $('#mark-entry').removeClass('d-none');
                     var html = '';
@@ -270,7 +275,7 @@
             $(document).on('change', '#branch_id', function() {
                 var class_id = $('#class_id').val();
                 var branch_id = $('#branch_id').val();
-             
+
                 $.ajax({
                     url: "{{ route('marks.getsubject') }}",
                     type: "GET",
@@ -279,7 +284,8 @@
                         branch_id: branch_id
                     },
                     success: function(data) {
-                        var html = '<option disabled="" selected="" value="">Selectionner Matiere</option>';
+                        var html =
+                            '<option disabled="" selected="" value="">Selectionner Matiere</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.id + '">' + v.school_subject
                                 .name + '</option>';
@@ -292,63 +298,90 @@
     </script>
 
 
- {{-- GET CLASS BRANCH START --}}
- <script type="text/javascript">
-    $(function() {
-        $(document).on('change', '#class_id', function() {
-            var class_id = $('#class_id').val();
-            $.ajax({
-                url: "{{ route('student.getclass.branch') }}",
-                type: "GET",
-                async: true,
-                data: {
-                    class_id: class_id,
-                },
-               
-                success: function(data) {
-                    
-                    $("#loaderDiv").hide();
-                    var html = '<option value="" selected="" disabled="">Selectionner Serie</option>';
-                    $.each(data, function(key, v) {
-                        html += '<option value="' + v.branch_id + '"  >' + v
-                            .student_branch
-                            .name + '</option>';
-                    });
-                    $('#branch_id').html(html);
-                }
+    {{-- GET CLASS BRANCH START --}}
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#class_id', function() {
+                var class_id = $('#class_id').val();
+                $.ajax({
+                    url: "{{ route('student.getclass.branch') }}",
+                    type: "GET",
+                    async: true,
+                    data: {
+                        class_id: class_id,
+                    },
+
+                    success: function(data) {
+
+                        $("#loaderDiv").hide();
+                        var html =
+                            '<option value="" selected="" disabled="">Selectionner Serie</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.branch_id + '"  >' + v
+                                .student_branch
+                                .name + '</option>';
+                        });
+                        $('#branch_id').html(html);
+                    }
+                });
             });
         });
-    });
-</script>
-{{-- GET CLASS BRANCH END --}}
+    </script>
+    {{-- GET CLASS BRANCH END --}}
 
-{{-- GET CLASS GROUP START --}}
-<script type="text/javascript">
-    $(function() {
-        $(document).on('change', '#branch_id', function() {
-            var class_id = $('#class_id').val();
-            var branch_id = $('#branch_id').val();
+    {{-- GET CLASS GROUP START --}}
+    <script type="text/javascript">
+        $(function() {
+            $(document).on('change', '#branch_id', function() {
+                var class_id = $('#class_id').val();
+                var branch_id = $('#branch_id').val();
 
-            $.ajax({
-                url: "{{ route('student.getclass.group') }}",
-                type: "GET",
-                data: {
-                    class_id: class_id,
-                    branch_id: branch_id,
-                },
-                success: function(data) {
-                    var html = '<option value="">Selectionner groupe</option>';
-                    $.each(data, function(key, v) {
-                        html += '<option value="' + v.group_id + '">' + v
-                            .student_group
-                            .name + '</option>';
-                    });
-                    $('#group_id').html(html);
-                }
+                $.ajax({
+                    url: "{{ route('student.getclass.group') }}",
+                    type: "GET",
+                    data: {
+                        class_id: class_id,
+                        branch_id: branch_id,
+                    },
+                    success: function(data) {
+                        var html = '<option value="">Selectionner groupe</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.group_id + '">' + v
+                                .student_group
+                                .name + '</option>';
+                        });
+                        $('#group_id').html(html);
+                    }
+                });
             });
         });
-    });
-</script>
-{{-- GET CLASS GROUP END --}}
+    </script>
+    {{-- GET CLASS GROUP END --}}
+
+    {{-- SWEET ALERT SCRIPT --}}
+    <script>
+        window.addEventListener('load', function() {
+            var isCreate = <?php echo json_encode($getstatus); ?>;
+
+            if (isCreate) {
+                const toast = swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    padding: '2em'
+                });
+
+                toast({
+                    type: 'success',
+                    title: 'Note Ajouter avec Success',
+                    padding: '2em',
+                })
+            }
+
+
+
+        });
+    </script>
 
 @endsection

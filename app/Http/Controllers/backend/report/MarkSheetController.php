@@ -40,7 +40,7 @@ class MarkSheetController extends Controller
 
     public function MarkSheetGet($year_id, $class_id, $branch_id, $group_id, $student_id, $season_id){
 
-        //dd($group_id);
+        
         $data['year_id'] =  $year_id;
         $data['class_id'] =  $class_id;
         $data['branch_id'] =  $branch_id;
@@ -50,7 +50,7 @@ class MarkSheetController extends Controller
        
         //count student
         $data['totalStudent'] = AssignStudent::where('class_id', $class_id)
-        ->where('branch_id', $branch_id)->where('year_id', $year_id)->count();
+        ->where('branch_id', $branch_id)->where('group_id', $group_id)->where('year_id', $year_id)->count();
 
         //get subject
         $data['subjects'] = AssignSubject::with(['school_subject'])->where('class_id', $class_id)
@@ -62,7 +62,8 @@ class MarkSheetController extends Controller
 
         //get marks
         $data['marks'] = StudentMarks::with(['student', 'student_class', 'student_branch', 'student_group' ,'season'])
-        ->where('student_id', $student_id)->where('year_id', $year_id)->where('class_id', $class_id)
+        ->where('student_id', $student_id)->where('year_id', $year_id)
+        ->where('class_id', $class_id)->where('season_id', $season_id)
         ->where('group_id', $group_id)->where('branch_id', $branch_id)->get();
 
         //total season avg --Moyenne Totale des matiere du trimestre ou semestre
@@ -85,6 +86,26 @@ class MarkSheetController extends Controller
         ->where('group_id', $group_id)->where('season_id', $season_id)->min('final_avg');
 
         $data['class_avg'] = ($data['marks_avg_min'] + $data['marks_avg_min']) / 2 ; 
+
+
+        DB::statement(DB::raw('set @rank:=0'));
+                    
+        $finalrank = StudentFinalAVG::selectRaw('*, @rank:=@rank+1 as rank')
+            ->where('year_id', $year_id)
+            ->where('class_id', $class_id)
+            ->where('branch_id', $branch_id)
+            ->where('group_id', $group_id)
+            ->where('season_id', $season_id)
+            ->orderBy('final_avg', 'DESC')
+            ->get();
+        
+        for ($i = 0; $i < count($finalrank->toArray()); $i++) {
+            if ($finalrank[$i]->student_id == $student_id) {
+                $data['student_rank'] = $finalrank[$i]->rank;
+            }
+        }
+
+        //dd($data['student_rank']);
 
         if($data['marks_avg'] == null ){
             return view('backend.s_report.marksheet.avg_error', $data);

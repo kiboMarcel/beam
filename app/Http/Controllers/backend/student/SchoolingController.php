@@ -67,7 +67,7 @@ class SchoolingController extends Controller
 
 
         foreach ($student as $key => $v) {
-            $schoolingfee = FeeCategoryAmount::where('fee_category_id','6')
+            $schoolingfee = FeeCategoryAmount::where('fee_category_id','2')
             ->where('class_id',$v->class_id)->first();
 
             $schooling = Schooling::where('student_id',$v->student_id)->first();
@@ -140,7 +140,7 @@ class SchoolingController extends Controller
         
         
 
-        $data['schoolingfee'] = FeeCategoryAmount::where('fee_category_id','6')
+        $data['schoolingfee'] = FeeCategoryAmount::where('fee_category_id','2')
         ->where('class_id',$data['student']->class_id)->first();
         
         //$schoolingfee->amount

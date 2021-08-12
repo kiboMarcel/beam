@@ -27,19 +27,24 @@ class StudentRegistrationController extends Controller
         $data['years'] =  StudentYear::all();
         $data['count'] = 0;
 
-
-
-        $data['year_id'] =  StudentYear::orderBy('id', 'asc')->first()->id;
-        $data['class_id'] =  StudentClass::orderBy('id', 'desc')->first()->id;
-        //dd($data['year_id']);
-        $data['allData'] =  AssignStudent::where('year_id',$data['year_id'])->
-        where('class_id', $data['class_id'])->cursorPaginate(1);
-        return view('backend.student.student_reg.view_stud_reg', $data);
+        if($data['classes']->toArray()== null || $data['years']->toArray()== null){
+           // return view('admin.index')->with('error', '');
+           dd('error');
+        }
+            $data['year_id'] =  StudentYear::orderBy('id', 'asc')->first()->id;
+            $data['class_id'] =  StudentClass::orderBy('id', 'desc')->first()->id;
+            //dd($data['year_id']);
+        
+            $data['allData'] =  AssignStudent::where('year_id',$data['year_id'])->
+            where('class_id', $data['class_id'])->cursorPaginate(1);
+            return view('backend.student.student_reg.view_stud_reg', $data);
+        
+        
 
     }
 
     public function StudentSearch(Request $request){
-        $data['classes'] =  StudentClass::orderBy('name', 'asc')->get();
+        $data['classes'] =  AssignClasse::groupBy('class_id')->get();
         $data['branchs'] =  StudentBranch::all();
         $data['groups'] =  StudentGroup::all();
         $data['years'] =  StudentYear::all();
@@ -183,7 +188,7 @@ class StudentRegistrationController extends Controller
             $schooling->class_id = $request->class_id;
             $schooling->branch_id = $request->branch_id;
             $schooling->group_id = $request->group_id;
-            $schooling->fee_category_id = '6';
+            $schooling->fee_category_id = '2';
 
             $schooling->save();
 

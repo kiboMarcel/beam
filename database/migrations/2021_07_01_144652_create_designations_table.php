@@ -17,8 +17,18 @@ class CreateDesignationsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();
+            
         });
+
+        // Insert some stuff
+     DB::table('designations')->insert(
+        array(
+            'name' => 'Professeur',
+        )
+    );
     }
+
+     
 
     /**
      * Reverse the migrations.

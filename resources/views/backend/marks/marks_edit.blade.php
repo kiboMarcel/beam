@@ -56,7 +56,7 @@
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
-
+              
                 <div class="widget-content widget-content-area">
                     <h3> Modifier Notes</h3>
                     <form method="post" action="   ">
@@ -125,17 +125,17 @@
                                 </div>
 
 
-                                {{-- <div class="col-lg-3 col-md-3 col-sm-3 ">
-                                    <label for="text">Type D'examen</label>
-                                    <select name="exam_type_id" id="exam_type_id" class="custom-select">
-                                        <option " selected="" disabled="">Selectionner examen</option>
-                                                        @foreach ($exam_types as $exam_type)
-                                        <option value="{{ $exam_type->id }}">
-                                            {{ $exam_type->name }}</option>
+                                <div class="col-lg-3 col-md-3 col-sm-3 ">
+                                    <label for="text">Trimsetre/Semestre</label>
+                                    <select name="season_id" id="season_id" class="custom-select">
+                                        <option " selected="" disabled="">Selectionner Trimes/Seme</option>
+                                                        @foreach ($seasons as $season)
+                                        <option value="{{ $season->id }}">
+                                            {{ $season->name }}</option>
                                         @endforeach
 
                                     </select>
-                                </div> --}}
+                                </div>
 
                                 <div class="col-lg-3 col-md-3 col-sm-3 find">
 
@@ -199,6 +199,7 @@
             var group_id = $('#group_id').val();
             var assign_subject_id = $('#assign_subject_id').val();
             var exam_type_id = $('#exam_type_id').val();
+            var season_id = $('#season_id').val();
             $.ajax({
                 url: "{{ route('students.edit.getstudents') }}",
                 type: "GET",
@@ -209,7 +210,8 @@
                     'branch_id': branch_id,
                     'assign_subject_id': assign_subject_id,
                     'exam_type_id': exam_type_id,
-                    'group_id': group_id
+                    'group_id': group_id,
+                    'season_id': season_id
                 },
                 beforeSend: function() {
                     $("#loaderDiv").show();
@@ -223,8 +225,9 @@
                     $.each(data, function(key, v) {
                         let student_id = v.student_id;
                         let assign_subject_id = v.assign_subject_id;
-                        let detail_url = '{{ route('students.edit.detail', ['', '']) }}' +
-                            '/' + student_id + '/' + assign_subject_id + ' ';
+                        let season_id = v.season_id;
+                        let detail_url = '{{ route('students.edit.detail', ['', '','']) }}' +
+                            '/' + student_id + '/' + assign_subject_id + '/' +season_id + '/';
                         html +=
                             '<tr class="tr_style">' +
 
@@ -233,7 +236,7 @@
                             '<td>' + v.student.id_no +
                             '<input type="hidden" name="student_id[]" value="' + v.student_id +
                             '"> <input type="hidden" name="id_no[]" value="' + v.student.id_no +
-                            '">      </td>' +
+                            '">   </td>' +
 
                             '<td>' + v.student_class.name + '</td>' +
                             '<td>' + v.student_branch.name + '</td>' +
@@ -351,5 +354,7 @@
         });
     </script>
     {{-- GET CLASS GROUP END --}}
+
+  
 
 @endsection

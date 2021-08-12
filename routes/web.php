@@ -476,7 +476,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('mark/edit/student', [MarksController::class, 'MarksStudentEdit']) -> 
         name('students.edit.getstudents');
 
-        Route::get('mark/edit/student/detail/{student_id}/{assign_subject_id}', [MarksController::class, 'MarksStudentDetail']) -> 
+        Route::get('mark/edit/student/detail/{student_id}/{assign_subject_id}/{season_id}', [MarksController::class, 'MarksStudentDetail']) -> 
         name('students.edit.detail');
 
         Route::post('mark/student/update/{student_id}/{assign_subject_id}/{year_id}/{season_id}', [MarksController::class, 'MarksStudentUpdate']) -> 

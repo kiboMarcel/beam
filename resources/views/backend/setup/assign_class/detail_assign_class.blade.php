@@ -3,6 +3,7 @@
 <style>
     .tr_style{
         background-color: #0e1726 !important;
+        
     }
     .table {
         background-color: rgb(153, 51, 114) !important;
@@ -18,6 +19,9 @@
         align-items: center;
         justify-content: space-between;
     }
+    
+    .d-flex{
+        justify-content: center;
     }
 
     .btn {
@@ -32,13 +36,13 @@
 
 @section('admin')
     <div class="row layout-top-spacing layout-spacing">
-        <div class="col-lg-9">
+        <div class="col-lg-6">
             <div class="statbox widget box box-shadow">
 
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Details Classe Attribuer</h3>
+                            <h3>Classe Attribuer Detail</h3>
                             
                         </div>
 
@@ -49,7 +53,7 @@
                             </h4>
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> # </th>
+                                  
                                     <th  style=" width:30% "> Serie </th>
                                     <th class="text-center">Groupe</th>
                                    
@@ -58,18 +62,18 @@
                             <tbody>
                                 @foreach ($detailData as $key => $detail)
                                     <tr class="tr_style">
-                                        <td> {{ $key + 1 }} </td>
+                                       
 
 
                                         <td>
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $detail['student_branch']['name'] }} </p>
+                                                <p class="align-self-center mb-0 ">  <strong>  {{ $detail['student_branch']['name'] }} </strong> </p>
                                             </div>
                                         </td>
 
                                         <td>
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $detail['student_group']['name'] }} </p>
+                                                <p class="align-self-center mb-0  text-center"> <strong> {{ $detail['student_group']['name'] }} </strong> </p>
                                             </div>
                                         </td>
                                       

@@ -18,7 +18,12 @@ class CreateStudentMarksTable extends Migration
             $table->integer('student_id');
             $table->string('id_no')->nullable();
             $table->integer('year_id')->nullable();
-            $table->integer('class_id')->nullable();
+
+            $table->unsignedBigInteger('class_id');
+            $table->foreign('class_id')
+                ->references('id')->on('student_classes')
+                ->onDelete('cascade');
+                
             $table->integer('branch_id')->nullable();
             $table->integer('group_id')->nullable();
             $table->integer('assign_subject_id')->nullable();

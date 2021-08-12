@@ -71,12 +71,15 @@ class StudentYearController extends Controller
 
         $class_deactivate =  StudentYear::where('active', 1)->first();
 
-        $class_deactivate ->active = 0;
-
+        
+        if($class_deactivate != null){
+            $class_deactivate ->active = 0; 
+            $class_deactivate -> save();
+        }
 
         $class ->active = 1;
 
-        $class_deactivate -> save();
+       
         $class -> save();
 
         return redirect()-> route('student.year.view')->with('successActive', '');

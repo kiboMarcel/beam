@@ -45,6 +45,12 @@
 </style>
 
 @section('admin')
+   {{-- GET STATUS FOR SWEET ALERT  START --}}
+   @php
+   $getstatus = \Session::has('update');
+
+@endphp
+{{-- GET STATUS FOR SWEET ALERT START --}}
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-12">
             <div class="statbox widget box box-shadow">
@@ -61,13 +67,13 @@
                    
                      {{-- GET STATUS FOR SWEET ALERT  START--}}
                      @php
-                     $getstatus =  \Session::has('error');  
+                     $getstatus =  \Session::has('update');  
                      
                      @endphp
                      {{-- GET STATUS FOR SWEET ALERT START --}}
 
                     <form method="post" action=" {{ route('marks.update',[ $detail[0]->student_id, 
-                    $devoirMarks[0]->assign_subject_id ,  $detail[0]->year_id,  $detail[0]->season_id ] ) }}  ">
+                    $devoirMarks[0]->assign_subject_id ,  $detail[0]->year_id,  $devoirMarks[0]['season']['id'] ] ) }}  ">
                         @csrf
                         {{-- VISIBLE ADD DEVOIR DIV START --}}
                         <div class="add_item1">
@@ -82,7 +88,7 @@
                                        <input type="hidden" name="branch_id" value=" {{$detail['0']->branch_id}} ">
                                        <input type="hidden" name="group_id" value=" {{$detail['0']->group_id}} ">
                                        <input type="hidden" name="assign_subject_id" value=" {{$detail['0']->assign_subject_id}} ">
-                                       <input type="hidden" name="season_id" value=" {{$detail['0']->season_id}} ">
+                                       <input type="hidden" name="season_id" value=" {{$devoirMarks[0]['season']['id']}} ">
                                        {{-- HIDDEN INPUT END --}}
                                      
                                     <table id="style-2" class="table exam-type style-2  ">
@@ -220,7 +226,7 @@
                         {{-- VISIBLE ADD EXAM DIV END --}}
 
 
-                        <button class="btn btn-primary" type="submit">Enregistrer</button>
+                        <button class="btn btn-primary" type="submit">Mettre a jour</button>
 
                 </div>
 
@@ -369,9 +375,9 @@
       {{-- SWEET ALERT SCRIPT --}}
       <script> 
         window.addEventListener('load', function() {
-            var isAbort = <?php echo json_encode($getstatus); ?>;
+            var update = <?php echo json_encode($getstatus); ?>;
 
-            if (isAbort) {
+            if (update) {
                 const toast = swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -390,5 +396,32 @@
 
         });
     </script>
+
+
+    {{-- SWEET ALERT SCRIPT --}}
+ <script>
+    window.addEventListener('load', function() {
+        var isCreate = <?php echo json_encode($getstatus); ?>;
+
+        if (isCreate) {
+            const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                padding: '2em'
+            });
+
+            toast({
+                type: 'success',
+                title: 'Mis a jour avec Success',
+                padding: '2em',
+            })
+        }
+      
+
+
+    });
+</script>
 
 @endsection

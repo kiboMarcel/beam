@@ -18,6 +18,14 @@ class CreateFeeCategoriesTable extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
+
+        DB::table('fee_categories')->insert(
+            array(
+               array( 'name' => 'Inscription'),
+                array('name' => 'Ecollage'),
+            )
+            
+        );
     }
 
     /**
