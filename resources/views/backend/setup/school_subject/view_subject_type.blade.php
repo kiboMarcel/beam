@@ -41,7 +41,7 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Matieres</h3>
+                            <h3>Matières</h3>
                             <a href=" {{ route('subject.type.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
                         </div>
 
@@ -55,7 +55,7 @@
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> N </th>
+                                    <th> # </th>
                                     <th> examen</th>
                                     <th class="text-center">Actions</th>
                                 </tr>

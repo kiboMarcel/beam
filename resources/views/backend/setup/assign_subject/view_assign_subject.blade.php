@@ -55,10 +55,10 @@
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> N </th>
+                                    <th> # </th>
                                     <th> Nom de classe</th>
 
-                                    <th class="text-center">Actions</th>
+                                    <th class="text-center" colspan="2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,7 +92,8 @@
                                                     </path>
                                                 </svg>
                                             </a>
-
+                                        </td>
+                                        <td>
                                             <a href="{{ route('assign.subject.detail',[$assign->class_id,$assign->branch_id] )}}"
                                                 id="detail" class="bs-tooltip" data-toggle="tooltip" data-placement="top"
                                                 title="" data-original-title="detail">
@@ -109,7 +110,8 @@
                                                 </svg>
 
                                             </a>
-
+                                        </td>
+                                        <td>
                                             <a href=" {{ route('assign.subject.delete', [$assign->class_id,$assign->branch_id]) }} "
                                                 id="delete" class="bs-tooltip" data-toggle="tooltip" data-placement="top"
                                                 title="" data-original-title="Delete">

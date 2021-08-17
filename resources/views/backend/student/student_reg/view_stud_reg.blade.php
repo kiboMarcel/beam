@@ -144,7 +144,7 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Liste des Eleves</h3>
+                            <h3>Liste des Elèves</h3>
                             @if ($count != 0)
                                 <h2 class="badge outline-badge-info">{{ count($countstudent) }} Eleves</h2>
 

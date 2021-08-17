@@ -132,7 +132,8 @@
                                                     </path>
                                                 </svg>
                                             </a>
-
+                                        </td>
+                                        <td>
                                             <a target="blank" href=" {{ route('employee.detail.pdf', $employee->id) }} "
                                                 class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                                 data-original-title="Detail/Pdf">

@@ -42,7 +42,7 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Classe Attribuer Detail</h3>
+                            <h3>Classe Attribuée - Detail</h3>
                             
                         </div>
 

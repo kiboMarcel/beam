@@ -31,9 +31,9 @@ class SchoolSubjectController extends Controller
             for($i=0; $i< $countSubject; $i++) {
                 $data =  new SchoolSubject();
 
-               /*  $validateData = $request->validate([
+                $validateData = $request->validate([
                     'name' => 'required|unique:school_subjects,name',
-                ]); */
+                ]);
 
 
                 $data->name = $request->name[$i];

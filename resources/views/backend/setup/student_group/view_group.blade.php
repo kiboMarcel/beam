@@ -55,15 +55,13 @@
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> N </th>
-                                    <th> Name</th>
+                                    <th> Nom</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($allData as $key => $group)
                                     <tr class="tr_style">
-                                        <td> {{ $key + 1 }} </td>
 
 
                                         <td>

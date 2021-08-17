@@ -66,9 +66,10 @@ class MarkSheetController extends Controller
         ->where('class_id', $class_id)->where('season_id', $season_id)
         ->where('group_id', $group_id)->where('branch_id', $branch_id)->get();
 
-        //total season avg --Moyenne Totale des matiere du trimestre ou semestre
-        $data['seasonAvg'] = StudentMarks::where('student_id', $student_id)->where('year_id', $year_id)->where('class_id', $class_id)
-        ->where('season_id', $season_id)->sum('marks');
+        //total season avg --somme des note definitif du semestre ***** Totale des matieres du trimestre ou semestre
+        $data['seasonAvg'] = Student_final_mark::where('student_id', $student_id)
+        ->where('year_id', $year_id)->where('class_id', $class_id)
+        ->where('season_id', $season_id)->sum('final_marks');
 
         //final mark avg -- Moyenne final du trimestre
         $data['marks_avg'] = StudentFinalAVG::where('student_id', $student_id)

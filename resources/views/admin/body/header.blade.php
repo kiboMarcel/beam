@@ -8,12 +8,12 @@ $route = Route::current()->getName();
 
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-logo">
-                <a href="index.html">
-                    <img src="{{ asset('backend/assets/img/90x90.jpg') }}" class="navbar-logo" alt="logo">
+                <a href=" {{ route('dashboard') }} ">
+                    <img src="{{ asset('backend/assets/img/favicon.svg') }}" width="90" class="navbar-logo" alt="logo">
                 </a>
             </li>
             <li class="nav-item theme-text">
-                <a href="index.html" class="nav-link"> Beam </a>
+                <a href="{{ route('dashboard') }} " class="nav-link"> Beam </a>
             </li>
         </ul>
 
@@ -41,14 +41,14 @@ $route = Route::current()->getName();
                                 </svg> Mon Profile</a>
                         </div>
                         
-                        <div class="dropdown-item">
+                      {{--   <div class="dropdown-item">
                             <a href="auth_lockscreen.html"><svg xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                 </svg> Verouiller Ecran</a>
-                        </div>
+                        </div> --}}
                         <div class="dropdown-item">
                             <a href="{{ route('admin.logout') }}"><svg xmlns="http://www.w3.org/2000/svg" width="24"
                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

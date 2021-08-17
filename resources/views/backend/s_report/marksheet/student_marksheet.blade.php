@@ -288,11 +288,12 @@
                 {{-- SUBJECT COEF START --}}
                 <td class="td-text"> {{ $subject->coef }}</td>
                 {{-- SUBJECT COEF END --}}
-
+                
 
                 {{-- NOTE DEFINITIF/ FINAL MARK START --}}
                 @php
                     $finalMark = $totalAVG * $subject->coef;
+                    
                     
                     $getfinal_marks = App\Models\Student_final_mark::where('student_id', $marks['0']->student_id)
                         ->where('year_id', $marks['0']->year_id)

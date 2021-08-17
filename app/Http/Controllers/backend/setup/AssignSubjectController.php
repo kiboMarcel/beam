@@ -131,11 +131,11 @@ class AssignSubjectController extends Controller
 
     public function  AssignSubjectDetail(Request $request, $class_id, $branch_id){
 
-        $data['detailData'] =  AssignSubject::where([
+        $data['detailData'] =  AssignSubject::with('school_subject')->where([
             [ 'class_id' ,$class_id], 
             ['branch_id', $branch_id]
             ])->
-        orderBy('subject_id', 'asc')->get();
+        get()->sortBy('school_subject.name' );
 
         
         

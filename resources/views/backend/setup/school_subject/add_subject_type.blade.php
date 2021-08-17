@@ -21,7 +21,7 @@
     <div class="row layout-top-spacing layout-spacing">
         <div class="col-lg-9">
             <div class="statbox widget box box-shadow">
-                <h3>Ajouter Matiere</h3>
+                <h3>Ajouter Matière</h3>
                 <hr>
                 <form method="post" action=" {{ route('subject.type.store') }}  ">
                     @csrf

@@ -18,6 +18,13 @@ class CreateExamTypesTable extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
+
+        DB::table('exam_types')->insert(
+            array(
+                array('name' => 'Devoir',),
+                array('name' => 'Examen',)
+            )
+        );
     }
 
     /**

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>Login | Beam </title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('backend/assets/img/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('backend/assets/img/faviconn.ico') }}" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link href="{{ asset('backend/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -48,8 +48,8 @@
                                 <div id="password-field" class="field-wrapper input mb-2">
                                     <div class="d-flex justify-content-between">
                                         <label for="password">MOT DE PASSE</label>
-                                        <a href="{{ route('password.request') }}" class="forgot-pass-link">mot
-                                            de passe oublié ?</a>
+                                      {{--   <a href="{{ route('password.request') }}" class="forgot-pass-link">mot
+                                            de passe oublié ?</a> --}}
                                     </div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

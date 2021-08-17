@@ -414,7 +414,7 @@
 
             toast({
                 type: 'success',
-                title: 'Mis a jour avec Success',
+                title: 'Mise a jour avec Success',
                 padding: '2em',
             })
         }

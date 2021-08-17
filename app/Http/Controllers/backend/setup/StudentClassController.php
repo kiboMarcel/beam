@@ -32,9 +32,9 @@ class StudentClassController extends Controller
             for($i=0; $i< $countClass; $i++) {
                 $data =  new StudentClass();
 
-               /*  $validateData = $request->validate([
+                $validateData = $request->validate([
                     'name' => 'required|unique:school_subjects,name',
-                ]); */
+                ]);
 
 
                 $data->name = $request->name[$i];

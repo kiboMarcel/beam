@@ -55,10 +55,10 @@
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> N </th>
+                                    <th> # </th>
                                     <th> Nom de classe</th>
 
-                                    <th class="text-center">Actions</th>
+                                    <th class="text-center" colspan="3">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -69,7 +69,7 @@
 
                                         <td>
 
-                                            <div class="d-flex">
+                                            <div>
                                                 <p class="align-self-center mb-0 "> {{ $assign['student_class']['name']}}
                                                     {{ $assign['student_branch']['name']}}
                                                 </p>
@@ -92,7 +92,8 @@
                                                     </path>
                                                 </svg>
                                             </a>
-
+                                        </td>
+                                        <td>
                                             <a href="{{ route('assign.class.detail',[$assign->class_id,$assign->branch_id] )}}"
                                                 id="detail" class="bs-tooltip" data-toggle="tooltip" data-placement="top"
                                                 title="" data-original-title="detail">
@@ -109,7 +110,8 @@
                                                 </svg>
 
                                             </a>
-
+                                        </td>
+                                        <td>
                                             <a href=" "
                                                 id="delete" class="bs-tooltip" data-toggle="tooltip" data-placement="top"
                                                 title="" data-original-title="Delete">

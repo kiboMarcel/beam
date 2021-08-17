@@ -90,6 +90,7 @@ class MarksController extends Controller
                 }
             }
         }else{
+            //dd('$findDefaultMArk');
             for ($i=0 ; $i<count($request->student_id) ; $i++){
  
                 $findDefaultMArk =  StudentMarks::where('year_id', $request->year_id)
@@ -98,7 +99,7 @@ class MarksController extends Controller
                 ->where('exam_type_id', $request->exam_type_id)
                 ->where('season_id', $request->season_id)->first();
                 
-                //dd($findDefaultMArk);
+                //dd($findDefaultMArk->marks);
 
                 $findDefaultMArk->marks = $request->marks[$i];
     
@@ -138,7 +139,7 @@ class MarksController extends Controller
             $totalAVG =( $examMArk + $marksByDevoirAVG)/2;
                 
             $finalMark =   $totalAVG * $subjects->coef ;
-           
+            //dd($finalMark);
             $getfinal_marks = Student_final_mark::where( 'student_id', $request->student_id[$j] )
             ->where( 'year_id', $request->year_id )->where( 'season_id', $request->season_id )
             ->where( 'assign_subject_id',$request->assign_subject_id )->get();
@@ -275,7 +276,7 @@ class MarksController extends Controller
 
     public function MarksStudentDetail($student_id, $assign_subject_id, $season_id){
         
-        //dd($exam_type_id);
+        //dd($assign_subject_id);
 
         $data['detail'] = StudentMarks::with(['student', 'student_class', 'student_branch', 'student_group'])
         ->where('student_id', $student_id)->get();
@@ -299,7 +300,7 @@ class MarksController extends Controller
     }
 
     public function MarksStudentUpdate(Request $request,  $student_id, $assign_subject_id,  $year_id,$season_id ){
-
+       
         if($request->d_marks == null  ){
             return redirect()->back()->with('error', '');
         }else{
@@ -398,7 +399,7 @@ class MarksController extends Controller
             $totalAVG =( $examMArk + $marksByDevoirAVG)/2;
             
             $finalMark =   $totalAVG * $subjects->coef ;
-            //dd($finalMark);
+            //dd($subjects->coef);
             if ($updateFinalMark->toArray() == null) {
                 
                 $finalMrk = new Student_final_mark();
@@ -408,7 +409,7 @@ class MarksController extends Controller
                 $finalMrk->class_id =  $request->class_id;
                 $finalMrk->group_id =  $request->group_id;
                 $finalMrk->branch_id =  $request->branch_id;
-                $finalMrk->assign_subject_id =  $request->assign_subject_id;
+                $finalMrk->assign_subject_id = $assign_subject_id;
                 $finalMrk->season_id = $request->season_id;
                 $finalMrk->final_marks = round($finalMark, 2) ;
 
@@ -416,12 +417,11 @@ class MarksController extends Controller
 
 
             }else{
-             
                 //find the existing mark to update
                 $finalMrk =  Student_final_mark::where( 'student_id', $request->student_id )
                 ->where( 'year_id', $request->year_id )->where( 'season_id', $request->season_id )
-                ->where( 'assign_subject_id',$request->assign_subject_id )->first();
-                
+                ->where( 'assign_subject_id',$assign_subject_id )->first();
+               
                 $finalMrk->final_marks =  round($finalMark, 2) ;
                 
                  $finalMrk->save();

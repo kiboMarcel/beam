@@ -34,9 +34,9 @@ class StudentBranchController extends Controller
             for($i=0; $i< $countBranch; $i++) {
                 $data =  new StudentBranch();
 
-               /*  $validateData = $request->validate([
+                $validateData = $request->validate([
                     'name' => 'required|unique:school_subjects,name',
-                ]); */
+                ]);
 
 
                 $data->name = $request->name[$i];
