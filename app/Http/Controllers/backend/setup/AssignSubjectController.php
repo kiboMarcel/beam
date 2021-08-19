@@ -61,7 +61,7 @@ class AssignSubjectController extends Controller
         orderBy('subject_id', 'asc')->get();
         //dd($data['editData']->toArray());
         $data['subjects']= SchoolSubject::all();
-        $data['teachers'] = User::where('designation_id', 2)->get();
+        $data['teachers'] = User::where('designation_id', 1)->get();
         $data['classes'] = StudentClass::all();
         $data['branchs'] = StudentBranch::all();
         return view('backend.setup.assign_subject.edit_assign_subject', $data);

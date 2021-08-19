@@ -107,10 +107,12 @@
                                             class="text-danger">*</span></label>
                                                 <select name="teacher_id[]" id="select" class="custom-select">
                                                 <option value="" selected="" disabled=""> Selectionner Prof. </option>
-                                                    @foreach ($teachers as $teacher)
-                                                        <option value="{{ $teacher->id }}"  {{   $edit->teacher_id == $teacher->id ? 'selected' : '' }}  >
-                                                        {{ $teacher->name }} </option>
-                                                    @endforeach
+                                                @foreach ($teachers as $teacher)
+                                                <option value="{{ $teacher->id }}" 
+                                                    {{ $teacher->id == $edit->teacher_id ? 'selected' : ''}}>
+                                                     {{ $teacher->name }} 
+                                                </option>
+                                            @endforeach
                         
                                                 </select>
                                         </div>

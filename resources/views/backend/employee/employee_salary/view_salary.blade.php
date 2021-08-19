@@ -48,7 +48,7 @@
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> N </th>
+                                    <th> # </th>
                                     <th> Nom</th>
                                     <th> N ID </th>
                                     <th> Mobile</th>

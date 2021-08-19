@@ -23,12 +23,6 @@
         background-color: #152238 !important;
     }
 
-   /*  .head {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    } */
     
 
     .btn {
@@ -40,9 +34,11 @@
         margin: 0 9px;
     }
 
-    .find{
-        margin-top: 25px;
+    .search-section{
+        align-items: center;
     }
+
+    
 
     .statbox {
         margin-top: 17px !important;
@@ -61,6 +57,25 @@
             <div class="statbox widget box box-shadow">
 
                 <div class="widget-content widget-content-area">
+                    <div class="row search-section">
+                        <div class="col-lg-3 col-md-3 col-sm-9 ">
+                            <label for="text">Operations à Effectuer: </label>
+                          
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-9 ">
+                            <select name="feeCategory" id="feeCategory" class="custom-select" required>
+                                <option value="" selected="" disabled="">Selectionner une option</option>
+                                @foreach ($feeCategories as $feeCategory)
+                                    <option value="{{ $feeCategory->id }}"
+                                        {{ $feeCategory->id== '2' ? 'selected': ''}} >
+                                        {{ $feeCategory->name }}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                    <hr style="width:50% ">
                     <label for="text">Chercher Eleve </label>
 
                      {{-- GET STATUS FOR SWEET ALERT  START --}}
@@ -121,7 +136,6 @@
             </div>
         </div>
 
-    </div>
 
     <script>
         $("#loaderDiv").hide();
@@ -154,16 +168,17 @@
     
     <script>
           $(document).on('click', '#search', function() {
+            var feeCategory = $('#feeCategory').val();
             var searchText = $('#searchText').val();
-
-            feetch(searchText);
+            //console.log(feeCategory)
+            feetch(searchText, feeCategory);
         });
 
-        function feetch(searchText){
+        function feetch(searchText, feeCategory){
             $.ajax({
-                url: "{{ route('schooling.fee.get') }}",
+                url: "{{ route('student.fee.get') }}",
                 type: "get",
-                data: {'searchText':searchText,},
+                data: {'searchText':searchText, 'feeCategory':feeCategory,},
                 beforeSend: function() {  
                     $("#loaderDiv").show();     
                 }, 

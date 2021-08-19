@@ -1,6 +1,8 @@
 @extends('admin.admin_master')
 
 
+<script src="{{ asset('backend/assets/js/dashboard/dash_1.js') }}"></script>
+
 <style>
     .day {
         text-align: center;
@@ -292,6 +294,7 @@ $totalStudent = App\Models\User::where('usertype', 'Student')->get();
     </div>
 
 
+    <link href="{{ asset('backend/assets/css/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
     <!-- BEGIN TIMER  SCRIPT -->
 
     <script>

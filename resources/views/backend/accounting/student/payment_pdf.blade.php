@@ -83,17 +83,16 @@
             </div>
         </div>
     
-        <h2 >Ecollage </h2>
+    
+        <h2> {{$studentOtherfee['fee_category']['name'] }} </h2>
+        <h3> </h3>
     
          <h3> Nom: <strong>  {{$student['student']['name']}} </strong> </h3>
         <h3> Classe: <strong> {{$student['student_class']['name']}} {{$student['student_branch']['name']}}
              {{$student['student_group']['name']}} </strong> </h3>
-        <h3> la Somme de : <strong> {{ $paying }}  Cfa</strong></h3>
-        <h3> Deja payer: <strong> {{ $get_paid_fee->payed }} cfa</strong></h3>
-    
-        <h3> Reste a payer: <strong> {{ $schoolingfee->amount - $get_paid_fee->payed }} cfa</strong></h3>
-    
-        <div style="margin-bottom: 18px">
+        <h3> la Somme de : <strong> {{$studentOtherfee->amount}} Cfa</strong></h3>
+       
+        <div  style="margin-bottom: 60px" >
             <div class="signature">
                 <span > Signature </span>
                  </div>
@@ -124,17 +123,15 @@
         </div>
     
     
-        <h2>Ecollage </h2>
+        <h2> {{$studentOtherfee['fee_category']['name'] }} </h2>
         <h3> </h3>
     
          <h3> Nom: <strong>  {{$student['student']['name']}} </strong> </h3>
         <h3> Classe: <strong> {{$student['student_class']['name']}} {{$student['student_branch']['name']}}
              {{$student['student_group']['name']}} </strong> </h3>
-        <h3> la Somme de : <strong> {{ $paying }}  Cfa</strong></h3>
-        <h3> Deja payer: <strong> {{ $get_paid_fee->payed }} cfa</strong></h3>
-    
-        <h3> Reste a payer: <strong> {{ $schoolingfee->amount - $get_paid_fee->payed }} cfa</strong></h3>
-    
+        <h3> la Somme de : <strong> {{$studentOtherfee->amount}}  Cfa</strong></h3>
+       
+       
         <div>
             <div class="signature">
                 <span > Signature </span>

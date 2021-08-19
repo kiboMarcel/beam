@@ -19,6 +19,7 @@ use App\Models\ExamType;
 use App\Models\SchoolSeason;
 use App\Models\Student_final_mark;
 use App\Models\StudentFinalAVG;
+use App\Models\StudentAttendance;
 
 use DB;
 use PDF;
@@ -47,7 +48,16 @@ class MarkSheetController extends Controller
         $data['group_id'] =  $group_id;
         $data['student_id'] =  $student_id;
         $data['season_id'] =  $season_id;
-       
+        
+        //attendance
+        $data['student_attendance'] = StudentAttendance::where('year_id', $year_id)
+            ->where('student_id', $student_id)->where('class_id', $class_id)
+            ->where('branch_id',  $branch_id)
+            ->where('season_id',  $season_id)
+            ->where('group_id',  $group_id)->first();
+
+        
+
         //count student
         $data['totalStudent'] = AssignStudent::where('class_id', $class_id)
         ->where('branch_id', $branch_id)->where('group_id', $group_id)->where('year_id', $year_id)->count();
@@ -106,12 +116,26 @@ class MarkSheetController extends Controller
             }
         }
 
-        //dd($data['student_rank']);
+        
 
+        
         if($data['marks_avg'] == null ){
             return view('backend.s_report.marksheet.avg_error', $data);
         } else{
-            $pdf = PDF::loadView('backend.s_report.marksheet.student_marksheet', 
+
+           
+            //PORTRAIT FORMAT
+            $pdf = PDF::loadView('backend.s_report.marksheet.student_marksheet', $data, 
+            [], 
+            [ 
+              'title' => 'Releve de note', 
+              
+            ]);
+            $pdf->SetProtection(['copy', 'print'], '', 'pass');
+            return $pdf->stream('document.pdf');
+
+            //LANDSCAPE FORMAT
+            /* $pdf = PDF::loadView('backend.s_report.marksheet.student_marksheet', 
             $data, 
             [], 
             [ 
@@ -120,7 +144,7 @@ class MarkSheetController extends Controller
               'orientation' => 'L'
             ]);
             $pdf->SetProtection(['copy', 'print'], '', 'pass');
-            return $pdf->stream('document.pdf');
+            return $pdf->stream('document.pdf'); */
         }   
         
 

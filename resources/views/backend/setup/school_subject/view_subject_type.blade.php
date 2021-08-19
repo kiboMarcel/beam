@@ -56,7 +56,7 @@
                             <thead>
                                 <tr class="thead_tr">
                                     <th> # </th>
-                                    <th> examen</th>
+                                    <th> Matieres</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>

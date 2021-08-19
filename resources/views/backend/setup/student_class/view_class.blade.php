@@ -53,9 +53,9 @@
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> N </th>
-                                    <th> Name</th>
-                                    <th class="text-center">Action</th>
+                                    <th> # </th>
+                                    <th> Nom</th>
+                                    <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>

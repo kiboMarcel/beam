@@ -25,6 +25,7 @@ use App\Http\Controllers\backend\setup\SlicePaymentController;
 use App\Http\Controllers\backend\student\StudentRegistrationController;
 use App\Http\Controllers\backend\student\RegistrationFeeController;
 use App\Http\Controllers\backend\student\SchoolingController;
+use App\Http\Controllers\backend\student\StudentAttendanceController;
 
 use App\Http\Controllers\backend\employee\EmployeeRegController;
 use App\Http\Controllers\backend\employee\EmployeeSalaryController;
@@ -37,6 +38,10 @@ use App\Http\Controllers\backend\marks\MarksController;
 use App\Http\Controllers\backend\account\AccountSalaryController;
 
 use App\Http\Controllers\backend\report\MarkSheetController;
+
+
+use App\Http\Controllers\backend\accounting\StudentFeeController;
+use App\Http\Controllers\backend\accounting\FeeDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -519,8 +524,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/marksheet/view', [MarkSheetController::class, 'MarkSheetView']) -> 
         name('marksheet.generate.view');
 
-        
-
         Route::get('/marksheet/student/{year_id}/{class_id}/{group_id}/{branch_id}/{student_id}/{season_id}', [MarkSheetController::class, 'MarkSheetGet']) -> 
         name('marksheet.student.get');
 
@@ -529,7 +532,46 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('marksheet/getstudent', [DefaultController::class, 'GetSutudentForMarksheet']) -> 
         name('marksheet.get.students');
 
+        //studenct Attendance route
+        Route::get('student/attendance/view', [StudentAttendanceController::class, 'StudentAttendanceView']) -> 
+        name('student.attendance.view');
+
+        Route::get('student/attendance/add', [StudentAttendanceController::class, 'StudentAttendanceAdd']) -> 
+        name('student.attendance.add');
+
+        Route::get('student/attendance/get', [StudentAttendanceController::class, 'StudentAttendanceGet']) -> 
+        name('student.attendance.get');
+
+        Route::post('student/attendance/store', [StudentAttendanceController::class, 'StudentAttendanceStore']) -> 
+        name('student.attendance.store');
+        
    
+        
+    } );
+
+
+    Route::prefix('accounting')->group( function() {
+        
+        //Accounting route
+        Route::get('/student/fee', [StudentFeeController::class, 'ViewStudentFee']) -> 
+        name('student.fee.view');
+
+        Route::get('/student/fee/get/', [StudentFeeController::class, 'StudentFeeData']) -> 
+        name('student.fee.get');
+
+        Route::get('/student/fee/pay/{student_id}/{feeCategory_id}', [StudentFeeController::class, 'StudentOtherFeePayment']) -> 
+        name('student.fee.pay');
+
+        //global fee route
+        Route::get('/global/fee', [FeeDetailController::class, 'ViewFeeDetail']) -> 
+        name('global.fee.view');
+
+        Route::get('/global/operation/reset/{id}', [FeeDetailController::class,'ResetOperationCount']) -> 
+        name('global.operation.reset');
+
+        Route::get('/global/amount/reset/{id}', [FeeDetailController::class,'ResetAmountCount']) -> 
+        name('global.amount.reset');
+       
         
     } );
 

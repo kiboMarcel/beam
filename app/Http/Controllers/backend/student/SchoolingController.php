@@ -13,8 +13,12 @@ use App\Models\StudentGroup;
 use App\Models\FeeCategoryAmount;
 use App\Models\AssignStudent;
 use App\Models\Schooling;
+use App\Models\FeeDetail;
 use App\Models\Slice;
 use App\Models\User;
+
+use Carbon\Carbon;
+use Cache;
 use DB;
 use PDF;
 
@@ -159,18 +163,57 @@ class SchoolingController extends Controller
         if($request->schooling_fee > $data['schoolingfee']->amount || $data['new_fee'] > $data['schoolingfee']->amount){
             dd('montan plus gran que la scol');
         }else{
+
+            //GLOBAL FEE ADD
+            $check_fee = FeeDetail::where('feeCategory_id', '2')->first();
+
+            
+            if($check_fee != null){
+                
+                $check_fee->amount =  $check_fee->amount + $request->schooling_fee ; 
+                $check_fee->total_operation = $check_fee->total_operation + 1 ;
+    
+                $check_fee->save();
+            }else {
+                $fee_detail = new FeeDetail();
+    
+                $fee_detail->feeCategory_id = '2' ;
+                $fee_detail->amount = $request->schooling_fee ;
+                $fee_detail->total_operation = 1 ;
+    
+                $fee_detail->save();
+            }
+
             //dd( $get_paid_fee->payed);
+            Cache::put('key', 0, $seconds = 10);
+            
             
             $data['get_paid_fee']->payed = $data['new_fee'];
 
             $data['get_paid_fee']->save();
 
-            /* return redirect()-> route('schooling.fee.view')->with('success', ''); */
+            //CACHING DAY OPERATION
+            $day_operation = Cache::get('countschoolingpayment');
+
+            $date = Carbon::now();
+            //Get date and time
+            $date->toDateTimeString();
+            $time = 24 - $date->hour;
+            $time;
+
+            if($day_operation==null){
+                Cache::put('countschoolingpayment', 1, now()->addMinutes($time));
+            }else{
+           
+                Cache::increment('countschoolingpayment');
+            }
 
             $pdf = PDF::loadView('backend.student.schooling_fee.bill_schooling', $data);
             $pdf->SetProtection(['copy', 'print'], '', 'pass');
             return $pdf->stream('document.pdf');
         }
+
+        
        
         /* $data->payed = $request->group_id; */
 

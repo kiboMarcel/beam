@@ -40,6 +40,10 @@
                 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                     <div class="widget-content widget-content-area br-6">
                         <div class="table-responsive mb-4 mt-4">
+                            <div class="head">
+                                <h3>Année Scolaire</h3>
+                                <a href=" {{ route('student.year.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
+                            </div>
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr class="thead_tr">

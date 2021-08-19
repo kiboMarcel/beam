@@ -56,7 +56,7 @@
                             <thead>
                                 <tr class="thead_tr">
                                     <th> </th>
-                                    <th> Category</th>
+                                    <th> Categories</th>
 
                                     <th class="text-center">Actions</th>
                                 </tr>

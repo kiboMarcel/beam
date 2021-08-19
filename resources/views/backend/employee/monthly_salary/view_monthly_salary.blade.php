@@ -19,17 +19,16 @@
         background-color: rebeccapurple !important;
     }
 
-    .tr_style:hover {
-        background-color: #152238 !important;
-    }
-
+    
    /*  .head {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
     } */
-    
+    .date{
+        align-items: center;
+    }
 
     .btn {
         float: right;
@@ -40,9 +39,7 @@
         margin: 0 9px;
     }
 
-    .find{
-        margin-top: 25px;
-    }
+    
 
     .statbox {
         margin-top: 17px !important;
@@ -71,7 +68,7 @@
 
                     <div class="head">
                               
-                        <div class="row">
+                        <div class="row date">
                             <div class="col-6 col-md-6">
                                 <div class="form-group mb-4">
                                     <label for="formGroupExampleInput">Date <span class="text-danger">*</span></label>

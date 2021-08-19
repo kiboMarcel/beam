@@ -56,7 +56,7 @@
                             <thead>
                                 <tr class="thead_tr">
                                     <th> Nom</th>
-                                    <th class="text-center">Action</th>
+                                    <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -56,7 +56,7 @@
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> N </th>
+                                    <th> # </th>
                                     <th> designation</th>
                                     <th class="text-center">Actions</th>
                                 </tr>

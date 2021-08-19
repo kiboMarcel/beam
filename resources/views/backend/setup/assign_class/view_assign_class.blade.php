@@ -112,7 +112,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href=" "
+                                           {{--  <a href=" "
                                                 id="delete" class="bs-tooltip" data-toggle="tooltip" data-placement="top"
                                                 title="" data-original-title="Delete">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -124,7 +124,7 @@
                                                         d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
                                                     </path>
                                                 </svg>
-                                            </a>
+                                            </a> --}}
                                         </td>
 
                                     </tr>
