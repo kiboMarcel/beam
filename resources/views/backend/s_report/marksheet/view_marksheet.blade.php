@@ -119,7 +119,7 @@
                                 <div class="col-lg-3 col-md-3 col-sm-3 ">
                                     <label for="text">Trimsetre/Semestre</label>
                                     <select name="season_id" id="season_id" class="custom-select">
-                                        <option " selected="" disabled="">Selectionner saison</option>
+                                        <option " selected="" disabled="">Selectionner Trim/Sem</option>
                                                         @foreach ($seasons as $season)
                                         <option value="{{ $season->id }}">
                                             {{ $season->name }}</option>
@@ -269,8 +269,8 @@
         });
     </script>
 
- {{-- GET CLASS BRANCH START --}}
- <script type="text/javascript">
+  {{-- GET CLASS BRANCH START --}}
+  <script type="text/javascript">
     $(function() {
         $(document).on('change', '#class_id', function() {
             var class_id = $('#class_id').val();
@@ -281,17 +281,34 @@
                 data: {
                     class_id: class_id,
                 },
-               
+
                 success: function(data) {
+                    if(data[0].branch_id == null){
+                        var html =
+                        '<option value="" selected="" >Selectionner Serie</option>';
                     
-                    $("#loaderDiv").hide();
-                    var html = '<option value="" selected="" disabled="">Selectionner Serie</option>';
+                    $('#branch_id').html(html);
+
+                        var html = '<option value="">Selectionner groupe</option>';
+                    $.each(data, function(key, v) {
+                        html += '<option value="' + v.group_id + '">' + v
+                            .student_group
+                            .name + '</option>';
+                    });
+                    $('#group_id').html(html);
+
+                    }else{
+                        
+                    var html =
+                        '<option value="" selected="" >Selectionner Serie</option>';
                     $.each(data, function(key, v) {
                         html += '<option value="' + v.branch_id + '"  >' + v
                             .student_branch
                             .name + '</option>';
                     });
                     $('#branch_id').html(html);
+                    }
+                  
                 }
             });
         });

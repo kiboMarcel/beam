@@ -72,7 +72,7 @@
                             <div class="w-chart-section">
                                 <div>
                                     <p class="w-title">Total</p>
-                                    <p class="w-stats">{{ $detail->amount }} cfa</p>
+                                    <p class="w-stats">{{number_format($detail->amount, 2, ',', ' ')}} cfa</p>
                                 </div>
                                 <div class="w-chart-render-one">
                                     <div class="delete-icon" id="delete-icon">

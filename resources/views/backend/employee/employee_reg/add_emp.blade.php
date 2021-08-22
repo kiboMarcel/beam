@@ -1,5 +1,6 @@
 @extends('admin.admin_master')
 
+<script src=" {{ asset('js/jquery-3.6.0.js') }}"></script>
 
 <style>
  .bt-position {
@@ -31,7 +32,7 @@
                         </div>
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
-                                <label for="formGroupExampleInput">Nom du pere <span class="text-danger">*</span></label>
+                                <label for="formGroupExampleInput">Nom du père <span class="text-danger">*</span></label>
                                 <input type="text" name="fname" required class="form-control" id="formGroupExampleInput">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
@@ -40,7 +41,7 @@
                         </div>
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
-                                <label for="formGroupExampleInput">Nom de la mere <span class="text-danger">*</span></label>
+                                <label for="formGroupExampleInput">Nom de la mère <span class="text-danger">*</span></label>
                                 <input type="text" name="mname" required class="form-control" id="formGroupExampleInput">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
@@ -55,7 +56,7 @@
 
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
-                                <label for="formGroupExampleInput">Numero <span
+                                <label for="formGroupExampleInput">Numéro <span
                                         class="text-danger">*</span></label>
                                 <input type="text" name="mobile" required class="form-control" id="formGroupExampleInput">
 
@@ -374,17 +375,29 @@
                     {{-- start row --}}
                     <div class="row">
 
-                    
-                      
-                        <div class="col-6 col-md-6">
+                        <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
-                                <label for="text">Salaire</label>
+                                <label for="text">Contrat</label>
+                                <select name="contrat" id="contrat" class="custom-select" required>
+                                    <option value="" selected="" disabled="">Selectionner contract</option>
+                                    <option value="Permanent">Permanent
+                                    </option>
+                                    <option value="Vacataire">Vacataire
+                                    </option>
+                                </select>
+                              
+                            </div>
+                        </div>
+
+                        <div class="col-4 col-md-4">
+                            <div class="form-group mb-4">
+                                <label for="text" id="salaire">Salaire </label>
                                 <input type="text" name="salary" required class="form-control" id="formGroupExampleInput">
 
                             </div>
                         </div>
 
-                        <div class="col-6 col-md-6">
+                        <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
                                 <label for="text">Debut service</label>
                                 <input type="date" name="join_date" required class="form-control"
@@ -406,4 +419,19 @@
             </form>
         </div>
     </div>
+
+    
+    <script text="text/javascript" >
+        $(document).ready(function(){
+            $(document).on('change', '#contrat', function(){
+                var leave_purpose_id = $(this).val();
+                if(leave_purpose_id == 'Permanent'){
+/*                     $('#salaire').hide(); */
+                    document.getElementById('salaire').innerHTML = " Salaire Mensuel ";
+                }else{
+                    document.getElementById('salaire').innerHTML = " Salaire de base ";
+                }
+            } )
+        } )
+        </script>
 @endsection

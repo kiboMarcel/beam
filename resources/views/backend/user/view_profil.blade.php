@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-lg-11 mx-auto">
                             <div class="row">
-                              {{--   <div class="col-xl-2 col-lg-12 col-md-4">
+                                <div class="col-xl-2 col-lg-12 col-md-4">
                                     <div class="upload mt-4 pr-md-4">
                                         <input type="file" id="input-file-max-fs" class="dropify"
                                             data-default-file="{{ asset('backend/assets/img/200x200.jpg') }}"
@@ -33,7 +33,7 @@
                                         <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture
                                         </p>
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
                                     <div class="form">
                                         <div class="row">

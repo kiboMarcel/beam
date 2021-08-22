@@ -92,9 +92,9 @@ if ($student->toArray() == null) {
                             <a type="submit" href="{{ route('student.registration.add') }}"> Inscription </a>
                         </li>
 
-                        <li class="{{ $route == 'registration.fee.view' ? 'active' : '' }}">
+                     {{--    <li class="{{ $route == 'registration.fee.view' ? 'active' : '' }}">
                             <a type="submit" href="{{ route('registration.fee.view') }}"> dnscription </a>
-                        </li>
+                        </li> --}}
 
                         <li class="{{ $route == 'schooling.fee.view' ? 'active' : '' }}">
                             <a type="submit" href="{{ route('schooling.fee.view') }}"> Scolarité </a>
@@ -221,6 +221,10 @@ if ($student->toArray() == null) {
 
                         <li class="{{ $route == 'designation.view' ? 'active' : '' }}">
                             <a href="{{ route('designation.view') }}"> Designation </a>
+                        </li>
+
+                        <li class="{{ $route == 'school.info.view' ? 'active' : '' }}">
+                            <a href="{{ route('school.info.view') }}"> Information Sup. </a>
                         </li>
 
 

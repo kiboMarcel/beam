@@ -20,6 +20,7 @@ use App\Models\SchoolSeason;
 use App\Models\Student_final_mark;
 use App\Models\StudentFinalAVG;
 use App\Models\StudentAttendance;
+use App\Models\schoolInfo;
 
 use DB;
 use PDF;
@@ -123,6 +124,7 @@ class MarkSheetController extends Controller
             return view('backend.s_report.marksheet.avg_error', $data);
         } else{
 
+            $data['school_info'] =  schoolInfo::where('id', 1)->first();
            
             //PORTRAIT FORMAT
             $pdf = PDF::loadView('backend.s_report.marksheet.student_marksheet', $data, 

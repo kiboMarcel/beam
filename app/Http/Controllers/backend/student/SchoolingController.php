@@ -16,6 +16,7 @@ use App\Models\Schooling;
 use App\Models\FeeDetail;
 use App\Models\Slice;
 use App\Models\User;
+use App\Models\schoolInfo;
 
 use Carbon\Carbon;
 use Cache;
@@ -37,6 +38,7 @@ class SchoolingController extends Controller
     
 
     public function SchoolingData(Request $request){
+        
        /*  $year_id = $request->year_id;
         $class_id = $request->class_id; */
         //dd($request->searchText);
@@ -81,17 +83,20 @@ class SchoolingController extends Controller
 
             if($schoolingfee == null){
                 $html1['h5source']  = '<h5>La scolarité de la
-                 classe de l\'eleve n\'a pas  ete attribuer- Veuillez le faire dans
+                 classe d\'un ou plusieurs eleve n\'a pas  ete attribuer- Veuillez le faire dans
                  \'Gestion Globale/ Montant de payment\' </h5>';
                 return response()->json(@$html1); 
             }
+
+           $amount = number_format($schoolingfee->amount, 3, ',', '.');
+           
 
             $html[$key]['tdsource']  = '<td>'.($key+1).'</td>';
             $html[$key]['tdsource'] .= '<td>'.$v['student']['id_no'].'</td>';
             $html[$key]['tdsource'] .= '<td>'.$v['student']['name'].'</td>';
             $html[$key]['tdsource'] .= '<td>'.$v['student_class']['name'].'</td>';
-            $html[$key]['tdsource'] .= '<td>'.doubleval($schoolingfee->amount).' Fcfa'.'</td>';
-            $html[$key]['tdsource'] .= '<td>'.doubleval($schooling->payed).' Fcfa'.'</td>';
+            $html[$key]['tdsource'] .= '<td>'.number_format($schoolingfee->amount, 2, ',', ' ').' Fcfa'.'</td>';
+            $html[$key]['tdsource'] .= '<td>'.number_format($schooling->payed,  2, ',', ' ').' Fcfa'.'</td>';
             /* $html[$key]['tdsource'] .= '<td>'.$v['discount']['discount'].'%'.'</td>'; */
             
            /*  $originalfee = $registrationfee->amount;
@@ -101,7 +106,7 @@ class SchoolingController extends Controller
 
             $mustpayed = $schoolingfee->amount -  $schooling->payed;
             
-            $html[$key]['tdsource'] .='<td>'.$mustpayed.' Fcfa'.'</td>';
+            $html[$key]['tdsource'] .='<td>'.number_format($mustpayed, 2, ',', ' ').' Fcfa'.'</td>';
             $html[$key]['tdsource'] .='<td>';
             if( $schooling->payed == $schoolingfee->amount){
                 $html[$key]['tdsource'] .='<a class="btn btn-sm disabled btn-'.$color.'" 
@@ -135,8 +140,11 @@ class SchoolingController extends Controller
 
     public function SchoolingPayementStore(Request $request, $student_id ){
 
+        $findYear = StudentYear::where('active', 1)->first();
+        $findYear->id;
 
-        $data['student'] =  AssignStudent::with(['student'])->where('student_id', $student_id)
+        $data['student'] =  AssignStudent::with(['student'])
+        ->where('student_id', $student_id)->where('year_id', $findYear->id)
         ->first();
 
         $data['class_id'] = $data['student']->class_id;
@@ -154,14 +162,20 @@ class SchoolingController extends Controller
             'schooling_fee' => 'required',
         ]);
         
+        
+
         $data['get_paid_fee'] = Schooling::where('student_id', $student_id)
-        ->where('class_id', $data['student']->class_id)->first();
+        ->where('class_id', $data['student']->class_id)
+        ->where('year_id',$findYear->id)->first();
+
+        
         
         $data['new_fee'] = $data['get_paid_fee']->payed + $request->schooling_fee;
 
+        
 
         if($request->schooling_fee > $data['schoolingfee']->amount || $data['new_fee'] > $data['schoolingfee']->amount){
-            dd('montan plus gran que la scol');
+            dd('montant plus gran que la scolarité');
         }else{
 
             //GLOBAL FEE ADD
@@ -188,9 +202,7 @@ class SchoolingController extends Controller
             Cache::put('key', 0, $seconds = 10);
             
             
-            $data['get_paid_fee']->payed = $data['new_fee'];
-
-            $data['get_paid_fee']->save();
+          
 
             //CACHING DAY OPERATION
             $day_operation = Cache::get('countschoolingpayment');
@@ -207,6 +219,13 @@ class SchoolingController extends Controller
            
                 Cache::increment('countschoolingpayment');
             }
+
+            $data['school_info'] =  schoolInfo::where('id', 1)->first();
+
+
+            $data['get_paid_fee']->payed = $data['new_fee'];
+
+            $data['get_paid_fee']->save();
 
             $pdf = PDF::loadView('backend.student.schooling_fee.bill_schooling', $data);
             $pdf->SetProtection(['copy', 'print'], '', 'pass');

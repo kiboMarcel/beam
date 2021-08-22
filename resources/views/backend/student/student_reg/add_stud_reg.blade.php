@@ -35,7 +35,7 @@
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
                                 <label for="formGroupExampleInput">Nom du père <span class="text-danger">*</span></label>
-                                <input type="text" name="fname" required class="form-control" id="formGroupExampleInput">
+                                <input type="text" name="fname"  class="form-control" id="formGroupExampleInput">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -44,7 +44,7 @@
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
                                 <label for="formGroupExampleInput">Nom de la mère <span class="text-danger">*</span></label>
-                                <input type="text" name="mname" required class="form-control" id="formGroupExampleInput">
+                                <input type="text" name="mname"  class="form-control" id="formGroupExampleInput">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -58,7 +58,7 @@
 
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
-                                <label for="formGroupExampleInput">Numero du tuteur <span
+                                <label for="formGroupExampleInput">Numéro du tuteur <span
                                         class="text-danger">*</span></label>
                                 <input type="text" name="mobile" required class="form-control" id="formGroupExampleInput">
 
@@ -381,8 +381,8 @@
                         <div class="col-4 col-md-4">
                             <div class="form-group mb-4">
                                 <label for="text">Serie</label>
-                                <select name="branch_id" id="branch_id" class="custom-select" required>
-                                    <option value="" selected="" disabled="">Selectionner Serie</option>
+                                <select name="branch_id" id="branch_id" class="custom-select" >
+                                    <option value="" selected="" >Selectionner Serie</option>
                                     @foreach ($branchs as $branch)
                                         <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                                     @endforeach
@@ -445,16 +445,32 @@
                     },
 
                     success: function(data) {
+                        if(data[0].branch_id == null){
+                            var html =
+                            '<option value="" selected="" >Selectionner Serie</option>';
+                        
+                        $('#branch_id').html(html);
 
-                        $("#loaderDiv").hide();
+                            var html = '<option value="">Selectionner groupe</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.group_id + '">' + v
+                                .student_group
+                                .name + '</option>';
+                        });
+                        $('#group_id').html(html);
+
+                        }else{
+                            
                         var html =
-                            '<option value="" selected="" disabled="">Selectionner Serie</option>';
+                            '<option value="" selected="" >Selectionner Serie</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.branch_id + '"  >' + v
                                 .student_branch
                                 .name + '</option>';
                         });
                         $('#branch_id').html(html);
+                        }
+                      
                     }
                 });
             });

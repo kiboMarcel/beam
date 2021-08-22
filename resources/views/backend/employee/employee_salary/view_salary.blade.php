@@ -52,7 +52,7 @@
                                     <th> Nom</th>
                                     <th> N ID </th>
                                     <th> Mobile</th>
-                                    <th> Genre</th>
+                                    <th> Designation</th>
 
                                     <th> Salaire</th>
                                     <th> Debut de service</th>
@@ -82,14 +82,14 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $salary->gender }} </p>
+                                                <p class="align-self-center mb-0 "> {{ $salary['designation']['name'] }} </p>
                                             </div>
                                         </td>
 
 
                                         <td>
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $salary->salary }} </p>
+                                                <p class="align-self-center mb-0 "> {{ number_format($salary->salary, 2, ',', ' ') }} cfa</p>
                                             </div>
                                         </td>
                                         <td>

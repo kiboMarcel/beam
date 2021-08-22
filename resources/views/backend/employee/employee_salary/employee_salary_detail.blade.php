@@ -70,12 +70,12 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $salary->present_salary }} </p>
+                                                <p class="align-self-center mb-0 "> {{ $salary->increment_salary }} </p>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $salary->increment_salary }} </p>
+                                                <p class="align-self-center mb-0 "> {{ $salary->present_salary  }} </p>
                                             </div>
                                         </td>
                                         <td>

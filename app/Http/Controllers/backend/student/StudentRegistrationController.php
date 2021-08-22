@@ -14,6 +14,7 @@ use App\Models\StudentYear;
 use App\Models\Schooling;
 use App\Models\StudentClass;
 use App\Models\StudentGroup;
+use App\Models\schoolInfo;
 use DB;
 use PDF;
 
@@ -152,7 +153,9 @@ class StudentRegistrationController extends Controller
                 }
             }
 
-            $final_id_no = $checkYear.$id_no;
+            $year = substr($checkYear, 0, 4);
+           
+            $final_id_no = $year.$id_no;
             $user= new User();
             $code = rand(0000, 9999);
             $user->id_no = $final_id_no;
@@ -188,6 +191,7 @@ class StudentRegistrationController extends Controller
             $schooling->class_id = $request->class_id;
             $schooling->branch_id = $request->branch_id;
             $schooling->group_id = $request->group_id;
+            $schooling->year_id = $request->year_id;
             $schooling->fee_category_id = '2';
 
             $schooling->save();
@@ -313,8 +317,7 @@ class StudentRegistrationController extends Controller
     }
 
 
-    public function StudentListPrint(Request $request ,$year_id, $class_id ,$branch_id, $group_id){
-        
+    public function StudentListPrint(Request $request ,$year_id, $class_id, $group_id=null, $branch_id=null){
         
         $data['year_id'] =  $year_id;
         $data['class_id'] =   $class_id;
@@ -322,7 +325,7 @@ class StudentRegistrationController extends Controller
         $data['group_id'] =   $group_id;
        
         if($group_id == null){
-            dd('group is null');
+            //dd('group is null');
             $data['allData'] =  AssignStudent::select('assign_students.*')->with(['student'])->
             where('year_isd', $year_id)->
             where('class_id', $class_id)->
@@ -342,7 +345,8 @@ class StudentRegistrationController extends Controller
        
         }
             
-
+       
+        $data['school_info'] =  schoolInfo::where('id', 1)->first();
         
 
         $pdf = PDF::loadView('backend.student.student_reg.class_print', $data);
@@ -370,6 +374,7 @@ class StudentRegistrationController extends Controller
         $data['details'] =  AssignStudent::with(['student'])->
         where('student_id', $student_id)->first();
 
+        $data['school_info'] =  schoolInfo::where('id', 1)->first();
 
         $pdf = PDF::loadView('backend.student.student_reg.student_details_pdf', $data);
         $pdf->SetProtection(['copy', 'print'], '', 'pass');

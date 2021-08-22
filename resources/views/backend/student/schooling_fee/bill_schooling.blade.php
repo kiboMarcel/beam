@@ -70,16 +70,18 @@
     <div>
         <div class="header">
             <div class="text">
-                <h3>College Moderne Kibo</h3>
-                <p>Adresse: bo 42</p>
-                <p>Telephone; 75 64 78 96</p>
-                <p>Email: nouletamemarcel@gmail.com</p>
+                <h3> {{$school_info== null? '': $school_info->name }} </h3>
+                <p>Adresse: {{$school_info== null? '': $school_info->Address  }} 
+                     {{$school_info== null? '': $school_info->distric}}</p>
+                <p>Telephone:  {{$school_info == null? '': $school_info->num}} </p>
                 <p>Année: {{$student['student_year']['name']}}</p>
     
             </div>
     
             <div class="logo">
-                <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+              <img src=" {{ 
+                    (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                    : public_path('upload/school_image/no_image.jpg') }}" alt="">
             </div>
         </div>
     
@@ -90,8 +92,11 @@
              {{$student['student_group']['name']}} </strong> </h3>
         <h3> la Somme de : <strong> {{ $paying }}  Cfa</strong></h3>
         <h3> Deja payer: <strong> {{ $get_paid_fee->payed }} cfa</strong></h3>
-    
+        @if ($schoolingfee->amount - $get_paid_fee->payed == 0 )
+            <h3>Soldé</h3>
+        @else   
         <h3> Reste a payer: <strong> {{ $schoolingfee->amount - $get_paid_fee->payed }} cfa</strong></h3>
+        @endif
     
         <div style="margin-bottom: 18px">
             <div class="signature">
@@ -119,7 +124,9 @@
             </div>
     
             <div class="logo">
-                <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+                <img src=" {{ 
+                    (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                    : public_path('upload/school_image/no_image.jpg') }}" alt="">
             </div>
         </div>
     
@@ -133,8 +140,11 @@
         <h3> la Somme de : <strong> {{ $paying }}  Cfa</strong></h3>
         <h3> Deja payer: <strong> {{ $get_paid_fee->payed }} cfa</strong></h3>
     
+        @if ($schoolingfee->amount - $get_paid_fee->payed == 0 )
+            <h3>Soldé</h3>
+        @else   
         <h3> Reste a payer: <strong> {{ $schoolingfee->amount - $get_paid_fee->payed }} cfa</strong></h3>
-    
+        @endif
         <div>
             <div class="signature">
                 <span > Signature </span>

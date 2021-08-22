@@ -22,11 +22,8 @@ class CreateAssignClassesTable extends Migration
                 ->onDelete('cascade')
                 ->change();
             
-            $table->unsignedBigInteger('branch_id');
-            $table->foreign('branch_id')
-                ->references('id')->on('student_branches')
-                ->onDelete('cascade')
-                ->change();
+            $table->integer('branch_id')->nullable();
+           
 
             $table->unsignedBigInteger('group_id');
             $table->foreign('group_id')

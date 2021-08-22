@@ -52,8 +52,8 @@
                                     <th> # </th>
                                     <th  style=" width:30% "> Matiere </th>
                                     <th class="text-center">Note Total</th>
-                                    <th class="text-center">Professeur</th>
                                     <th class="text-center" style=" width:10% " >Coefficient</th>
+                                    <th class="text-center">Professeur</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,14 +74,15 @@
                                         </td>
                                         <td class="text-center">
                                             
+                                            <p class="align-self-center mb-0 "> {{ $detail->coef}} </p>
+                                        
+                                    </td>
+                                        <td class="text-center">
+                                            
                                                 <p class="align-self-center mb-0 "> {{ $detail['user']['name'] }} </p>
                                             
                                         </td>
-                                        <td class="text-center">
-                                            
-                                                <p class="align-self-center mb-0 "> {{ $detail->coef}} </p>
-                                            
-                                        </td>
+                                       
 
                                     
                                     </tr>

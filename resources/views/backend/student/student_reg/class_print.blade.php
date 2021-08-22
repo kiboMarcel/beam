@@ -90,40 +90,44 @@
 
     <div class="header">
         <div class="text">
-            <h3>College Moderne Kibo</h3>
-            <p>Adresse: bo 42</p>
-            <p>Telephone; 75 64 78 96</p>
-            <p>Email: nouletamemarcel@gmail.com</p>
+            <h3> {{$school_info== null? '': $school_info->name }} </h3>
+            <p>Adresse: {{$school_info== null? '': $school_info->Address  }} 
+                 {{$school_info== null? '': $school_info->distric}}</p>
+            <p>Telephone:  {{$school_info == null? '': $school_info->num}} </p>
             <p>Année: {{$allData[0]->student_year->name}}</p>
 
         </div>
 
         <div class="logo">
-            <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+            <img src=" {{ 
+                (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                : public_path('upload/school_image/no_image.jpg') }}" alt="">
         </div>
     </div>
 
 
-    <h2>Liste de Presence </h2>
-    <h3>{{$allData[0]->student_class->name}} : {{$allData[0]->student_branch->name}} <span>
+    <h2>Liste de Présence </h2>
+    <h3>{{$allData[0]->student_class->name}} : {{  $allData[0]->student_branch != null?
+    $allData[0]->student_branch->name: ''}} <span>
         {{$allData[0]->student_group->name}}</span> </h3>
+    <h5>Effectif: {{ count($allData)}} </h5>
 
     <table style="border-collapse: collapse; width: 100%;" border="1">
         <tbody>
             <tr>
-                <td style="width: 50%; text-align: center;">Nom Prenom</td>
-                <td style="width: 50.0975%; text-align: center;" colspan="7">Presence</td>
+                <td style="width: 50%; text-align: center;">Nom Prénoms</td>
+                <td style="width: 50.0975%; text-align: center;" colspan="7">Présence</td>
             </tr>
             @foreach ($allData as $item)
             <tr>
                 <td style="width: 50%;"> {{ $item['student']['name'] }} </td>
                 <td style="width: 6.43274%;">&nbsp;</td>
-                <td style="width:  6.43274%;">&nbsp;</td>
                 <td style="width: 6.43274%;">&nbsp;</td>
-                <td style="width:  6.43274%;">&nbsp;</td>
                 <td style="width: 6.43274%;">&nbsp;</td>
-                <td style="width:  6.43274%;">&nbsp;</td>
-                <td style="width:  6.43274%;">&nbsp;</td>
+                <td style="width: 6.43274%;">&nbsp;</td>
+                <td style="width: 6.43274%;">&nbsp;</td>
+                <td style="width: 6.43274%;">&nbsp;</td>
+                <td style="width: 6.43274%;">&nbsp;</td>
             </tr>
             @endforeach
            

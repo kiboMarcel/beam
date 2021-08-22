@@ -70,16 +70,19 @@
     <div>
         <div class="header">
             <div class="text">
-                <h3>College Moderne Kibo</h3>
-                <p>Adresse: bo 42</p>
-                <p>Telephone; 75 64 78 96</p>
-                <p>Email: nouletamemarcel@gmail.com</p>
+                <h3> {{$school_info== null? '': $school_info->name }} </h3>
+            <p>Adresse: {{$school_info== null? '': $school_info->Address  }} 
+                 {{$school_info== null? '': $school_info->distric}}</p>
+            <p>Telephone:  {{$school_info == null? '': $school_info->num}} </p>
+            
                 <p>Année: {{$student['student_year']['name']}}</p>
     
             </div>
     
             <div class="logo">
-                <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+                <img src=" {{ 
+                    (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                    : public_path('upload/school_image/no_image.jpg') }}" alt="">
             </div>
         </div>
     
@@ -118,7 +121,9 @@
             </div>
     
             <div class="logo">
-                <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+                <img src=" {{ 
+                    (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                    : public_path('upload/school_image/no_image.jpg') }}" alt="">
             </div>
         </div>
     

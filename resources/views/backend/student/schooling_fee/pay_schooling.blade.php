@@ -61,7 +61,7 @@
 
                 <div class="widget-content widget-content-area">
                     <h3>Payer Scolarité </h3>
-                    <h3>Eleve: {{$student['student']['name']}}  </h3>
+                    <h6>Elève: <strong>{{$student['student']['name']}} </strong> </h6>
                   
 
                     <hr>
@@ -70,14 +70,18 @@
                             @csrf
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 ">
-                                    <label for="formGroupExampleInput">Montant a payer <span class="text-danger">*</span></label>
-                                    <input  type="text" name="schooling_fee" class="form-control search-form-control " >
+                                    <label for="formGroupExampleInput">Montant a payer </label>
+                                    <input  type="text" required name="schooling_fee" class="form-control search-form-control " >
                             
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-    
-                                    <input type="submit" value="payer" class="btn btn-outline-info search mb-2">
-    
+
+                                    <input type="submit" value="payer sans reçu" class="btn btn-secondary  search mb-2">
+                                   {{--  <div class="btn-group" role="group" aria-label="Basic example">
+                                        <input type="submit" value="payer sans reçu" class="btn btn-secondary  search mb-2">
+                                        <input type="submit" value="payer" class="btn btn-warning  search mb-2">
+                                    </div> --}}
+                                 
                                 </div>
                             </div>
                         </form>

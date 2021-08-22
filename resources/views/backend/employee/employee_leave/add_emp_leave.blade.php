@@ -54,7 +54,7 @@
                                     @foreach ($leave_purpose as $purpose)
                                         <option value="{{ $purpose->id }}">{{ $purpose->name }}</option>
                                     @endforeach
-                                    <option value="0">Autre raison</option>
+                                    <option value="0">Autres raisons</option>
                                 </select>
                                 <input type="text"  id="add_other" name="name" class="form-control" 
                                 placeholder="Ecrire raison" style="display: none">

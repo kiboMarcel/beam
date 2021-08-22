@@ -52,7 +52,7 @@ class AssignSubjectController extends Controller
 
     }
 
-    public function  AssignSubjectEdit( $class_id, $branch_id){
+    public function  AssignSubjectEdit( $class_id, $branch_id=null){
 
         $data['editData'] =  AssignSubject::where([
             [ 'class_id' ,$class_id], 
@@ -68,7 +68,7 @@ class AssignSubjectController extends Controller
 
     }
 
-    public function AssignSubjectUpdate(Request $request, $class_id,$branch_id, $jsonId){
+    public function AssignSubjectUpdate(Request $request, $class_id, $jsonId, $branch_id=null){
         $idArray=json_decode($jsonId);
 
         if($request->subject_id == NULL){
@@ -129,7 +129,7 @@ class AssignSubjectController extends Controller
     }
 
 
-    public function  AssignSubjectDetail(Request $request, $class_id, $branch_id){
+    public function  AssignSubjectDetail(Request $request, $class_id, $branch_id=null){
 
         $data['detailData'] =  AssignSubject::with('school_subject')->where([
             [ 'class_id' ,$class_id], 

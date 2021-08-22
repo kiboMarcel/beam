@@ -9,6 +9,7 @@
 
         body h2 {
             text-align: center;
+            margin-top: 2px;
         }
 
         .header p {
@@ -92,14 +93,22 @@ $date = date('Y-m', strtotime($details[0]->date));
 }
 
 $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
-        ->where('employee_id',$details[0]->employee_id)->get();
-        
-        $absentcount = count($totalattend->where('attend_status', 'absent'));
-        $salary = (float)$details[0]['user']['salary'];
-        $salaryPerDay = $salary/30;
-        $totalSalaryMinus = (float)$absentcount * (float)$salaryPerDay;
-        $totalSalary = (float)$salary - (float)$totalSalaryMinus;
-        $round = round($totalSalary, 2) ;
+    ->where('employee_id',$details[0]->employee_id)->get();
+
+$absentcount = count($totalattend->where('attend_status', 'absent'));
+$presencecount = count($totalattend->where('attend_status', 'present'));
+$salary = (float)$details[0]['user']['salary'];
+//$salaryPerDay = $salary/30;
+//$totalSalaryMinus = (float)$absentcount * (float)$salaryPerDay;
+if ($details[0]['user']['contrat']== 'Vacataire') {
+    $totalSalary = (float)$salary * (float)$presencecount;
+    $round = round($totalSalary, 2);
+}else {
+    $round = round($salary, 2);
+}
+
+
+
 @endphp
 
 <body>
@@ -107,15 +116,17 @@ $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
   <div>
     <div class="header">
         <div class="text">
-            <h3>College Moderne Kibo</h3>
-            <p>Adresse: bo 42</p>
-            <p>Telephone; 75 64 78 96</p>
-            <p>Email: nouletamemarcel@gmail.com</p>
+            <h3> {{$school_info== null? '': $school_info->name }} </h3>
+            <p>Adresse: {{$school_info== null? '': $school_info->Address  }} 
+                 {{$school_info== null? '': $school_info->distric}}</p>
+            <p>Telephone:  {{$school_info == null? '': $school_info->num}} </p>
 
         </div>
 
         <div class="logo">
-            <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+            <img src=" {{ 
+                (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                : public_path('upload/school_image/no_image.jpg') }}" alt="">
         </div>
     </div>
 
@@ -125,14 +136,14 @@ $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
         <thead>
             <tr>
                 <th style="width: 300px"><strong>Detail</strong></th>
-                <th style="width: 300px"><strong>Employee</strong></th>
+                <th style="width: 300px"><strong>Employé</strong></th>
             </tr>
         </thead>
         <tbody>
 
             <tr>
                 <td>
-                    <h4>nom</h4>
+                    <h4>Nom Prenom</h4>
                 </td>
                 <td class="student-data">
                     <strong>  {{ $details[0]['user']['name'] }} </strong>
@@ -140,10 +151,18 @@ $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
             </tr>
             <tr>
                 <td>
-                    <h4>Salaire Basic</h4>
+                    <h4>Contrat</h4>
                 </td>
                 <td class="student-data">
-                    <strong>  {{ $details[0]['user']['salary'] }} </strong>
+                    <strong>  {{ $details[0]['user']['contrat'] }} </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4>Salaire de base</h4>
+                </td>
+                <td class="student-data">
+                    <strong>  {{ number_format($details[0]['user']['salary'], 2, ',', ' ')  }} </strong>
                 </td>
             </tr>
             <tr>
@@ -156,43 +175,46 @@ $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
             </tr>
             <tr>
                 <td>
-                    <h4>mois</h4>
+                    <h4>Salaire du mois</h4>
+                </td>
+                <td class="student-data">
+                    <strong> {{number_format($round, 2, ',', ' ')}} </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4>Mois du</h4>
                 </td>
                 <td class="student-data">
                     <strong> {{ date('m-Y', strtotime($date)) }} </strong>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <h4>Salaire du mois</h4>
-                </td>
-                <td class="student-data">
-                    <strong> {{  $round }} </strong>
-                </td>
-            </tr>
+            
           
 
         </tbody>
     </table>
 
-    <i style="font-size: 10px; float: right; margin-top: 10px"> print date: {{ date("d-m-Y") }} </i>
+    <i style="font-size: 10px; float: right; margin-top: 10px">imprimé le: {{ date("d-m-Y") }} </i>
 
-    <hr style="border: dashed 2px; width: 95%; color:#0000; margin: 30px 0" >
+    <hr style="border: dashed 2px; width: 95%; color:#0000; margin: 20px 0" >
 
   </div>
     
   <div>
     <div class="header">
         <div class="text">
-            <h3>College Moderne Kibo</h3>
-            <p>Adresse: bo 42</p>
-            <p>Telephone; 75 64 78 96</p>
-            <p>Email: nouletamemarcel@gmail.com</p>
+            <h3> {{$school_info== null? '': $school_info->name }} </h3>
+            <p>Adresse: {{$school_info== null? '': $school_info->Address  }} 
+                 {{$school_info== null? '': $school_info->distric}}</p>
+            <p>Telephone:  {{$school_info == null? '': $school_info->num}} </p>
 
         </div>
 
         <div class="logo">
-            <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+            <img src=" {{ 
+                (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                : public_path('upload/school_image/no_image.jpg') }}" alt="">
         </div>
     </div>
 
@@ -202,14 +224,14 @@ $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
         <thead>
             <tr>
                 <th style="width: 300px"><strong>Detail</strong></th>
-                <th style="width: 300px"><strong>Employee</strong></th>
+                <th style="width: 300px"><strong>Employé</strong></th>
             </tr>
         </thead>
         <tbody>
 
             <tr>
                 <td>
-                    <h4>nom</h4>
+                    <h4>Nom Prenom</h4>
                 </td>
                 <td class="student-data">
                     <strong>  {{ $details[0]['user']['name'] }} </strong>
@@ -217,10 +239,18 @@ $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
             </tr>
             <tr>
                 <td>
-                    <h4>Salaire Basic</h4>
+                    <h4>Contrat</h4>
                 </td>
                 <td class="student-data">
-                    <strong>  {{ $details[0]['user']['salary'] }} </strong>
+                    <strong>  {{ $details[0]['user']['contrat'] }} </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4>Salaire de base</h4>
+                </td>
+                <td class="student-data">
+                    <strong>  {{ number_format($details[0]['user']['salary'], 2, ',', ' ')  }} </strong>
                 </td>
             </tr>
             <tr>
@@ -233,28 +263,29 @@ $totalattend = App\Models\EmployeeAttendance::with(['user'])->where($where)
             </tr>
             <tr>
                 <td>
-                    <h4>mois</h4>
+                    <h4>Salaire du mois</h4>
+                </td>
+                <td class="student-data">
+                    <strong> {{number_format($round, 2, ',', ' ')}} </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4>Mois du</h4>
                 </td>
                 <td class="student-data">
                     <strong> {{ date('m-Y', strtotime($date)) }} </strong>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <h4>Salaire du mois</h4>
-                </td>
-                <td class="student-data">
-                    <strong> {{  $round }} </strong>
-                </td>
-            </tr>
+            
           
 
         </tbody>
     </table>
 
-    <i style="font-size: 10px; float: right; margin-top: 5px"> print date: {{ date("d-m-Y") }} </i>
+    <i style="font-size: 10px; float: right; margin-top: 10px">imprimé le: {{ date("d-m-Y") }} </i>
 
-   
+    
 
   </div>
     

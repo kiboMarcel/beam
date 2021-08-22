@@ -21,8 +21,8 @@ class CreateFeeCategoriesTable extends Migration
 
         DB::table('fee_categories')->insert(
             array(
-               array( 'name' => 'Inscription'),
-                array('name' => 'Ecollage'),
+               ['name' => 'Inscription'],
+                ['name' => 'Ecollage'],
             )
             
         );

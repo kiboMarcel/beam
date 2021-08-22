@@ -31,7 +31,7 @@
                             <div class="col-6 col-md-6">
                                 <div class="form-group mb-4">
                                     <label for="text">Classe <span class="text-danger">*</span></label>
-                                    <select name="class_id" id="class_id" class="custom-select">
+                                    <select name="class_id" id="class_id" class="custom-select" required>
                                         <option value="" selected="" disabled=""> Selectionner classe </option>
                                         @foreach ($classes as $class)
                                             <option value="{{ $class->id }}"> {{ $class->name }} </option>
@@ -61,7 +61,7 @@
                                 <div class="form-group mb-4">
                                     <label for="email">Matières <span class="text-danger">*</span></label>
                                     <select name="subject_id[]" id="select" class="custom-select" required>
-                                        <option value="" selected="" disabled=""> Selectionner matière </option>
+                                        <option value="" selected=""  disabled=""> Selectionner matière </option>
                                         @foreach ($subjects as $subject)
                                             <option value="{{ $subject->id }}"> {{ $subject->name }} </option>
                                         @endforeach
@@ -86,7 +86,7 @@
                             <div class="col-2 col-md-2">
                                 <div class="form-group mb-4">
                                     <label for="formGroupExampleInput">Note Total <span class="text-danger">*</span></label>
-                                    <input type="text" name="full_mark[]" class="form-control" id="formGroupExampleInput">
+                                    <input type="text" name="full_mark[]" required class="form-control" id="formGroupExampleInput">
                                     @error('amount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -95,7 +95,7 @@
                             <div class="col-2 col-md-2">
                                 <div class="form-group mb-4">
                                     <label for="formGroupExampleInput">coefficient<span class="text-danger">*</span></label>
-                                    <input type="text" name="subjective_mark[]" class="form-control"
+                                    <input type="text" name="subjective_mark[]" required class="form-control"
                                         id="formGroupExampleInput">
                                     @error('amount')
                                         <span class="text-danger">{{ $message }}</span>
@@ -219,8 +219,8 @@
         })
     </script>
 
-     {{-- GET CLASS BRANCH START --}}
-     <script type="text/javascript">
+      {{-- GET CLASS BRANCH START --}}
+    <script type="text/javascript">
         $(function() {
             $(document).on('change', '#class_id', function() {
                 var class_id = $('#class_id').val();
@@ -231,17 +231,34 @@
                     data: {
                         class_id: class_id,
                     },
-                   
+
                     success: function(data) {
+                        if(data[0].branch_id == null){
+                            var html =
+                            '<option value="" selected="" >Selectionner Serie</option>';
                         
-                        $("#loaderDiv").hide();
-                        var html = '<option value="" disabled="">Selectionner Serie</option>';
+                        $('#branch_id').html(html);
+
+                            var html = '<option value="">Selectionner groupe</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.group_id + '">' + v
+                                .student_group
+                                .name + '</option>';
+                        });
+                        $('#group_id').html(html);
+
+                        }else{
+                            
+                        var html =
+                            '<option value="" selected="" >Selectionner Serie</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.branch_id + '"  >' + v
                                 .student_branch
                                 .name + '</option>';
                         });
                         $('#branch_id').html(html);
+                        }
+                      
                     }
                 });
             });

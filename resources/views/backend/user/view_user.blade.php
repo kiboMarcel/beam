@@ -63,7 +63,7 @@
                                     <th>Code</th>
                                     <th>Mobile No.</th>
 
-                                    <th class="text-center">Actions</th>
+                                    <th class="text-center" colspan="2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,7 +94,7 @@
 
                                         <td>{{ $user->code }}</td>
 
-                                        <td>{{ $user->mobile }}</</td>
+                                        <td>{{ $user->mobile }}</td>
 
 
                                         <td class="text-center">
@@ -110,7 +110,9 @@
                                                     </path>
                                                 </svg>
                                             </a>
-
+                                        </td>
+                                        
+                                        <td>
                                             <a href=" {{ route('user.delete', $user->id) }} " id="delete"
                                                 class="bs-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                                 data-original-title="Delete">

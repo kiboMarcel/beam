@@ -34,10 +34,10 @@ class StudentGroupController extends Controller
             for($i=0; $i< $countGroup; $i++) {
                 $data =  new StudentGroup();
 
-                $validateData = $request->validate([
-                    'name' => 'required|unique:school_subjects,name',
+               
+                $this->validate($request, [
+                    'name.'.$i => 'required|unique:student_groups,name',
                 ]);
-
 
                 $data->name = $request->name[$i];
 

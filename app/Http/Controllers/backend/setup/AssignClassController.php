@@ -30,7 +30,7 @@ class AssignClassController extends Controller
 
     public function AssignClassStore(Request $request){
         
-        $countBranch = count($request->branch_id);
+        $countBranch = count($request->group_id);
         if($countBranch != NULL){
             for($i=0; $i< $countBranch; $i++) {
                 $assign_class = new AssignClasse();
@@ -46,8 +46,8 @@ class AssignClassController extends Controller
 
     }
 
-    public function  AssignClassEdit( $class_id, $branch_id){
-
+    public function  AssignClassEdit( $class_id, $branch_id=null){
+        
         $data['editData'] =  AssignClasse::where([
             [ 'class_id' ,$class_id], 
             ['branch_id', $branch_id]
@@ -61,14 +61,13 @@ class AssignClassController extends Controller
 
     }
 
-    public function AssignClassUpdate(Request $request, $class_id,$branch_id, $jsonId){
+    public function AssignClassUpdate(Request $request, $class_id , $jsonId, $branch_id=null){
         $idArray=json_decode($jsonId);
-
-        if($request->branch_id == NULL){
+        if($request->group_id == NULL){
             dd('Error');
         }else{
              
-            $countClass = count($request->branch_id);
+            $countClass = count($request->group_id);
             $class_Record = AssignClasse::where( [
                 [ 'class_id' ,$class_id], 
                 ['branch_id', $branch_id]
@@ -112,7 +111,7 @@ class AssignClassController extends Controller
    
     }
 
-    public function  AssignClassDetail(Request $request, $class_id, $branch_id){
+    public function  AssignClassDetail(Request $request, $class_id, $branch_id=null){
 
         $data['detailData'] =  AssignClasse::where([
             [ 'class_id' ,$class_id], 
@@ -130,9 +129,16 @@ class AssignClassController extends Controller
     public function AssignClassDeleteSingle( $id){
 
        
-        $schoolingfee = AssignClasse::find($id);
+        $assign_class = AssignClasse::find($id);
+        
+        $assign_class->delete();
 
-        $schoolingfee->delete();
         return redirect()->back();
+    }
+
+
+    public function AssignClassDeleteAll( $id){
+
+       
     }
 }

@@ -23,9 +23,9 @@ class CreateDesignationsTable extends Migration
         // Insert some stuff
      DB::table('designations')->insert(
         array(
-            array('name' => 'Professeur'),
-            array('name' => 'Secretaire'),
-            array('name' => 'Comptable'),
+            ['name' => 'Professeur'],
+            ['name' => 'Secretaire'],
+            ['name' => 'Comptable'],
         )
     );
     }

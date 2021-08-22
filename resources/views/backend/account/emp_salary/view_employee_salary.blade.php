@@ -100,7 +100,7 @@
                                             <td>
                                                 <div class="d-flex">
                                                     <p class="align-self-center mb-0 ">
-                                                        {{ $value->amount }} </p>
+                                                        {{ number_format( $value->amount, 2, ',', ' ') }} cfa </p>
                                                 </div>
                                             </td>
 

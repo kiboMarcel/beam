@@ -17,6 +17,7 @@ use App\Models\FeeDetail;
 use App\Models\Schooling;
 use App\Models\Slice;
 use App\Models\User;
+use App\Models\schoolInfo;
 
 use Carbon\Carbon;
 use Cache;
@@ -89,8 +90,8 @@ class StudentFeeController extends Controller
                     $color2nd = 'info';
         
                     if($schoolingfee == null){
-                        $html1['h5source']  = '<h5>La scolarité de la
-                        classe de l\'eleve n\'a pas  ete attribuer- Veuillez le faire dans
+                        $html1['h5source']  = '<h5>Le montant de la
+                        classe d\'un ou plusieurs eleve n\'a pas  ete attribuer- Veuillez le faire dans
                         \'Gestion Globale/ Montant de payment\' </h5>';
                         return response()->json(@$html1); 
                     }
@@ -99,8 +100,8 @@ class StudentFeeController extends Controller
                     $html[$key]['tdsource'] .= '<td>'.$v['student']['id_no'].'</td>';
                     $html[$key]['tdsource'] .= '<td>'.$v['student']['name'].'</td>';
                     $html[$key]['tdsource'] .= '<td>'.$v['student_class']['name'].'</td>';
-                    $html[$key]['tdsource'] .= '<td>'.doubleval($schoolingfee->amount).' Fcfa'.'</td>';
-                    $html[$key]['tdsource'] .= '<td>'.doubleval($schooling->payed).' Fcfa'.'</td>';
+                    $html[$key]['tdsource'] .= '<td>'.number_format($schoolingfee->amount, 2, ',', ' ').' Fcfa'.'</td>';
+                    $html[$key]['tdsource'] .= '<td>'.number_format($schooling->payed,  2, ',', ' ').' Fcfa'.'</td>';
                     /* $html[$key]['tdsource'] .= '<td>'.$v['discount']['discount'].'%'.'</td>'; */
                     
                     /*  $originalfee = $registrationfee->amount;
@@ -110,7 +111,7 @@ class StudentFeeController extends Controller
         
                     $mustpayed = $schoolingfee->amount -  $schooling->payed;
                     
-                    $html[$key]['tdsource'] .='<td>'.$mustpayed.' Fcfa'.'</td>';
+                    $html[$key]['tdsource'] .='<td>'.number_format($mustpayed, 2, ',', ' ').' Fcfa'.'</td>';
                     $html[$key]['tdsource'] .='<td>';
                     if( $schooling->payed == $schoolingfee->amount){
                         $html[$key]['tdsource'] .='<a class="btn btn-sm disabled btn-'.$color.'" 
@@ -141,15 +142,21 @@ class StudentFeeController extends Controller
         
                    // $schooling = Schooling::where('student_id',$v->student_id)->first();
                     //dd($student);
-                    $color = 'success';
                     $color2nd = 'info';
-        
+                    
+                    if($studentfee == null){
+                        $html1['h5source']  = '<h5>La montant de la
+                         classe d\'un ou plusieurs eleve n\'a pas  ete attribuer- Veuillez le faire dans
+                         \'Gestion Globale/ Montant de payment\' </h5>';
+                        return response()->json(@$html1); 
+                    }
+                   
                    
                     $html[$key]['tdsource']  = '<td>'.($key+1).'</td>';
                     $html[$key]['tdsource'] .= '<td>'.$v['student']['id_no'].'</td>';
                     $html[$key]['tdsource'] .= '<td>'.$v['student']['name'].'</td>';
                     $html[$key]['tdsource'] .= '<td>'.$v['student_class']['name'].'</td>';
-                    $html[$key]['tdsource'] .= '<td>'.doubleval($studentfee->amount).' Fcfa'.'</td>';
+                    $html[$key]['tdsource'] .= '<td>'. number_format($studentfee->amount, 2, ',', ' ').' Fcfa'.'</td>';
                              
                     $html[$key]['tdsource'] .='<td>'. '<a class="btn btn-sm btn-'.$color2nd.'" 
                     title="Pay" target="_blanks" 
@@ -215,13 +222,9 @@ class StudentFeeController extends Controller
         }
       
         
-        //$schoolingfee->amount
-            
-           /*  $data['get_paid_fee']->payed = $data['new_fee'];
+       
 
-            $data['get_paid_fee']->save(); */
-
-           
+            $data['school_info'] =  schoolInfo::where('id', 1)->first();
 
             $pdf = PDF::loadView('backend.accounting.student.payment_pdf', $data);
             $pdf->SetProtection(['copy', 'print'], '', 'pass');

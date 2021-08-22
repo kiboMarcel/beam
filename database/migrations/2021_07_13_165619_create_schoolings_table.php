@@ -19,16 +19,14 @@ class CreateSchoolingsTable extends Migration
 
             $table->integer('student_id');
             $table->integer('fee_category_id');
+            $table->integer('year_id');
             
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id')
                 ->references('id')->on('student_classes')
                 ->onDelete('cascade');
 
-            $table->unsignedBigInteger('branch_id');
-            $table->foreign('branch_id')
-                ->references('id')->on('student_branches')
-                ->onDelete('cascade');
+            $table->integer('branch_id')->nullable();
 
             $table->unsignedBigInteger('group_id');
             $table->foreign('group_id')

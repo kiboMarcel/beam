@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\StudentClass;
+use Validator;
 
 class StudentClassController extends Controller
 {
@@ -28,18 +29,21 @@ class StudentClassController extends Controller
     public function StudentClassStore(Request $request){
         
         $countClass = count($request->name);
+
         if($countClass != NULL){
-            for($i=0; $i< $countClass; $i++) {
-                $data =  new StudentClass();
+           for($i=0; $i< $countClass; $i++) {
 
-                $validateData = $request->validate([
-                    'name' => 'required|unique:school_subjects,name',
+                $this->validate($request, [
+                    'name.'.$i => 'required|unique:student_branches,name',
                 ]);
-
-
+               
+                 $data =  new StudentClass();
+               
                 $data->name = $request->name[$i];
 
                 $data->save();
+
+              
             }
         }
       

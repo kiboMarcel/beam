@@ -63,6 +63,7 @@ class AccountSalaryController extends Controller
             $html['thsource']  = '<th>#</th>';
             $html['thsource'] .= '<th>ID No</th>';
             $html['thsource'] .= '<th> Nom Employé</th>';
+            $html['thsource'] .= '<th> Contrat</th>';
             $html['thsource'] .= '<th>Salaire de Base</th>';
             $html['thsource'] .= '<th>Salaire de ce mois </th>';
             $html['thsource'] .= '<th>Select </th>';
@@ -82,7 +83,7 @@ class AccountSalaryController extends Controller
                 $totalattend = EmployeeAttendance::with(['user'])->where($where)
                 ->where('employee_id',$attend->employee_id)->get();
 
-                $absentcount = count($totalattend->where('attend_status', 'absent'));
+                $presencecount = count($totalattend->where('attend_status', 'present'));
                 
                
 
@@ -90,15 +91,21 @@ class AccountSalaryController extends Controller
                 $html[$key]['tdsource'] .= '<td>'.$attend['user']['id_no'].
                 '<input type="hidden" name="date" value="'.$date.'">'.'</td>';
                 $html[$key]['tdsource'] .= '<td>'.$attend['user']['name'].'</td>';
-                $html[$key]['tdsource'] .= '<td>'.$attend['user']['salary'].'</td>';
+                $html[$key]['tdsource'] .= '<td>'.$attend['user']['contrat'].'</td>';
+                $html[$key]['tdsource'] .= '<td>'.number_format($attend['user']['salary'], 2, ',', ' ').' Fcfa' .'</td>';
 
                 $salary = (float)$attend['user']['salary'];
-                $salaryPerDay = $salary/30;
-                $totalSalaryMinus = (float)$absentcount * (float)$salaryPerDay;
-                $totalSalary = (float)$salary - (float)$totalSalaryMinus;
-                $round = round($totalSalary, 2) ;
+                //$salaryPerDay = $salary/30;
+                //$totalSalaryMinus = (float)$absentcount * (float)$salaryPerDay;
+                if ($attend['user']['contrat']== 'Vacataire') {
+                    $totalSalary = (float)$salary * (float)$presencecount;
+                    $round = round($totalSalary, 2);
+                }else {
+                    $round = round($salary, 2);
+                }
+               
 
-                $html[$key]['tdsource'] .= '<td>'.$round.' Fcfa'.
+                $html[$key]['tdsource'] .= '<td>'.number_format($round, 2, ',', ' ').' Fcfa'.
                 '<input type="hidden" name="amount[]" value="'.$round.'">'.'</td>';
 
                 $html[$key]['tdsource'] .='<td>'.
@@ -106,7 +113,7 @@ class AccountSalaryController extends Controller
                 <label class="new-control new-checkbox checkbox-outline-success">
                 <input type="checkbox" name="checkmanage[]" value="'.$key.'"
                 '.$checked.' class="new-control-input">
-                <span class="new-control-indicator"></span>Success
+                <span class="new-control-indicator"></span>Déjà payer
               </label>'.'</td>';
                 
             

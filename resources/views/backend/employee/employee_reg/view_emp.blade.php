@@ -59,13 +59,14 @@
                                     <th> Nom</th>
                                     <th> N ID </th>
                                     <th> Mobile</th>
-                                    <th> Genre</th>
+                                    <th> Designation</th>
+
+                                    <th> Contract</th>
 
                                     @if (Auth::user()->role == 'Admin')
-                                        <th> Code</th>
+                                    <th> Salaire</th>
                                     @endif
 
-                                    <th> Salaire</th>
                                     <th> Debut de service</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
@@ -93,20 +94,20 @@
                                         </td>
                                         <td>
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $employee->gender }} </p>
+                                                <p class="align-self-center mb-0 "> {{ $employee['designation']['name'] }} </p>
                                             </div>
                                         </td>
 
                                         @if (Auth::user()->role == 'Admin')
                                             <td>
                                                 <div class="d-flex">
-                                                    <p class="align-self-center mb-0 "> {{ $employee->code }} </p>
+                                                    <p class="align-self-center mb-0 "> {{ $employee->contrat }} </p>
                                                 </div>
                                             </td>
                                         @endif
                                         <td>
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $employee->salary }} </p>
+                                                <p class="align-self-center mb-0 "> {{ number_format($employee->salary, 2, ',', ' ') }} cfa</p>
                                             </div>
                                         </td>
                                         <td>

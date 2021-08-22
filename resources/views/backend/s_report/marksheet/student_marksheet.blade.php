@@ -178,7 +178,9 @@
 
     <div class="header">
         <div class="logo">
-            <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+            <img src="{{ 
+                (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                : public_path('upload/school_image/no_image.jpg') }}" alt="">
         </div>
 
         <div class="logo-right">
@@ -187,8 +189,12 @@
         </div>
 
         <div class="text-div">
-            <h6>Institut Polyvalent <strong>LE BRILLANT</strong> </h6>
-            <h6>25 BP 46 Lomé Agoè Fiovi TEL: 70 32 13 22</h6>
+
+            <h6> <strong>{{$school_info== null? '': $school_info->name }}</strong> </h6>
+
+            <h6> {{$school_info== null? '': $school_info->Address  }}
+                {{$school_info== null? '': $school_info->distric}}
+                {{$school_info == null? '': $school_info->num}}</h6>
             <h6>Lomé-Togo</h6>
         </div>
 
@@ -210,7 +216,7 @@
         </div>
 
         <div class="location">
-           <h6> Lieu : <strong>Agoe Nyevie Togo</strong> </h6>
+           <h6> Lieu : <strong> {{$school_info->distric}} </strong> </h6>
           
         </div>
 

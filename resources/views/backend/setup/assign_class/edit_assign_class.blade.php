@@ -29,8 +29,10 @@
                     }
                     $jsonId = json_encode($id) ;
                    //dd($jsonId);
+                   
                 @endphp
-                <form method="post" action=" {{ route('assign.class.update', [$editData[0]->class_id, $editData[0]->branch_id, $jsonId] ) }}  ">
+                <form method="post" action=" {{ route('assign.class.update', 
+                [$editData[0]->class_id, $jsonId, $editData[0]->branch_id] ) }}  ">
                     @csrf
 
                     <div class="add_item">
@@ -166,7 +168,7 @@
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                             </svg>
                         </span>
-                        <span class="btn btn-success   mb-2 mr-2 add">
+                        <span class="btn btn-success  mb-2 mr-2 add">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                 class="feather feather-plus">

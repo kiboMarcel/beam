@@ -91,15 +91,22 @@
 
     <div class="header">
         <div class="text">
-            <h3>College Moderne Kibo</h3>
-            <p>Adresse: bo 42</p>
-            <p>Telephone; 75 64 78 96</p>
-            <p>Email: nouletamemarcel@gmail.com</p>
+            <h3> {{$school_info== null? '': $school_info->name }} </h3>
+            <p>Adresse: {{$school_info== null? '': $school_info->Address  }} 
+                 {{$school_info== null? '': $school_info->distric}}</p>
+            <p>Telephone:  {{$school_info == null? '': $school_info->num}} </p>
 
         </div>
-
+        @php
+           //$link =  'https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg';
+            $link =   public_path('upload/school_image/no_image.jpg') ;
+            //dd($link);
+        @endphp
+        {{-- {{ dd(asset('upload/school_image/'.$school_info->image.'jpg')) }}  --}}
         <div class="logo">
-            <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+            <img src="{{ 
+                (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                : public_path('upload/school_image/no_image.jpg') }}" alt="">
         </div>
     </div>
 
@@ -109,14 +116,14 @@
         <thead>
             <tr>
                 <th style="width: 300px"><strong>Detail</strong></th>
-                <th style="width: 300px"><strong>Employee</strong></th>
+                <th style="width: 300px"><strong>Employé</strong></th>
             </tr>
         </thead>
         <tbody>
 
             <tr>
                 <td>
-                    <h4>nom</h4>
+                    <h4>Nom Prenom</h4>
                 </td>
                 <td class="student-data">
                     <strong> {{ $details->name }} </strong>
@@ -141,6 +148,14 @@
             </tr>
             <tr>
                 <td>
+                    <h4>Contrat</h4>
+                </td>
+                <td class="student-data">
+                    <strong> {{ $details->contrat }} </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <h4>Adresse</h4>
                 </td>
                 <td class="student-data">
@@ -149,7 +164,7 @@
             </tr>
             <tr>
                 <td>
-                    <h4>sexe</h4>
+                    <h4>Sexe</h4>
                 </td>
                 <td class="student-data">
                     <strong>  {{ $details->gender }} </strong>
@@ -157,7 +172,7 @@
             </tr>
             <tr>
                 <td>
-                    <h4>nationalité</h4>
+                    <h4>Nationalité</h4>
                 </td>
                 <td class="student-data">
                     <strong> {{ $details->nationality  }} </strong>
@@ -165,7 +180,7 @@
             </tr>
             <tr>
                 <td>
-                    <h4>annee de naissance</h4>
+                    <h4>Année de naissance</h4>
                 </td>
                 <td class="student-data">
                     <strong> {{  date('d-m-Y', strtotime( $details->date_of_birth) ) }} </strong>
@@ -173,7 +188,7 @@
             </tr>
             <tr>
                 <td>
-                    <h4>Numeros de Telephone</h4>
+                    <h4>Numéros de Téléphone</h4>
                 </td>
                 <td class="student-data">
                     <strong> {{ $details->mobile  }} </strong>
@@ -181,7 +196,7 @@
             </tr>
             <tr>
                 <td>
-                    <h4>Debut service </h4>
+                    <h4>Début service </h4>
                 </td>
                 <td class="student-data">
                     <strong> {{ date('d-m-Y', strtotime( $details->join_date) )  }} </strong>
@@ -189,7 +204,7 @@
             </tr>
             <tr>
                 <td>
-                    <h4>nom du père</h4>
+                    <h4>Nom du père</h4>
                 </td>
                 <td class="student-data">
                     <strong>{{ $details->fname }} </strong>
@@ -197,7 +212,7 @@
             </tr>
             <tr>
                 <td>
-                    <h4>nom de la mère</h4>
+                    <h4>Nom de la mère</h4>
                 </td>
                 <td class="student-data">
                     <strong>{{ $details->mname }} </strong>

@@ -30,10 +30,12 @@
                             <div class="col-9 col-md-9">
                                 <div class="form-group mb-4">
                                     <label for="formGroupExampleInput">Nom <span class="text-danger">*</span></label>
-                                    <input type="text" name="name[]" class="form-control" id="formGroupExampleInput">
-                                    @error('name')
+                                    <input type="text" name="name[]" required class="form-control" id="formGroupExampleInput">
+                                    @error('name.*')
+                                        {{--  {{dd($message)}}; --}}
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
+                                   
                                 </div>
                             </div>
                             <div class="col-3 col-md-3">
@@ -67,10 +69,8 @@
                     <div class="col-9 col-md-9">
                         <div class="form-group mb-4">
                             <label for="formGroupExampleInput">Nom <span class="text-danger">*</span></label>
-                            <input type="text" name="name[]" class="form-control" id="formGroupExampleInput">
-                            @error('name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            <input type="text" name="name[]" required class="form-control" id="formGroupExampleInput">
+                           
                         </div>
                     </div>
                     <div class="col-3 col-md-3">

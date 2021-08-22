@@ -31,23 +31,17 @@ class SchoolSubjectController extends Controller
             for($i=0; $i< $countSubject; $i++) {
                 $data =  new SchoolSubject();
 
-                $validateData = $request->validate([
-                    'name' => 'required|unique:school_subjects,name',
+               
+                $this->validate($request, [
+                    'name.'.$i => 'required|unique:school_subjects,name',
                 ]);
-
 
                 $data->name = $request->name[$i];
 
                 $data->save();
             }
         }
-
-
         
-
-        
-        
-
         //$flash = 'ok';
 
         return redirect()-> route('subject.type.view')->with('success', '');

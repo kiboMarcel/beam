@@ -32,7 +32,7 @@
                    //dd($jsonId);
                 @endphp
 
-                <form method="post" action=" {{ route('assign.subject.update', [$editData[0]->class_id, $editData[0]->branch_id, $jsonId] ) }}  ">
+                <form method="post" action=" {{ route('assign.subject.update', [$editData[0]->class_id, $jsonId, $editData[0]->branch_id] ) }}  ">
                     @csrf
 
                     <div class="add_item">

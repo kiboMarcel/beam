@@ -13,7 +13,7 @@ use App\Models\EmployeeLeave;
 
 use App\Models\EmployeeSalaryLog;
 use App\Models\Designation;
-
+use App\Models\schoolInfo;
 use App\Models\EmployeeAttendance;
 
 use PDF;
@@ -51,6 +51,7 @@ class MonthlySalaryController extends Controller
             $html['thsource']  = '<th>#</th>';
             $html['thsource'] .= '<th>ID No</th>';
             $html['thsource'] .= '<th> Nom Employé</th>';
+            $html['thsource'] .= '<th> Contract</th>';
             $html['thsource'] .= '<th>Salaire de Base</th>';
             $html['thsource'] .= '<th>Salaire de ce mois </th>';
             $html['thsource'] .= '<th>Actions </th>';
@@ -60,9 +61,8 @@ class MonthlySalaryController extends Controller
                 $totalattend = EmployeeAttendance::with(['user'])->where($where)
                 ->where('employee_id',$attend->employee_id)->get();
 
-                $absentcount = count($totalattend->where('attend_status', 'absent'));
+                $presencecount = count($totalattend->where('attend_status', 'present'));
                 
-                $color = 'success';
                 $color2nd = 'info';
 
             
@@ -70,15 +70,20 @@ class MonthlySalaryController extends Controller
                 $html[$key]['tdsource']  = '<td>'.($key+1).'</td>';
                 $html[$key]['tdsource'] .= '<td>'.$attend['user']['id_no'].'</td>';
                 $html[$key]['tdsource'] .= '<td>'.$attend['user']['name'].'</td>';
-                $html[$key]['tdsource'] .= '<td>'.$attend['user']['salary'].'</td>';
+                $html[$key]['tdsource'] .= '<td>'.$attend['user']['contrat'].'</td>';
+                $html[$key]['tdsource'] .= '<td>'.number_format($attend['user']['salary'], 2, ',', ' ').'</td>';
 
                 $salary = (float)$attend['user']['salary'];
-                $salaryPerDay = $salary/30;
-                $totalSalaryMinus = (float)$absentcount * (float)$salaryPerDay;
-                $totalSalary = (float)$salary - (float)$totalSalaryMinus;
-                $round = round($totalSalary, 2) ;
-
-                $html[$key]['tdsource'] .= '<td>'.$round.' Fcfa'.'</td>';
+                //$salaryPerDay = $salary/30;
+                //$totalSalaryMinus = (float)$absentcount * (float)$salaryPerDay;
+                $totalSalary = (float)$salary * (float)$presencecount;
+                $round = round($totalSalary, 2);
+                if ($attend['user']['contrat']== 'Permanent') {
+                    $html[$key]['tdsource'] .= '<td>'.number_format($attend['user']['salary'], 2, ',', ' ').' Fcfa'.'</td>';
+                }else{ 
+                    $html[$key]['tdsource'] .= '<td>'.number_format($round, 2, ',', ' ').' Fcfa'.'</td>';
+                }
+                
 
                 $html[$key]['tdsource'] .='<td>'.'<a class="btn btn-sm btn-'.$color2nd.'" 
                 title="Pay" target="_blanks" href="'.route("employee.monthly.salary.pay",$attend->employee_id, ).'">Payer</a>'.'</td>';
@@ -100,11 +105,12 @@ class MonthlySalaryController extends Controller
             $where[] =  ['date', 'like', $date.'%'];
         }
 
-
-
+        
         $data['details'] =  EmployeeAttendance::with(['user'])->
         where($where)->where('employee_id', $id->employee_id)->get();
 
+        //SCHOOL DATA
+        $data['school_info'] =  schoolInfo::where('id', 1)->first();
 
         $pdf = PDF::loadView('backend.employee.monthly_salary.monthly_salary_pdf', $data);
         $pdf->SetProtection(['copy', 'print'], '', 'pass');

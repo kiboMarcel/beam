@@ -28,10 +28,7 @@ class CreateAssignStudentsTable extends Migration
                 ->references('id')->on('student_classes')
                 ->onDelete('cascade');
 
-            $table->unsignedBigInteger('branch_id');
-            $table->foreign('branch_id')
-                ->references('id')->on('student_branches')
-                ->onDelete('cascade');
+            $table->integer('branch_id')->nullable();
 
             $table->unsignedBigInteger('group_id');
             $table->foreign('group_id')

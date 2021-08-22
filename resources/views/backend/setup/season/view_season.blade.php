@@ -32,7 +32,7 @@
 
 @section('admin')
     <div class="row layout-top-spacing layout-spacing">
-        <div class="col-lg-12">
+        <div class="col-lg-9">
             <div class="statbox widget box box-shadow">
 
                 <div class="widget-content widget-content-area">
@@ -54,7 +54,7 @@
                         <table id="style-2" class="table style-2  table-hover">
                             <thead>
                                 <tr class="thead_tr">
-                                    <th> # </th>
+                                   
                                     <th> Trimestre / Semestre</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
@@ -62,8 +62,7 @@
                             <tbody>
                                 @foreach ($allData as $key => $season)
                                     <tr class="tr_style">
-                                        <td> {{ $key + 1 }} </td>
-
+                                       
 
                                         <td>
 

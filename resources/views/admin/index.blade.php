@@ -43,6 +43,9 @@
 
 </style>
 @php
+
+$school_info = App\Models\schoolInfo::where('id', 1)->first();
+
 $totalStudentBoy = App\Models\User::where('usertype', 'Student')
     ->where('gender', 'masculin')
     ->get();
@@ -59,8 +62,10 @@ $totalStudent = App\Models\User::where('usertype', 'Student')->get();
         <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
             <div class="widget">
                 <div class="widget-heading  card-school">
-                    <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
-                    <h2>COLLEGE MODERNE Kibo</h2>
+                    <img src="{{ 
+                        (!empty($school_info->image))? url('upload/school_image/'.$school_info->image.'jpg')
+                        : url('upload/school_image/no_image.jpg') }}" alt="">
+                    <h2> {{$school_info== null? '': $school_info->name }}</h2>
                 </div>
 
             </div>

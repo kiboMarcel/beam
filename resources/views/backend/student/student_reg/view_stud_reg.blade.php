@@ -150,7 +150,7 @@
 
                                
 
-                                    <a target="blank"  href=" {{ route('student.list.print', [$year_id, $class_id, $branch_id, $group_id]) }} "
+                                    <a target="blank"  href=" {{ route('student.list.print', [$year_id, $class_id, $group_id, $branch_id]) }} "
                                         class="btn btn-outline-success mb-2 {{ @$group_id==''? 'disabled': ''  }} " data-toggle="tooltip" data-placement="top" title="Imprimer"
                                         data-original-title="Imprimer">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -427,26 +427,46 @@
 
 
 
-    {{-- GET CLASS BRANCH START --}}
-    <script type="text/javascript">
+     {{-- GET CLASS BRANCH START --}}
+     <script type="text/javascript">
         $(function() {
             $(document).on('change', '#class_id', function() {
                 var class_id = $('#class_id').val();
-
                 $.ajax({
                     url: "{{ route('student.getclass.branch') }}",
                     type: "GET",
+                    async: true,
                     data: {
                         class_id: class_id,
                     },
+
                     success: function(data) {
-                        var html = '<option value="">Selectionner Serie</option>';
+                        if(data[0].branch_id == null){
+                            var html =
+                            '<option value="" selected="" >Selectionner Serie</option>';
+                        
+                        $('#branch_id').html(html);
+
+                            var html = '<option value="">Selectionner groupe</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.group_id + '">' + v
+                                .student_group
+                                .name + '</option>';
+                        });
+                        $('#group_id').html(html);
+
+                        }else{
+                            
+                        var html =
+                            '<option value="" selected="" >Selectionner Serie</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.branch_id + '"  >' + v
                                 .student_branch
                                 .name + '</option>';
                         });
                         $('#branch_id').html(html);
+                        }
+                      
                     }
                 });
             });

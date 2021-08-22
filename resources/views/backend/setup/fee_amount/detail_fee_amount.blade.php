@@ -66,7 +66,7 @@
                                         </td>
                                         <td class="text-center">
                                             
-                                                <p class="align-self-center mb-0 "> {{ $detail->amount}} </p>
+                                                <p class="align-self-center mb-0 ">  {{ number_format($detail->amount, 2, ',', ' ')  }} cfa </p>
                                             
                                         </td>
 

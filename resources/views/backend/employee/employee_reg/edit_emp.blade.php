@@ -1,5 +1,6 @@
 @extends('admin.admin_master')
 
+<script src=" {{ asset('js/jquery-3.6.0.js') }}"></script>
 
 <style>
     .bt-position {
@@ -133,27 +134,41 @@ $joindate = date('Y-m-d', strtotime($editData->join_date));
                     {{-- start row --}}
                     <div class="row">
 
-
-                        @if (!$editData)
-                            <div class="col-6 col-md-6">
+                        <div class="col-4 col-md-4">
+                            <div class="form-group mb-4">
+                                <label for="text">Contrat</label>
+                                <select name="contrat" id="contrat" class="custom-select" required>
+                                    <option value="" selected="" disabled="">Selectionner contract</option>
+                                    <option value="Permanent"
+                                    {{ $editData->contrat == 'Permanent' ? 'selected' : '' }}>Permanent
+                                    </option>
+                                    <option value="Vacataire"
+                                    {{ $editData->contrat == 'Vacataire' ? 'selected' : '' }}>Vacataire
+                                    </option>
+                                </select>
+                              
+                            </div>
+                        </div>
+                       {{--  @if (!$editData) --}}
+                            <div class="col-4 col-md-4">
                                 <div class="form-group mb-4">
-                                    <label for="text">Salaire</label>
+                                    <label for="text" id="salaire">Salaire</label>
                                     <input type="text" value=" {{ $editData->salary }} " name="salary" required
                                         class="form-control" id="formGroupExampleInput">
 
                                 </div>
                             </div>
-                        @endif
+                       {{--  @endif
 
-                        @if (!$editData)
-                            <div class="col-6 col-md-6">
+                        @if (!$editData) --}}
+                            <div class="col-4 col-md-4">
                                 <div class="form-group mb-4">
                                     <label for="text">Debut service</label>
                                     <input type="date" name="join_date" required class="form-control"
                                         value="{{ $joindate }}" id="formGroupExampleInput">
                                 </div>
                             </div>
-                        @endif
+                       {{--  @endif --}}
 
                     </div>
                     {{-- end row --}}
@@ -169,4 +184,18 @@ $joindate = date('Y-m-d', strtotime($editData->join_date));
             </form>
         </div>
     </div>
+
+    <script text="text/javascript" >
+        $(document).ready(function(){
+            $(document).on('change', '#contrat', function(){
+                var leave_purpose_id = $(this).val();
+                if(leave_purpose_id == 'permanent'){
+/*                     $('#salaire').hide(); */
+                    document.getElementById('salaire').innerHTML = " Salaire Mensuel ";
+                }else{
+                    document.getElementById('salaire').innerHTML = " Salaire de base ";
+                }
+            } )
+        } )
+        </script>
 @endsection

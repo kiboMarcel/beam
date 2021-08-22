@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('role')->nullable()->comment('admin= maitre du logiciel, operateur=
             computer operator, user=employee');
             $table->date('join_date')->nullable();
+            $table->string('contrat')->nullable();
             $table->integer('designation_id')->nullable();
             $table->double('salary')->nullable();
             $table->tinyInteger('status')->default(1)->commment('0=inactive, 1=active');

@@ -40,7 +40,7 @@
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive mb-4">
                         <div class="head">
-                            <h3>Montant des Frais</h3>
+                            <h3>Liste des Frais</h3>
                             <a href=" {{ route('fee.amount.add') }} " class="btn btn-outline-secondary mb-2">Ajouter</a>
                         </div>
 
@@ -71,7 +71,7 @@
                                         <td>
 
                                             <div class="d-flex">
-                                                <p class="align-self-center mb-0 "> {{ $amount['fee_category']['name'] }}
+                                                <p class="align-self-center mb-0 "> {{  $amount['fee_category']['name'] }}
                                                 </p>
                                             </div>
                                         </td>

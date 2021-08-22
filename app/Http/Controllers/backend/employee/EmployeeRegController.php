@@ -11,6 +11,7 @@ use App\Models\DiscountStudent;
 use App\Models\StudentBranch;
 use App\Models\StudentYear;
 use App\Models\StudentClass;
+use App\Models\schoolInfo;
 use App\Models\StudentGroup;
 use App\Models\FeeCategoryAmount;
 use DB;
@@ -76,6 +77,7 @@ class EmployeeRegController extends Controller
             $user->mobile = $request->mobile;
             $user->address = $request->address;
             $user->gender = $request->gender;
+            $user->contrat = $request->contrat;
             $user->salary = $request->salary;
             $user->designation_id = $request->designation_id;
             $user->nationality = $request->nationality;
@@ -122,6 +124,7 @@ class EmployeeRegController extends Controller
             $user->gender = $request->gender;
             $user->designation_id = $request->designation_id;
             $user->nationality = $request->nationality;
+            $user->contrat = $request->contrat;
             $user->date_of_birth = date('Y-m-d', strtotime( $request->date_of_birth) );
             
 
@@ -136,6 +139,9 @@ class EmployeeRegController extends Controller
         /* $data['details'] =  User::with(['student'])->
         where('student_id', $id)->first(); */
 
+
+        //SCHOOL DATA
+        $data['school_info'] =  schoolInfo::where('id', 1)->first();
 
         $pdf = PDF::loadView('backend.employee.employee_reg.employee_details_pdf', $data);
         $pdf->SetProtection(['copy', 'print'], '', 'pass');

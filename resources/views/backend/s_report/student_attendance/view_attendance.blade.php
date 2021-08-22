@@ -191,16 +191,32 @@
                     },
 
                     success: function(data) {
+                        if(data[0].branch_id == null){
+                            var html =
+                            '<option value="" selected="" >Selectionner Serie</option>';
+                        
+                        $('#branch_id').html(html);
 
-                        $("#loaderDiv").hide();
+                            var html = '<option value="">Selectionner groupe</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="' + v.group_id + '">' + v
+                                .student_group
+                                .name + '</option>';
+                        });
+                        $('#group_id').html(html);
+
+                        }else{
+                            
                         var html =
-                            '<option value="" selected="" disabled="">Selectionner Serie</option>';
+                            '<option value="" selected="" >Selectionner Serie</option>';
                         $.each(data, function(key, v) {
                             html += '<option value="' + v.branch_id + '"  >' + v
                                 .student_branch
                                 .name + '</option>';
                         });
                         $('#branch_id').html(html);
+                        }
+                      
                     }
                 });
             });

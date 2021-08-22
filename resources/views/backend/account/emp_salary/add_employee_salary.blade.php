@@ -67,7 +67,7 @@
                 @endphp
                 {{-- GET STATUS FOR SWEET ALERT START --}}
                 <div class="widget-content widget-content-area">
-                    <h3>Ajouter Salaire Employer</h3>
+                    <h3>Engeristrer Employé payé</h3>
                  
                     <div class="head">
                               
@@ -89,6 +89,11 @@
                    
                             <div class="row">
                                 <div class="col-12 col-md-12">
+                                {{-- SPINNER LOAD START --}} 
+                                    <div id="loaderDiv" class="  justify-content-between mx-5 mt-3 mb-5">
+                                        <div class="spinner-grow text-warning align-self-center"></div>
+                                    </div>
+                                {{-- SPINNER LOAD END --}} 
                                     <div id="DocumentResults">
                                         <script id="document-template" type="text/x-handlebars-template">
                                             <form action=" {{ route('account.salary.store') }} " method="POST">
@@ -123,12 +128,7 @@
                         <hr>
 
 
-                           {{-- SPINNER LOAD START --}} 
-                        <div id="loaderDiv" class="  justify-content-between mx-5 mt-3 mb-5">
-                            
-                            <div class="spinner-grow text-warning align-self-center"></div>
-                        </div>
-                        {{-- SPINNER LOAD END --}} 
+                      
 
                        
                     

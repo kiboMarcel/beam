@@ -99,7 +99,9 @@
         </div>
 
         <div class="logo">
-            <img src="https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg" alt="">
+            <img src=" {{ 
+                (!empty($school_info->image))? public_path('upload/school_image/'.$school_info->image.'jpg')
+                : public_path('upload/school_image/no_image.jpg') }}" alt="">
         </div>
     </div>
 
